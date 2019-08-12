@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>Nginx服务器安全加固tips整理 | Huang ZhenYu</title>
+  <meta name="keywords" content>
+  <meta name="description" content="Nginx服务器安全加固tips整理 | Huang ZhenYu">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="SSH安全与配置 Secure Shell（SSH）的目的在于在通过网络远程访问另一个主机时提供最大的保护。它通过提供更好的身份验证工具和Secure Copy（SCP）、Secure File Transfer Protocol（SFTP）、X会话转发和端口转发等功能来加密网络交换，从而增加其他非安全协议的安全性。 SSH的一般用途 通常使用SSH来允许用户登录到一个远程主机并执行命令。SSH还">
+<meta name="keywords" content="Huang ZhenYu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="远程访问安全">
+<meta property="og:url" content="http://blog.huangzhenyu.net/2019/08/11/远程访问安全/index.html">
+<meta property="og:site_name" content="Huang ZhenYu">
+<meta property="og:description" content="SSH安全与配置 Secure Shell（SSH）的目的在于在通过网络远程访问另一个主机时提供最大的保护。它通过提供更好的身份验证工具和Secure Copy（SCP）、Secure File Transfer Protocol（SFTP）、X会话转发和端口转发等功能来加密网络交换，从而增加其他非安全协议的安全性。 SSH的一般用途 通常使用SSH来允许用户登录到一个远程主机并执行命令。SSH还">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-11T16:52:42.643Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="远程访问安全">
+<meta name="twitter:description" content="SSH安全与配置 Secure Shell（SSH）的目的在于在通过网络远程访问另一个主机时提供最大的保护。它通过提供更好的身份验证工具和Secure Copy（SCP）、Secure File Transfer Protocol（SFTP）、X会话转发和端口转发等功能来加密网络交换，从而增加其他非安全协议的安全性。 SSH的一般用途 通常使用SSH来允许用户登录到一个远程主机并执行命令。SSH还">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="true">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Huang ZhenYu</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/Riwell-Ackerman" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:837184696@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=837184696&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(17)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a  class="about site_url"  href="/about">关于</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="17">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/2019/08/11/CDN绕过姿势小结/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CDN绕过姿势小结">CDN绕过姿势小结</span>
+            <span class="post-date" title="2019-08-11 18:25:08">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记02/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记02">Linux学习笔记02</span>
+            <span class="post-date" title="2019-08-11 18:25:02">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记01/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记01">Linux学习笔记01</span>
+            <span class="post-date" title="2019-08-11 18:25:01">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记03/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记03">Linux学习笔记03</span>
+            <span class="post-date" title="2019-08-11 18:25:03">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记04/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记04">Linux学习笔记04</span>
+            <span class="post-date" title="2019-08-11 18:25:04">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记05/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记05之网络基础知识">Linux学习笔记05之网络基础知识</span>
+            <span class="post-date" title="2019-08-11 18:25:05">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记06/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记06之DNS">Linux学习笔记06之DNS</span>
+            <span class="post-date" title="2019-08-11 18:25:06">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记07/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记07之shell">Linux学习笔记07之shell</span>
+            <span class="post-date" title="2019-08-11 18:25:07">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Nginx服务器安全加固tips整理/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Nginx服务器安全加固tips整理">Nginx服务器安全加固tips整理</span>
+            <span class="post-date" title="2019-08-11 18:25:10">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/SSRF小梳理/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SSRF小梳理">SSRF小梳理</span>
+            <span class="post-date" title="2019-08-11 18:25:11">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Windows下的3389端口渗透/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Windows下的3389端口渗透">Windows下的3389端口渗透</span>
+            <span class="post-date" title="2019-08-11 18:25:12">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/安全运维学习笔记/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安全运维学习笔记">安全运维学习笔记</span>
+            <span class="post-date" title="2019-08-11 18:25:13">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/常用正则表达式小记/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="常用正则表达式小记">常用正则表达式小记</span>
+            <span class="post-date" title="2019-08-11 18:25:09">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/日志分析与安全/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="日志分析与安全">日志分析与安全</span>
+            <span class="post-date" title="2019-08-11 18:25:15">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/远程访问安全/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="远程访问安全">远程访问安全</span>
+            <span class="post-date" title="2019-08-11 18:25:16">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/服务进程安全控制/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="服务进程安全控制">服务进程安全控制</span>
+            <span class="post-date" title="2019-08-11 18:25:14">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/10/博客搬家记/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="博客搬家记">博客搬家记</span>
+            <span class="post-date" title="2019-08-10 18:25:00">2019/08/10</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Nginx服务器安全加固tips整理" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Nginx服务器安全加固tips整理</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-08-12 00:51:55'>2019-08-11 18:25</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Directive-describes-the-zone-in-which-the-session-states-are-stored-i-e-stored-in-slimits"><span class="toc-text">Directive describes the zone,in which the session states are stored i.e. stored in slimits.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1m-can-handle-32000-sessions-with-32-bytes-session-set-to-5m-x-32000-session"><span class="toc-text">1m can handle 32000 sessions with 32 bytes/session,set to 5m x 32000 session</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Control-maximum-number-of-simultaneous-connections-for-one-session-i-e"><span class="toc-text">Control maximum number of simultaneous connections for one session i.e.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#restricts-the-amount-of-connections-from-a-single-ip-address"><span class="toc-text">restricts the amount of connections from a single ip address</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#allow-anyone-in-192-168-1-0-24"><span class="toc-text">allow anyone in 192.168.1.0/24</span></a>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>公司各业务网站大多用到Nginx，花了点时间整理了一下Nginx服务器安全加固的各类tips。</p>
+<p>默认配置文件和Nginx端口</p>
+<p>/usr/local/nginx/conf/-Nginx配置文件目录，/usr/local/nginx/conf/nginx.conf是主配置文件</p>
+<p>/usr/local/nginx/html/-默认网站文件位置</p>
+<p>/usr/local/nginx/logs/-默认日志文件位置</p>
+<p>Nginx HTTP默认端口：TCP 80</p>
+<p>Nginx HTTPS默认端口：TCP 443</p>
+<p>可以使用以下命令来测试Nginx配置文件准确性。</p>
+<p>/usr/local/nginx/sbin/nginx -t</p>
+<p>将会输出：</p>
+<p>the configuration file /usr/local/nginx/conf/nginx.conf  syntax is OK</p>
+<p>configuration file /usr/local/nginx/conf/nginx.conf test is successful</p>
+<p>执行以下命令来重新加载配置文件：</p>
+<p>/usr/local/nginx/sbin/nginx -s reload</p>
+<p>执行以下命令来停止服务器：</p>
+<p>/usr/local/nginx/sbin/nginx -s stop</p>
+<p>通过分区挂在允许最少特权</p>
+<p>服务器上的网页/html/php文件单独分区。例如，新建一个分区/dev/sda5（第一逻辑分区），并且挂载在/nginx。确保/nginx是以noexec，nodev and nosetuid的权限挂载。</p>
+<p>例：</p>
+<p>LABAL=/nginx/nginx ext3 defaults,nosuid,noexec,nodev 1 2</p>
+<p>注意：需要使用fdisk和mkfs.ext3命令创建一个新分区。</p>
+<p>配置/etc/sysctl.conf强化Linux安全</p>
+<p>可以通过编辑/etc/sysctl.conf来控制和配置Linux内核、网络设置。</p>
+<p>#Avoid a smurf attack</p>
+<p>net.ipv4.icmp_echo_ignore_broadcasts=1</p>
+<p>#Turn on protection for bad icmp error messages</p>
+<p>net.ipv4.icmp_ignore_bogus_error_responses=1</p>
+<p>#Turn on syncookies for SYN flood attack protection</p>
+<p>net.ipv4.tcp_syncookies=1</p>
+<p>#Turn on and log spoofed,source routed,and redirect packets</p>
+<p>net.ipv4.conf.all.log_martians=1</p>
+<p>net.ipv4.conf.default.log_martians=1</p>
+<p>#No source routed packets here</p>
+<p>net.ipv4.conf.all.accept_source_route=0</p>
+<p>net.ipv4.conf.default.accept_source_route=0</p>
+<p>#Make sure no one can alter the routing tables</p>
+<p>net.ipv4.conf.all.accept_redirects=0</p>
+<p>net.ipv4.conf.default.accept_redirects=0</p>
+<p>net.ipv4.conf.all.secure_redirects=0</p>
+<p>net.ipv4.conf.default.secure_redirects=0</p>
+<p>#Don’t act as a router</p>
+<p>net.ipv4.ip_forward=0</p>
+<p>net.ipv4.conf.send_redirects=0</p>
+<p>net.ipv4.conf.default.send_redirects=0</p>
+<p>#Turn on execshild</p>
+<p>kernel.exec-shield=1</p>
+<p>kernel.randomize_va_space=1</p>
+<p>删除所有不需要的Nginx模块</p>
+<p>需要直接通过编译Nginx源代码使模块数量最少化。通过限制只允许web服务器访问模块把风险降到最低。</p>
+<p>可以只配置安装nginx所需要的模块。例如，禁用SSL和autoindex模块可以执行以下命令：</p>
+<p>./configure -without-http_autoindex_module -without-http_ssl_module</p>
+<p>make</p>
+<p>make install</p>
+<p>通过以下命令来查看当编辑nginx服务器时哪个模块能开启或关闭：</p>
+<p>./configure -help | less</p>
+<p>禁用你用不到的nginx模块。</p>
+<p>使用mod_security（只适合后端Apache服务器）</p>
+<p>mod_security为Apache提供一个应用程序集的防火墙，为后续Apache Web服务器安装mod_security，这会阻止很多注入式攻击。</p>
+<p>安装SELinux策略以强化Nginx Web服务器</p>
+<p>默认的SELinux不会保护Nginx Web服务器，但是你可以安装和编译保护软件。</p>
+<p>1.安装编译SELnux所需要环境支持</p>
+<p>yum -y install selinux-policy-targeted selinux-policy-devel</p>
+<p>2.下载SELinux策略以强化Nginx Web服务器。</p>
+<p>cd /opt</p>
+<p>wget <a href="http://downloads.sourseforge.net/project/selinuxnginx/se-ngix_1_0_10.tar.gz?use_mirror=nchc" target="_blank" rel="noopener">http://downloads.sourseforge.net/project/selinuxnginx/se-ngix_1_0_10.tar.gz?use_mirror=nchc</a>&rsquo;</p>
+<p>3.解压文件</p>
+<p>tar -zxvf se-ngix_1_0_10.tar.gz</p>
+<p>4.编译文件</p>
+<p>cd se-ngix_1_0_10/nginx</p>
+<p>make</p>
+<p>rm tmp/nginx.mod.fc tmp/nginx.mod</p>
+<p>5.安装生成的nginx.pp SELinux模块：</p>
+<p>/usr/sbin/semodule -i nginx.pp</p>
+<p>控制缓冲区溢出攻击</p>
+<p>编辑nginx.conf，为所有客户端设置缓冲区的大小限制。</p>
+<p>vi /usr/local/nginx/conf/nginx.conf</p>
+<p>编辑和设置所有客户端缓冲区的大小限制如下：</p>
+<p>##Start: Size Limits &amp; Buffer Overflows ##    //server上下文</p>
+<p>client_body_buffer_size 1K;</p>
+<p>client_header_buffer_size 1k;</p>
+<p>client_max_body_size 1k;</p>
+<p>large_client_header_buffers 2 1k;</p>
+<p>##END:Size Limits &amp; Buffer Overflows ##</p>
+<p>控制并发连接</p>
+<p>可以使用NginxHttpLimitZone模块来限制指定的会话或者一个IP地址的特殊情况下的并发连接。编辑nginx.conf:</p>
+<h3 id="Directive-describes-the-zone-in-which-the-session-states-are-stored-i-e-stored-in-slimits"><a href="#Directive-describes-the-zone-in-which-the-session-states-are-stored-i-e-stored-in-slimits" class="headerlink" title="Directive describes the zone,in which the session states are stored i.e. stored in slimits."></a>Directive describes the zone,in which the session states are stored i.e. stored in slimits.</h3><h3 id="1m-can-handle-32000-sessions-with-32-bytes-session-set-to-5m-x-32000-session"><a href="#1m-can-handle-32000-sessions-with-32-bytes-session-set-to-5m-x-32000-session" class="headerlink" title="1m can handle 32000 sessions with 32 bytes/session,set to 5m x 32000 session"></a>1m can handle 32000 sessions with 32 bytes/session,set to 5m x 32000 session</h3><p>limit_zone slimits $binary_remote_addr 5m;</p>
+<h3 id="Control-maximum-number-of-simultaneous-connections-for-one-session-i-e"><a href="#Control-maximum-number-of-simultaneous-connections-for-one-session-i-e" class="headerlink" title="Control maximum number of simultaneous connections for one session i.e."></a>Control maximum number of simultaneous connections for one session i.e.</h3><h3 id="restricts-the-amount-of-connections-from-a-single-ip-address"><a href="#restricts-the-amount-of-connections-from-a-single-ip-address" class="headerlink" title="restricts the amount of connections from a single ip address"></a>restricts the amount of connections from a single ip address</h3><p>limit_conn slimits 5;</p>
+<p>上面标示线至每个远程IP地址的客户端同时打开连接不能超过5个。</p>
+<p>只允许我们的域名的访问</p>
+<p>如果机器人只是随机扫描服务器的所有域名，可以允许配置的虚拟域或反向代理请求，以拒绝这个请求。</p>
+<p>##Only requests to our Host are allowed i.e. xxx.in,images.xxx.in and <a href="http://www.xxx.in" target="_blank" rel="noopener">www.xxx.in</a></p>
+<p>if($host !~ ^(xxx.in|<a href="http://www.xxx.in|images.xxx.in)$){" target="_blank" rel="noopener">www.xxx.in|images.xxx.in)$){</a></p>
+<p>retrun 444;</p>
+<p>}</p>
+<p>##</p>
+<p>限制可用的请求方法</p>
+<p>GET和POST是最常用的方法。Web服务器的方法被定义在RFC 2616。如果Web服务器不要求启用所有可用的方法，它们应该被禁用。下面的指令将过滤只允许GET,HEAD和POST方法：</p>
+<p>##Only allow these request methods##</p>
+<p>if($request_method !~ ^(GET|HEAD|POST)$){</p>
+<p>retrun 444;</p>
+<p>}</p>
+<p>##Do not accept DELETE,SEARCH and other methods##</p>
+<p>如何拒绝一些User-Agents？</p>
+<p>##Block download agents ##</p>
+<p>if ($http_user_agent ~* LWP::Simple|BBBike|wget){</p>
+<p>retrun 403;</p>
+<p>}</p>
+<p>##</p>
+<p>组织Soso和有道的机器人：</p>
+<p>##Block some robots ##</p>
+<p>if ($http_user_agent ~* Sosospider|Yodaobot){</p>
+<p>retrun 403;</p>
+<p>}</p>
+<p>目录限制</p>
+<p>可以对指定的目录设置访问权限。所有的网站目录应该一一配置，只允许必须的目录访问权限。</p>
+<p>可以通过IP地址来限制访问目录/admin/:</p>
+<p>location /docs/ {</p>
+<p>##block one workstation</p>
+<p>deny 192.168.1.1;</p>
+<h2 id="allow-anyone-in-192-168-1-0-24"><a href="#allow-anyone-in-192-168-1-0-24" class="headerlink" title="allow anyone in 192.168.1.0/24"></a>allow anyone in 192.168.1.0/24</h2><p>allow 192.168.1.0/24;</p>
+<p>##drop rest of the world</p>
+<p>deny all;</p>
+<p>}</p>
+<p>通过密码保护目录</p>
+<p>首先创建密码文件并增加“user”用户：</p>
+<p>mkdir /usr/local/nginx/conf/.htpasswd/</p>
+<p>htpasswd -c /usr/local/nginx/conf/.htpasswd/passwd user</p>
+<p>编辑nginx.conf,加入需要保护的目录：</p>
+<p>###Password Protect /personal-images/ and /delta/ directories###</p>
+<p>location ~ /(personal-images/./delta/.){</p>
+<p>auth_basic “Restricted”;</p>
+<p>auth_basic_user_file /usr/local/nginx/conf/.htpasswd/passwd;</p>
+<p>}</p>
+<p>密码文件生成后，也可以用以下的命令来增加允许访问的用户：</p>
+<p>htpasswd -s /usr/local/nginx/conf/.htpasswd/passwd userName</p>
+<p>Nginx SSL配置</p>
+<p>HTTP是一个纯文本协议，它是开放的被动监测。应使用SSL来加密你的用户内容。</p>
+<p>创建SSL证书</p>
+<p>执行以下命令：</p>
+<p>cd /usr/local/nginx/conf</p>
+<p>openssl genrsa -des3 -out server.key 1024</p>
+<p>openssl req -new -key server.key -out server.csr</p>
+<p>cp server.key server.key.org</p>
+<p>openssl rsa -in server.key.org -out server.key</p>
+<p>openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt</p>
+<p>编辑nginx.conf并更新：</p>
+<p>server{</p>
+<p>server_name example.com;</p>
+<p>listen 443;</p>
+<p>ssl on;</p>
+<p>ssl_certificate /user/local/nginx/conf/server.crt;</p>
+<p>ssl_certificate_key /usr/local/nginx/conf/server.key;</p>
+<p>access_log /usr/local/nginx/logs/ssl.access.log;</p>
+<p>error_log /usr/local/nginx/logs/ssl.error.log;</p>
+<p>}</p>
+<p>重启nginx：</p>
+<p>/usr/local/nginx/sbin/nginx -s reload</p>
+<p>在防火墙级限制每个IP的连接数</p>
+<p>网络服务器必须监视连接和每秒连接限制。PF和Iptables都能够在进入nginx服务器之前阻止最终用户的访问。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 837184696@qq.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Nginx服务器安全加固tips整理</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Huang ZhenYu">Huang ZhenYu</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-08-11, 18:25:10</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-12, 00:51:55</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/11/Nginx服务器安全加固tips整理/" title="Nginx服务器安全加固tips整理">http://blog.huangzhenyu.net/2019/08/11/Nginx服务器安全加固tips整理/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: 'e2d848f46bff95a85fb8',
+            clientSecret: '31b99d4841bb95d3a20ed4c5cf1a4dd4914c1b9c',
+            repo: 'Riwell-Ackerman.github.io',
+            owner: 'Riwell-Ackerman',
+            admin: ['Riwell-Ackerman'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2019 Huang ZhenYu</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

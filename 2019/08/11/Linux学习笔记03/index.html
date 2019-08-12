@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>Linux学习笔记03 | Huang ZhenYu</title>
+  <meta name="keywords" content>
+  <meta name="description" content="Linux学习笔记03 | Huang ZhenYu">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="SSH安全与配置 Secure Shell（SSH）的目的在于在通过网络远程访问另一个主机时提供最大的保护。它通过提供更好的身份验证工具和Secure Copy（SCP）、Secure File Transfer Protocol（SFTP）、X会话转发和端口转发等功能来加密网络交换，从而增加其他非安全协议的安全性。 SSH的一般用途 通常使用SSH来允许用户登录到一个远程主机并执行命令。SSH还">
+<meta name="keywords" content="Huang ZhenYu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="远程访问安全">
+<meta property="og:url" content="http://blog.huangzhenyu.net/2019/08/11/远程访问安全/index.html">
+<meta property="og:site_name" content="Huang ZhenYu">
+<meta property="og:description" content="SSH安全与配置 Secure Shell（SSH）的目的在于在通过网络远程访问另一个主机时提供最大的保护。它通过提供更好的身份验证工具和Secure Copy（SCP）、Secure File Transfer Protocol（SFTP）、X会话转发和端口转发等功能来加密网络交换，从而增加其他非安全协议的安全性。 SSH的一般用途 通常使用SSH来允许用户登录到一个远程主机并执行命令。SSH还">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-11T16:52:42.643Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="远程访问安全">
+<meta name="twitter:description" content="SSH安全与配置 Secure Shell（SSH）的目的在于在通过网络远程访问另一个主机时提供最大的保护。它通过提供更好的身份验证工具和Secure Copy（SCP）、Secure File Transfer Protocol（SFTP）、X会话转发和端口转发等功能来加密网络交换，从而增加其他非安全协议的安全性。 SSH的一般用途 通常使用SSH来允许用户登录到一个远程主机并执行命令。SSH还">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="true">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Huang ZhenYu</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/Riwell-Ackerman" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:837184696@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=837184696&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(17)</small></div></li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a  class="about site_url"  href="/about">关于</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="17">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/2019/08/11/CDN绕过姿势小结/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="CDN绕过姿势小结">CDN绕过姿势小结</span>
+            <span class="post-date" title="2019-08-11 18:25:08">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记02/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记02">Linux学习笔记02</span>
+            <span class="post-date" title="2019-08-11 18:25:02">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记01/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记01">Linux学习笔记01</span>
+            <span class="post-date" title="2019-08-11 18:25:01">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记03/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记03">Linux学习笔记03</span>
+            <span class="post-date" title="2019-08-11 18:25:03">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记04/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记04">Linux学习笔记04</span>
+            <span class="post-date" title="2019-08-11 18:25:04">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记05/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记05之网络基础知识">Linux学习笔记05之网络基础知识</span>
+            <span class="post-date" title="2019-08-11 18:25:05">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记06/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记06之DNS">Linux学习笔记06之DNS</span>
+            <span class="post-date" title="2019-08-11 18:25:06">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Linux学习笔记07/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记07之shell">Linux学习笔记07之shell</span>
+            <span class="post-date" title="2019-08-11 18:25:07">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Nginx服务器安全加固tips整理/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Nginx服务器安全加固tips整理">Nginx服务器安全加固tips整理</span>
+            <span class="post-date" title="2019-08-11 18:25:10">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/SSRF小梳理/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SSRF小梳理">SSRF小梳理</span>
+            <span class="post-date" title="2019-08-11 18:25:11">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/Windows下的3389端口渗透/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Windows下的3389端口渗透">Windows下的3389端口渗透</span>
+            <span class="post-date" title="2019-08-11 18:25:12">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/安全运维学习笔记/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="安全运维学习笔记">安全运维学习笔记</span>
+            <span class="post-date" title="2019-08-11 18:25:13">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/常用正则表达式小记/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="常用正则表达式小记">常用正则表达式小记</span>
+            <span class="post-date" title="2019-08-11 18:25:09">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/日志分析与安全/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="日志分析与安全">日志分析与安全</span>
+            <span class="post-date" title="2019-08-11 18:25:15">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/远程访问安全/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="远程访问安全">远程访问安全</span>
+            <span class="post-date" title="2019-08-11 18:25:16">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/11/服务进程安全控制/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="服务进程安全控制">服务进程安全控制</span>
+            <span class="post-date" title="2019-08-11 18:25:14">2019/08/11</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/08/10/博客搬家记/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="博客搬家记">博客搬家记</span>
+            <span class="post-date" title="2019-08-10 18:25:00">2019/08/10</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Linux学习笔记03" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Linux学习笔记03</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-08-12 00:49:47'>2019-08-11 18:25</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#cat-gt-test-txt-lt-lt-EOF"><span class="toc-text">cat &gt;test.txt &lt;&lt; EOF</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cat-gt-gt-file-name-lt-lt-EOF"><span class="toc-text">cat &gt;&gt;file_name &lt;&lt;EOF</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#useradd-defaults-file"><span class="toc-text">useradd defaults file</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一、Linux常见命令</p>
+<p>file：查看文件类型（windows用扩展名识别文件类型）</p>
+<p>语法：file [options] [args]</p>
+<p>-b：显示结果时，不显示文件名<br>-c:显示执行file命令的执行过程（file是如何判断文件类型），便于排错或分析命令执行过程<br>-i：输出MIME类型的字符串<br>-L：查看软连接对应文件类型<br>-f：查看文件中文件名的类型<br>cat:一次性查看整个文件</p>
+<p>语法：cat [option] [args]</p>
+<p>从键盘输入创建一个新文件:</p>
+<h1 id="cat-gt-test-txt-lt-lt-EOF"><a href="#cat-gt-test-txt-lt-lt-EOF" class="headerlink" title="cat &gt;test.txt &lt;&lt; EOF"></a>cat &gt;test.txt &lt;&lt; EOF</h1><blockquote>
+<p>ajsncj//键盘输入<br>ajsbja<br>ajsbj<br>EOF//键盘输入结束<br>向现有文件中追加数据：</p>
+</blockquote>
+<h1 id="cat-gt-gt-file-name-lt-lt-EOF"><a href="#cat-gt-gt-file-name-lt-lt-EOF" class="headerlink" title="cat &gt;&gt;file_name &lt;&lt;EOF"></a>cat &gt;&gt;file_name &lt;&lt;EOF</h1><blockquote>
+<p>sdfsdf<br>sdfsd<br>EOF<br>把等多个文件内容合并到一个文件输出：</p>
+</blockquote>
+<p>cat file1 file2 &gt;file3</p>
+<p>-n:显示文件内容是时显示行号（包括空行）</p>
+<p>-b:显示文件内容是时显示行号（不包含空行）</p>
+<p>-s:当文件中有多个空行时合并为一个空行</p>
+<p>-E:每个结尾加$</p>
+<p>cp:复制文件或目录</p>
+<p>语法：cp [options] </p>
+<p>-f:强制复制</p>
+<p>-r：递归复制目录</p>
+<p>-s:为某个文件创造符号连接（软连接），而不是复制文件</p>
+<p>-l:硬连接</p>
+<p>-b：覆盖已有文件前，对目标文件进行备份</p>
+<p>-p：复制文件时保留文件原有属性</p>
+<p>-d：当复制软链接文件时，把目标文件或目录也会创建为软链接，并指向最原始的文件</p>
+<p>-i 覆盖前询问</p>
+<p>mv：move，西东或从命令文件和目录（目标和源文件同一目录是重命名）</p>
+<p>-b：移动前先备份</p>
+<p>-f：强制移动</p>
+<p>-i：移动前询问</p>
+<p>-t：将多个文件移动到同一个目录（目录在前，后面跟文件）</p>
+<p>rm：remove删除</p>
+<p>-i：删除前询问</p>
+<p>-d：删除可能存在数据的目录</p>
+<p>-f：强制删除</p>
+<p>-v：显示命令执行过程</p>
+<p>-r：递归删除整个目录</p>
+<p>mkdir：创建空目录</p>
+<p>-m：创建目录时同时设置权限</p>
+<p>-p：递归创建目录</p>
+<p>-v：显示创建目录的过程</p>
+<p>touch：创建新文件或者修改时间戳</p>
+<p>-a：只改变访问时间</p>
+<p>-c:不创建文件</p>
+<p>-d：使用指定时间戳创建文件，而不使用系统时间</p>
+<p>-t：使用指定格式时间戳创建文件，而不使用系统时间</p>
+<p>-f：解决与BSD系列UNIX系统兼容性问题</p>
+<p>-m：只改变动时间</p>
+<p>tree:查看目录树（=ls -R）</p>
+<p>which:查看命令所在的路径</p>
+<p>whereis：查看命令所在的路径，源代码文件，帮助信息所在的文件</p>
+<p>-b：只查看文件所在的位置（等同于which命令）</p>
+<p>-m：只查看帮助信息所在的位置</p>
+<p>-s:支持看源代码所在的位置</p>
+<p>二、用户管理</p>
+<p>新建用户命令：useradd uername</p>
+<p>/etc/default/useradd</p>
+<h1 id="useradd-defaults-file"><a href="#useradd-defaults-file" class="headerlink" title="useradd defaults file"></a>useradd defaults file</h1><p>GROUP=100//<br>HOME=/home//<br>INACTIVE=-1<br>EXPIRE=<br>SHELL=/bin/bash<br>SKEL=/etc/skel<br>CREATE_MAIL_SPOOL=yes<br>/etc/skel/<br>/etc/login.defs<br>创建用户时，可以设置新用户可登陆系统的实践范围</p>
+<p>rm -f /var/run/yum.pid</p>
+<p>passwd：设置密码</p>
+<p>man 5 shadow</p>
+<p>三、进程管理</p>
+<p>进程的概念: </p>
+<pre><code>可以定义为：可并发执行的程序在一个数据集合上的运行过程。进程可以申请和拥有系统资源。传统操作系统中，进程是一个可以独立调度的基本单位（现代操作系统中为线程）。进程是一个动态的概念，它是“活的”，它有产生、运行、消亡的过程。进程与程序不是等同概念，程序是一个静态的概念，是指令和数据的集合，作为一种文件可长期存放在存储介质中。</code></pre><p>进程的相关概念:父子关系 进程状态 优先级</p>
+<pre><code>1、进程状态：
+
+            task_uninterruptible:不可中断睡眠 mkdir:系统调用,硬件:I/O 1ms
+
+            task_interruptible:可中断睡眠
+
+            stopped:停止状态(不能被调入CPU运行)
+
+            zombie:僵尸状态(结束父进程才能够退出当前进程的僵尸状态):进程运行完成后没有释放CPU和内存资源
+
+2、进程优先级:
+
+            0-139数字,共140个优先级,数字越小,优先级越高
+
+            0-99:系统分配优先级(用户不可控优先级)
+
+            100-139:nice值 (用户可控优先级);-20到19;root用户可以任意调整nice值;普通用户只能调整0-19</code></pre><p>高优先级进程:获取更多的CPU运行时长,更优先的让CPU执行</p>
+<p>进程的特性：</p>
+<pre><code>动态性
+
+并发性
+
+独立性
+
+异步性</code></pre><p>CPU分环运行：</p>
+<pre><code>0环：特权环，运行内核
+
+1-2环：库文件
+
+3环：进程环</code></pre><p>task struct:进程的数据结构(存放在内存的内核空间中)，相当于进程控制块</p>
+<p>task struct结构:状态 进程信息和内核栈 运行列表(指令等) MM(内存管理):memory mangement PID:进程ID号 群组信息 用户信息 文件系统 文件描述符等，同时也维护页表寄存器</p>
+<p>进程内存结构:</p>
+<pre><code>forbidden:内核空间
+
+program text:指令
+
+data+bss:全局变量
+
+heap:堆空间,进程运行时调用的数据等
+
+shared library:共享库
+
+stack:栈空间,局部变量</code></pre><p>线程的概念:</p>
+<pre><code>现代操作系统中，将传统的进程分离，即将资源申请和调度分开，进程作为资源的申请和拥有的单位，而进程作为调度的基本单位。thread:线程,轻量级进程</code></pre><p>线程与进程的比较：</p>
+<pre><code>调度
+
+并发性
+
+拥有资源
+
+系统开销</code></pre><p>lock:死锁 自旋锁等</p>
+<pre><code>由于临界区的存在导致了该概念的产生，临界区使用原则：忙则等待、有限等待、空闲让进、让权等待</code></pre><p>进程管理命令：ps top pstree pgrep pidof kill killall bg fg jobs</p>
+<pre><code>ps:process status:进程状态查看,运行ps那个时刻系统进程状态;BSD风格(不使用连字符),sys V风格(使用连字符),GNU长选项(使用两个连字符)
+
+      a:显示和终端有关的进程
+
+      u:显示进程用户的信息
+
+      x:显示和终端无关的进程
+
+      -e:显示所有进程信息
+
+      -l:显示进程长格式
+
+      -F:显示进程的完整信息
+
+
+
+ps aux:结果解析
+
+          USER:该进程是有哪个用户发起的
+
+          PPID:父进程号
+
+          PID:进程号 /proc目录存放着进程相关的信息 在CentOS7:PID为1的进程是systemd 在CentOS6                 中PID为1的进程是init进程,PID为1的进程是系统中所有进程的父进程
+
+          %CPU:该进程占用的CPU百分比
+
+          %MEM:该进程占用内存的百分比
+
+          VSZ:虚拟内存集(计算进程所占物理内存时,物理内存包括共享库的空间)
+
+          RSS:常驻内存集(进程中不能被交换出去的数据)
+
+          TTY:运行在哪个终端
+
+          STAT:进程状态
+
+                  D:不可中断睡眠状态
+
+                  S:可中断睡眠状态
+
+                  R:运行状态
+
+                  T:停止状态
+
+                  Z:僵尸状态
+
+                  s:session leader:会话的领导者
+
+                  &lt;:优先级较高的进程(用户不可控)
+
+                  N:优先级较低的进程(用户可控进程)
+
+                  l:多线程进程
+
+                  L:在内存中锁定分页
+
+                  +:前台进程组中的进程
+
+          START:进程启动时间
+
+          TIME:该进程在CPU中实际运行的时长
+
+          COMMAND:该进程命令名称
+
+
+
+ps -elF:结果解析
+
+          PRI:系统分配的优先级(用户不可更改)
+
+          NI:nice值，nice值的修改会影响pri的值，他们的总和不变</code></pre><p>   调整进程的nice值:调整正在运行进程的nice</p>
+<pre><code>renice [nice_num] PID</code></pre><p>  指定进程运行的nice值(让某个命令以指定nice运行)</p>
+<pre><code>        nice -n [nice_num] COMMAND
+
+
+
+top:动态查看进程状态,每隔3秒刷新一次进程状态信息
+
+       top结果解析:
+
+               第一行:当前系统时间 系统运行时长 登录系统的用户个数 过去1分钟,5分钟,15分钟平均负载
+
+               第二行:进程总数 正在运行的进程数 睡眠的进程数 停止状态进程数 僵尸状态进程数
+
+               第三行(按1键可以查看每个CPU的信息):CPU相关信息: us:用户进程所占CPU百分比 sy:系统进程所占CPU百分比 ni:nice所占CPU百分比 id:空闲进程所占CPU百分比 hi:硬件中断所占CPU百分比 si:软件中断所占CPU百分比 st:被hypervisor偷走的CPU的百分比
+
+               第四行:物理内存相关信息
+
+               第五行:交换分区相关信息
+
+
+
+        top交互式命令:
+
+               M:按所占内存百分比进行排序
+
+               P:按所占CPU备份比进行排序
+
+               T:按进程运行时长进行排序
+
+               c:是否显示COMMAND列完整路径
+
+               l:是否显示top第一行
+
+               t:是否显示top中第二行和第三行
+
+               m:是否显示内存的相关信息
+
+               k:杀死某个进程
+
+               q:退出top进程</code></pre><p>pstree:查看进程树(查看父子进程关系)</p>
+<p>pgrep:查看某个进程PID号 pgrep process_name</p>
+<p>pidof:查看某个进程PID号 pidof process_name</p>
+<p>kill:杀死某个进程(向进程传递某个信号)</p>
+<p>   -l:查看信号列表：</p>
+<pre><code>       1:SIGHUP:不停止服务的情况下,重新读取配置文件,并且应用配置文件中的设置
+
+       2:SIGINT:Ctrl+c 中断某个进程
+
+       9:SIGKILL:强制杀死某个进程
+
+       15:SIGTERM:终止某个进程(默认信号)，相当于会有预警
+
+kill语法：
+
+        kill -sig_num PID
+
+        kill -sig_name PID
+
+        kill %num:杀死后台的某个作业,%不能省略，num为使用jobs命令查看时的序号
+
+
+
+信号:进程间的通信(IPC)
+
+        内存共享等</code></pre><p>killall:杀死整个进程树,用法同kill</p>
+<p>bg:把进程调入后台继续运行</p>
+<p>fg:把后台的进程调入前台运行</p>
+<pre><code>fg num：将后台序号为num的进程调入前台</code></pre><p>jobs:查看后台运行的作业</p>
+<p>   +:下一次将要运行的后台作业</p>
+<p>前台–&gt;后台:</p>
+<p>   ctrl+z:把正在运行的进程调入后台,并停止运行</p>
+<p>   &amp;:启动时直接调入后台运行，末尾加上该符号</p>
+<p>四、任务计划</p>
+<p>任务计划:调度性的任务</p>
+<pre><code>分为：
+
+        一次性任务计划：at、batch
+
+        周期性任务计划：cron、anacron</code></pre><p>一次性任务计划:</p>
+<p>（一）at命令</p>
+<pre><code> 1、at：设置系统在某一个时间点执行的任务,执行结果以邮件的方式发送给任务发起者
+
+     依赖atd服务，所以需要：
+
+     # systemctl start atd
+
+     # systemctl enable atd
+
+     # systemctl status atd
+
+
+
+ 2、语法:
+
+         # at data_time
+
+         at&gt;at_command1   //输入需要执行的命令
+
+         at&gt;at_command2
+
+         at&gt;ctrl+d 保存退出
+
+
+
+         data_time:时间日期写法
+
+                   绝对时间:
+
+                         HH:MM:具体时间点
+
+                         DD.MM.YY:天.月.年
+
+                         YY-MM-DD:年-月-日
+
+                         MM/DD/YY:月/日/年
+
+                         HH:MM YY-MM-DD:
+
+                   相对时间:
+
+                         at now+3minutes:从任务计划创建开始计时,3分钟以后执行
+
+
+
+3、与at命令相关的文件：
+
+        Linux中设置at任务后,会在/var/spool/at/目录生成at任务计划的文件,按照文件名的排序顺序执行
+
+       权限:
+
+       /etc/at.allow:at任务计划的白名单,仅允许此文件中的用户执行at
+
+       /etc/at.deny:at任务计划的黑名单,仅拒绝次文件中的用户执行at
+
+       系统先查找/etc/at.allow,再去查找/etc/at.deny,如果两个文件都没有,可以执行
+
+
+
+4、at命令:设置at任务计划
+
+     -l:查看系统中at任务列表,相当于atq
+
+     -r:删除系统中的at任务列表,相当于atrm
+
+     -d:删除系统中的at任务列表,相当于atrm
+
+     -c:列出后续at任务的具体指令内容</code></pre><p>（二）batch</p>
+<pre><code>1、batch:用法和at相同,不过batch任务计划是在CPU空闲时执行（当CPU的平均负载小于0.8时，uptime:查看CPU的平均负载）
+
+       依赖batchd服务，所以需要：
+
+     # systemctl start batchd
+
+     # systemctl enable batchd
+
+     # systemctl status batchd
+
+
+
+ 2、语法：
+
+   # batch data_time
+
+    batch&gt;batch_command1
+
+    batch&gt;batch_command2
+
+    batch&gt;ctrl+d 保存退出
+
+
+
+     data_time:时间日期写法：
+
+       绝对时间:
+
+             HH:MM:具体时间点
+
+             DD.MM.YY:天.月.年
+
+             YY-MM-DD:年-月-日
+
+             MM/DD/YY:月/日/年
+
+             HH:MM YY-MM-DD:
+
+       相对时间:
+
+             at now+3minutes:从任务计划创建开始计时,3分钟以后执行</code></pre><p>周期性任务计划:</p>
+<p>  系统周期性任务:</p>
+<pre><code>日志轮换:logrotate
+
+登录文件分析:logwatch任务
+
+创建locate数据库:updatedb
+
+创建man帮助信息数据库:CentOS6:makewathis  CentOS7:mandb
+
+RPM软件登录文件的创建
+
+与网络相关的分析行为:</code></pre><p>  用户周期性任务:</p>
+<pre><code>cron:设置周期任务计划
+
+anacron:当cron周期性任务由于某种原因没有执行,anacron重新执行cron任务</code></pre><p>（一）cron</p>
+<pre><code>1、cron：
+
+         依赖crond服务，所以需要：
+
+          # systemctl startcrond
+
+          # systemctl enablecrond
+
+          # systemctl statuscrond
+
+
+
+2、相关文件：
+
+        权限控制文件：
+
+            /etc/cron.allow和/etc/cron.deny
+
+            /etc/cron.allow:白名单
+
+            /etc/cron.deny:黑名单,默认情况下系统只保留/etc/cron.deny
+
+
+
+       cron相关的配置文件:
+
+          /etc/crontab:cron配置文件
+
+          /etc/cron.d/:cron辅助配置文件目录
+
+          /var/spool/cron/:cron任务计划的配置文件目录,用户设置完cron任务后,会生成以用户名名称的cron文件
+
+
+
+        /etc/crontab文件解析:
+
+               SHELL=/bin/bash:cron任务计划执行使用的shell程序
+
+               PATH=/sbin:/bin:/usr/sbin:/usr/bin:cron任务计划命令搜索地址
+
+               MAILTO=root:cron任务计划执行结果发送给哪个用户
+
+
+
+        /etc/daily/   /etc/hourly/   /etc/monthly/   /etc/weekly/，这些目录下存放了固定的周期性任务
+
+        cron.hourly:cron工具去执行
+
+        cron.daily,cron.weekly cron.monthly是由anacron工具去执行
+
+
+
+3、操作：
+
+    crontab:设置/查看/删除等cron任务计划,执行结果以邮件方式发送给任务发起者
+
+          -e:会通过文本格式建立，在文本中编辑cron任务内容，语法见下文
+
+          -u:为指定用户设置cron任务计划(只有root用户能够使用)
+
+          -l:查看cron任务列表
+
+          -r:删除所有的cron列表
+
+
+
+    设置任务语法:
+
+      系统设置:
+
+          分 时 日 月 周 用户 命令
+
+      用户设置:
+
+          分 时 日 月 周 命令
+
+
+
+    时间取值范围:
+
+          分钟:0-59
+
+          小时:0-23
+
+          日期:1-31
+
+          月份:1-12或jan,feb,mar,apr ...
+
+          周:0-7或sun,mon,tue,wed,thu,fri,sat,其中0和7都代表周日
+
+    时间的特殊写法:
+
+          通配:*代表任意时间  10 17 * * * cat /etc/fstab
+
+          离散时间段:,(逗号)  5,15,30,45,56 17 * * * cat /etc/fstab
+
+          连续时间段:-(中横线) 00 23 * * 1-5 cat /etc/fstab
+
+          间隔时间段:*/n    */5 * * * * cat /etc/fstab    00 10 */5 * * cat /etc/fstab（分不能通配）
+
+
+
+4、cron设置任务计划时注意事项:
+
+     CPU和内存资源集中使用时的问题:  
+
+        # vim /etc/crontab
+
+              1,6,11,16,21,26,31,36,41,46,51,56 * * * * root COMMAND1
+
+        取消一些不必要的输出:设置命令时可以重定向输出
+
+        时间的检验:设置时间时,周与日月不可并存
+
+        安全的检验:通过/var/log/cron的内容查看cron任务计划中是否有非法任务
+
+        环境变量:系统命令查找和cron任务命令位置由$PATH变量决定,设置cron任务时,使用命令的绝对路径</code></pre><p>（二）anacron</p>
+<pre><code>1、anacron:当cron周期性任务由于某种原因（如关机）没有执行,anacron重新执行cron任务
+
+
+
+2、语法:
+
+      anacron [options] [job]
+
+           -s:依据时间记录文件去判断是否执行
+
+           -f:强制执行
+
+           -n:立刻运行未执行的任务,不需要延时
+
+
+
+3、anacron执行流程:
+
+    1:由/etc/anacrontab分析到cron.daily天数为1天
+
+    2:由/var/spool/anacron/cron.daily取出最近一次执行anacron时间戳
+
+    3:由2步骤分析出的时间戳和cron任务进行比较,查看哪些cron任务超过1天时间没有执行
+
+    4:准备执行指令,根据/etc/anacrontab的设置,将延时执行
+
+    5:延时时间过后,执行指令</code></pre>
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 837184696@qq.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Linux学习笔记03</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Huang ZhenYu">Huang ZhenYu</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-08-11, 18:25:03</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-12, 00:49:47</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/11/Linux学习笔记03/" title="Linux学习笔记03">http://blog.huangzhenyu.net/2019/08/11/Linux学习笔记03/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: 'e2d848f46bff95a85fb8',
+            clientSecret: '31b99d4841bb95d3a20ed4c5cf1a4dd4914c1b9c',
+            repo: 'Riwell-Ackerman.github.io',
+            owner: 'Riwell-Ackerman',
+            admin: ['Riwell-Ackerman'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2019 Huang ZhenYu</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': [],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
