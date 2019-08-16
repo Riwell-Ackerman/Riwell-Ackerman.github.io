@@ -14,6 +14,18 @@ link:
     github: https://github.com/Riwell-Ackerman
     email: 837184696@qq.com
     qq: 837184696
+    weibo: https://weibo.com/ilovezhaoweizhen/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1
+    neteasemusic: https://music.163.com/#/user/home?id=116329629
+    zhihu: https://www.zhihu.com/people/riwellackerman/activities
+    #facebook: http://blog.huangzhenyu.net/
+    #twitter: http://blog.huangzhenyu.net/
+    #linkedin: http://blog.huangzhenyu.net/
+    #instagram: http://blog.huangzhenyu.net/
+    #reddit: http://blog.huangzhenyu.net/
+    #jianshu: http://blog.huangzhenyu.net/
+    #csdn: http://blog.huangzhenyu.net/
+    #oschina: http://blog.huangzhenyu.net/
+    #juejin: http://blog.huangzhenyu.net/
 
 ##########多作者模式############
 author:
@@ -46,7 +58,7 @@ menu:
       url: /photo
       type: 1  # 跳转类型 1：站内异步跳转
     博客园:
-      on: true
+      on: false
       url: https://www.cnblogs.com/RiwellAckerman/
       type: 2  # 跳转类型 2：当前页面跳转
     github:
