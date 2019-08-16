@@ -73,7 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hexo-theme-3-hexo-master (2)
+theme: hexo-theme-3-hexo-master
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
