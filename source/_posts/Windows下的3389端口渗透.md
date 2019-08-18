@@ -4,7 +4,7 @@ date: 2019-08-11 18:25:12
 categories: 旧时光
 tags: 网络安全
 ---
-1、Win7、Win2003、XP系统
+## 一、Win7、Win2003、XP系统
 
 在CMD命令行开启3389端口：
 REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f
@@ -13,7 +13,7 @@ REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnec
 
 REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 11111111 /f
 
-2、2000系统
+## 二、2000系统
 
 简要说一下如何进行DNS溢出攻击。我用的溢出利用程序是dns.exe，在CMD下运行它可以看到它的使用参数等信息。执行"dns -s IP"命令检测目标IP是否存在DNS溢出漏洞，若存在则进行溢出攻击，执行"dns -t 2000all IP 1207"后提示要我们检测返回的1100端口的shell。"telnet IP 1100"成功得到返回的cmdshell。注意目录为c:/WINNT/system32，接着我们需要做的是使用"echo"命令写入一个3389.reg注册表文件。将如下代码一行一行地复制到cmdshell窗口后按回 车执行：
 
@@ -48,7 +48,7 @@ rundll32 setupapi,%inf% 1 %temp%/{out}.inf r
 
 按顺序将以上五行代码一行一行地复制到cmdshell上，复制完一行按一次回车执行，五行都执行完毕后，服务器就会重启的了。当然让服务器重启的方法比较多，比如结束掉系统关键进程、代码模拟按键等都是可以的，如无意外，等待服 务器完成重启之后再连接目标发现远程桌面服务已经成功开启了。至此Windows 2000操作系统溢出后返回的cmdshell下开启远程桌面服务就成功完成了。
 
-3、2003系统
+## 三、2003系统
 
 相对于2000的系 统来说，2003cmdshell下开启远程桌面服务就比较容易一些了，起码无需重启嘛！第一种方法也是用"echo"命令写入一个 3389.reg文件，再"regedit /s 3389.reg"导入注册表文件即可开启，比较简单，与上面介绍的2000的开启方法类似。将如下代码一行一行地复制到cmdshell窗口后按回车执 行：
 

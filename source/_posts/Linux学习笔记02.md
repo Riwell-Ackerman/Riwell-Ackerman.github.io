@@ -6,9 +6,10 @@ tags: Linux
 ---
 如何高效获取命令帮助信息
 
-一、
+## 一、
 
-# echo $PATH
+echo $PATH
+
 内核版本号：主.次.修订 
 
 系统中：用户名UID（只认识，不认识名字）
@@ -60,16 +61,17 @@ hash:查看命令缓存和命中率
 
  
 
-二、
+## 二、
 
-# type cd
+type cd
 cd is a shell builtin
-# type ls
+type ls
 ls is aliased to `ls --color=auto'
-# which ls
+which ls
 alias ls='ls --color=auto'
-	/bin/ls
-# ls --help
+/bin/ls
+ls --help
+
 内部命令：help [内部命令]
 
 外部命令：[外部命令] --help

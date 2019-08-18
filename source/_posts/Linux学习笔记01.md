@@ -4,7 +4,7 @@ date: 2019-08-11 18:25:01
 categories: 旧时光
 tags: Linux
 ---
-一、LINUX文件类型
+## 一、LINUX文件类型
 
 -：普通文件：
 
@@ -22,8 +22,6 @@ c：character 字符集设备：一次性读取，按顺序读取
 s：socket套接字文件：用在网络上的数据连接IP：PORT
 
 p：管道文件：特殊的文件类型，解决多个应用程序同时访问一个文件造成的错误问题
-
- 
 
 file：查看Linux中的文件类型
 
@@ -75,9 +73,9 @@ Linux文件名限制：
 
                     查找条件通配符:
 
-                       *:通配任意个数的任意字符   # find /etc/ -name "pass*"  # find /etc/ -name "*pass"
+                       *:通配任意个数的任意字符   find /etc/ -name "pass*"  find /etc/ -name "*pass"
 
-                        ?:通配单个的任意字符       # find /etc/ -name "passw*"
+                        ?:通配单个的任意字符      find /etc/ -name "passw*"
 
            -iname file_name:根据文件名进行查找,不区分大小写
 
@@ -121,7 +119,7 @@ Linux文件名限制：
 
  
 
-        根据时间戳进行查找: # stat file_name  //查看文件的时间戳
+        根据时间戳进行查找: stat file_name  //查看文件的时间戳
 
             [+ | -] 也起作用
 
@@ -173,8 +171,6 @@ Linux文件名限制：
 
  
 
-  
-
 1、查找/var目录下属主为root并且属组为mail的所有文件；
 
 find /var -user root -a -group mail
@@ -215,9 +211,9 @@ find /etc -not -perm /222 -ls
 
  
 
-二、权限:是用户对于系统资源及数据等操作的能力
+## 二、权限:是用户对于系统资源及数据等操作的能力
  
-三类用户权限:
+## 三类用户权限:
 属主:owner
 属组:group
 其他:other

@@ -16,11 +16,11 @@ root student用户
 
 shell：父shell程序和子shell程序（父子shell之间设置环境互相独立）
 
-# cat /etc/shells //查看支持哪些shell
+cat /etc/shells //查看支持哪些shell
 
-# yum -y install ksh csh
+yum -y install ksh csh
 
-#exit//退出当前shell
+exit//退出当前shell
 
 shell是一个程序
 
@@ -40,7 +40,7 @@ bash的特性：
 
 HISTSIZE：命令历史大小变量
 
-# echo HISTSIZE//查看HISTSIZE（命令历史大小）变量的值，默认1000
+echo HISTSIZE//查看HISTSIZE（命令历史大小）变量的值，默认1000
 
 ！n:执行命令历史中的第n个命令
 ！-n：倒数第n个命令
@@ -58,7 +58,7 @@ unalias comm_alias//取消别名
 
 注意：执行alias命令时，command最好用‘’标识出来
 
-# alias cdnet='cd /etc/sysconfig/network-scripts'
+alias cdnet='cd /etc/sysconfig/network-scripts'
 
  命令行编辑
 
@@ -77,7 +77,7 @@ ctrl+l:清屏
 
 $(command)或者`command`
 
-# echo "Dirctory is $(pwd)"
+echo "Dirctory is $(pwd)"
 
  “”：弱引用，实现变量的替换，将变量的名字编程变量值
 
