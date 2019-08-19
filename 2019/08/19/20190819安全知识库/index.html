@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>20190819安全知识库 | Huang ZhenYu</title>
+  <meta name="keywords" content=" 网络安全 ">
+  <meta name="description" content="20190819安全知识库 | Huang ZhenYu">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Vulnerability Warning   Name    Cisco Small Business 220 Series Smart Switches 命令注入漏洞(CVE-2019-1914)   Cisco Small Business 220 Series Smart Switches 远程代码执行漏洞(CVE-2019-1913)   [webapps] Web Wiz Forums">
+<meta name="keywords" content="网络安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20190819安全知识库">
+<meta property="og:url" content="http://blog.huangzhenyu.net/2019/08/19/20190819安全知识库/index.html">
+<meta property="og:site_name" content="Huang ZhenYu">
+<meta property="og:description" content="Vulnerability Warning   Name    Cisco Small Business 220 Series Smart Switches 命令注入漏洞(CVE-2019-1914)   Cisco Small Business 220 Series Smart Switches 远程代码执行漏洞(CVE-2019-1913)   [webapps] Web Wiz Forums">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-19T09:38:39.328Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="20190819安全知识库">
+<meta name="twitter:description" content="Vulnerability Warning   Name    Cisco Small Business 220 Series Smart Switches 命令注入漏洞(CVE-2019-1914)   Cisco Small Business 220 Series Smart Switches 远程代码执行漏洞(CVE-2019-1913)   [webapps] Web Wiz Forums">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Huang ZhenYu</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/Riwell-Ackerman" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:837184696@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=837184696&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="weibo" href="https://weibo.com/ilovezhaoweizhen/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-weibo"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=116329629" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/riwellackerman/activities" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(39)</small></div></li>
+    
+        
+            
+            <li><div data-rel="安全知识库">安全知识库<small>(13)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="旧时光">旧时光<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="大Kali">大Kali<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="新随笔">新随笔<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="39">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://blog.islinjw.cn/">伟哥大大</a></li>
+            
+            <li><a target="_blank" href="https://www.shentoushi.top/index">渗透师</a></li>
+            
+            <li><a target="_blank" href="https://www.anquanquan.info/">安全圈info</a></li>
+            
+            <li><a target="_blank" href="https://www.helpnetsecurity.com/">helpnetsecurity</a></li>
+            
+            <li><a target="_blank" href="https://www.ddosi.com/b65/">信息安全学习资料大全</a></li>
+            
+            <li><a target="_blank" href="https://websec.readthedocs.io/zh/latest/">Web安全学习笔记</a></li>
+            
+            <li><a target="_blank" href="https://bypass007.github.io/Emergency-Response-Notes/">应急响应实战笔记</a></li>
+            
+            <li><a target="_blank" href="https://wooyun.js.org/">乌云 Drops 文章在线浏览</a></li>
+            
+            <li><a target="_blank" href="https://tools.cisco.com/security/center/publicationListing.x">Cisco Security Advisories and Alerts</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">网络安全</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">漏洞复现</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">随笔</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a id="top" class="旧时光 "
+           href="/2019/08/10/博客搬家记/"
+           data-tag="随笔"
+           data-author="" >
+            <span class="post-title" title="博客搬家记">博客搬家记</span>
+            <span class="post-date" title="2019-08-10 18:25:00">2019/08/10</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/19/20190819安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190819安全知识库">20190819安全知识库</span>
+            <span class="post-date" title="2019-08-19 17:34:51">2019/08/19</span>
+        </a>
+        
+        <a  class="新随笔 "
+           href="/2019/08/18/Windows7系统MS16-032本地提权/"
+           data-tag="漏洞复现"
+           data-author="" >
+            <span class="post-title" title="Windows7系统MS16-032本地提权">Windows7系统MS16-032本地提权</span>
+            <span class="post-date" title="2019-08-18 14:19:08">2019/08/18</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/2019中国网络安全年会之特别分享/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="2019中国网络安全年会之特别分享">2019中国网络安全年会之特别分享</span>
+            <span class="post-date" title="2019-08-17 13:16:55">2019/08/17</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/2019年7月安全分享会摘要/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="2019年7月安全分享会摘要">2019年7月安全分享会摘要</span>
+            <span class="post-date" title="2019-08-17 12:55:59">2019/08/17</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/构造个人轻量级XSS平台获取管理员cookie并登录/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="构造个人轻量级XSS平台获取管理员cookie并登录">构造个人轻量级XSS平台获取管理员cookie并登录</span>
+            <span class="post-date" title="2019-08-17 12:45:34">2019/08/17</span>
+        </a>
+        
+        <a  class="大Kali "
+           href="/2019/08/17/SNMP协议利用/"
+           data-tag="漏洞复现"
+           data-author="" >
+            <span class="post-title" title="SNMP协议利用">SNMP协议利用</span>
+            <span class="post-date" title="2019-08-17 12:41:39">2019/08/17</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/mitm6：通过IPv6攻破IPv4网络/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="mitm6：通过IPv6攻破IPv4网络">mitm6：通过IPv6攻破IPv4网络</span>
+            <span class="post-date" title="2019-08-17 12:33:18">2019/08/17</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/Hardentools/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="Hardentools">Hardentools</span>
+            <span class="post-date" title="2019-08-17 12:30:12">2019/08/17</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/怎么判断一个网站是不是伪静态/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="怎么判断一个网站是不是伪静态">怎么判断一个网站是不是伪静态</span>
+            <span class="post-date" title="2019-08-17 12:25:11">2019/08/17</span>
+        </a>
+        
+        <a  class="大Kali "
+           href="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/"
+           data-tag="漏洞复现"
+           data-author="" >
+            <span class="post-title" title="windows7系统下的永恒之蓝MS17-010漏洞简单复现">windows7系统下的永恒之蓝MS17-010漏洞简单复现</span>
+            <span class="post-date" title="2019-08-17 11:23:43">2019/08/17</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/16/20190816安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190816安全知识库">20190816安全知识库</span>
+            <span class="post-date" title="2019-08-16 13:03:00">2019/08/16</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/14/20190815安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190815安全知识库">20190815安全知识库</span>
+            <span class="post-date" title="2019-08-14 22:07:59">2019/08/14</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/14/20190814安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190814安全知识库">20190814安全知识库</span>
+            <span class="post-date" title="2019-08-14 21:51:21">2019/08/14</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190809安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190809安全知识库">20190809安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:28:50">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190813安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190813安全知识库">20190813安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:15:13">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190812安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190812安全知识库">20190812安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:13:58">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190808安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190808安全知识库">20190808安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:11:48">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190807安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190807安全知识库">20190807安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:11:01">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190806安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190806安全知识库">20190806安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:09:46">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190805安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190805安全知识库">20190805安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:08:36">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190802安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190802安全知识库">20190802安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:06:20">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190801安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190801安全知识库">20190801安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:02:03">2019/08/13</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/远程访问安全/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="远程访问安全">远程访问安全</span>
+            <span class="post-date" title="2019-08-11 18:25:16">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/日志分析与安全/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="日志分析与安全">日志分析与安全</span>
+            <span class="post-date" title="2019-08-11 18:25:15">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/服务进程安全控制/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="服务进程安全控制">服务进程安全控制</span>
+            <span class="post-date" title="2019-08-11 18:25:14">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/安全运维学习笔记/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="安全运维学习笔记">安全运维学习笔记</span>
+            <span class="post-date" title="2019-08-11 18:25:13">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Windows下的3389端口渗透/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="Windows下的3389端口渗透">Windows下的3389端口渗透</span>
+            <span class="post-date" title="2019-08-11 18:25:12">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/SSRF小梳理/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="SSRF小梳理">SSRF小梳理</span>
+            <span class="post-date" title="2019-08-11 18:25:11">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Nginx服务器安全加固tips整理/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="Nginx服务器安全加固tips整理">Nginx服务器安全加固tips整理</span>
+            <span class="post-date" title="2019-08-11 18:25:10">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/常用正则表达式小记/"
+           data-tag="随笔"
+           data-author="" >
+            <span class="post-title" title="常用正则表达式小记">常用正则表达式小记</span>
+            <span class="post-date" title="2019-08-11 18:25:09">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/CDN绕过姿势小结/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="CDN绕过姿势小结">CDN绕过姿势小结</span>
+            <span class="post-date" title="2019-08-11 18:25:08">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记07/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记07">Linux学习笔记07</span>
+            <span class="post-date" title="2019-08-11 18:25:07">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记06/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记06">Linux学习笔记06</span>
+            <span class="post-date" title="2019-08-11 18:25:06">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记05/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记05">Linux学习笔记05</span>
+            <span class="post-date" title="2019-08-11 18:25:05">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记04/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记04">Linux学习笔记04</span>
+            <span class="post-date" title="2019-08-11 18:25:04">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记03/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记03">Linux学习笔记03</span>
+            <span class="post-date" title="2019-08-11 18:25:03">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记02/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记02">Linux学习笔记02</span>
+            <span class="post-date" title="2019-08-11 18:25:02">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记01/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记01">Linux学习笔记01</span>
+            <span class="post-date" title="2019-08-11 18:25:01">2019/08/11</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-20190819安全知识库" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">20190819安全知识库</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="安全知识库">安全知识库</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color5">网络安全</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-08-19 17:38:39'>2019-08-19 17:34</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vulnerability-Warning"><span class="toc-text">Vulnerability Warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Information"><span class="toc-text">Security Information</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Technology"><span class="toc-text">Security  Technology</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Others"><span class="toc-text">Security  Others</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Vulnerability-Warning"><a href="#Vulnerability-Warning" class="headerlink" title="Vulnerability Warning"></a>Vulnerability Warning</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98059" target="_blank" rel="noopener">Cisco Small Business 220 Series Smart Switches 命令注入漏洞(CVE-2019-1914)</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98058" target="_blank" rel="noopener">Cisco Small Business 220 Series Smart Switches 远程代码执行漏洞(CVE-2019-1913)</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47284" target="_blank" rel="noopener">[webapps] Web Wiz Forums 12.01 - ‘PF’ SQL Injection</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47283" target="_blank" rel="noopener">[webapps] Integria IMS 5.0.86 - Arbitrary File Upload</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47282" target="_blank" rel="noopener">[dos] GetGo Download Manager 6.2.2.3300 - Denial of Service</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47281" target="_blank" rel="noopener">[webapps] Joomla! component com_jsjobs 1.2.6 - Arbitrary File Deletion</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47280" target="_blank" rel="noopener">[webapps] EyesOfNetwork 5.1 - Authenticated Remote Command Execution</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Information"><a href="#Security-Information" class="headerlink" title="Security Information"></a>Security Information</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184416" target="_blank" rel="noopener">8月18日每日安全热点 - 泄露显示白宫计划行政命令审查互联网</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184411" target="_blank" rel="noopener">8月17日每日安全热点 - 欧洲中央银行确认网站被黑造成数据泄露</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184388" target="_blank" rel="noopener">360网络安全周报第214期</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184021" target="_blank" rel="noopener">正在直播  ISC 2019 互联网安全大会</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184342" target="_blank" rel="noopener">Exchange渗透测试总结</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184099" target="_blank" rel="noopener">ret2dl_resolve解析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184318" target="_blank" rel="noopener">刨根问底：Windows CTF协议安全性研究</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184341" target="_blank" rel="noopener">微软CTF协议漏洞预警</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/183859" target="_blank" rel="noopener">详解 De1ctf 2019 pwn——unprintable</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184320" target="_blank" rel="noopener">8月16日每日安全热点 - 欧洲央行网站黑客入侵</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/110747.html" target="_blank" rel="noopener">腾讯云上攻防战事（一） 云上听风，不战而屈人之兵</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/110711.html" target="_blank" rel="noopener">Sodinokibi勒索病毒运营团伙猖獗，针对国内用户大肆敛财</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://blog.nsfocus.net/nsfocus-2019-33/" target="_blank" rel="noopener">绿盟科技互联网安全威胁周报NSFOCUS-2019-33</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://blog.nsfocus.net/%e7%ad%89%e4%bf%9d2-0%e6%a0%87%e5%87%86%e8%a6%81%e6%b1%82%e4%b8%8b%e4%ba%91%e8%ae%a1%e7%ae%97%e5%ae%89%e5%85%a8%e4%b8%8e%e9%a3%8e%e9%99%a9%e8%af%84%e4%bc%b0%e6%8e%a2%e7%a9%b6/" target="_blank" rel="noopener">等保2.0标准要求下云计算安全与风险评估探究</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/degrading-tor-network-performance-only-costs-a-few-thousand-dollars-per-month/#ftag=RSSbaffb68" target="_blank" rel="noopener">Degrading Tor network performance only costs a few thousand dollars per month</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/hy-vee-issues-warning-to-customers-after-discovering-point-of-sale-breach/#ftag=RSSbaffb68" target="_blank" rel="noopener">Hy-Vee issues warning to customers after discovering point-of-sale breach</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/at-least-20-texas-local-governments-hit-in-coordinated-ransomware-attack/#ftag=RSSbaffb68" target="_blank" rel="noopener">Over 20 Texas local governments hit in ‘coordinated ransomware attack’</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/google-wants-to-reduce-lifespan-for-https-certificates-to-one-year/#ftag=RSSbaffb68" target="_blank" rel="noopener">Google wants to reduce lifespan for HTTPS certificates to one year</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/apple-files-lawsuit-against-corellium-for-illegally-flogging-virtual-copies-of-ios/#ftag=RSSbaffb68" target="_blank" rel="noopener">Apple files lawsuit against Corellium for flogging virtual iOS copies for security tests</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/uk-watchdog-to-investigate-kings-cross-facial-recognition-tech-use-to-spy-on-public/#ftag=RSSbaffb68" target="_blank" rel="noopener">UK watchdog to investigate King’s Cross facial recognition tech used to spy on public</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11243-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何在安装之前检查 Linux 软件包的版本？</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11242-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">蓝牙漏洞可能会将设备数据暴露给黑客</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11241-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">开源新闻综述：GNOME 和 KDE 达成合作、Nvidia 开源 GPU 文档</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11239-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">使用 MacSVG 创建 SVG 动画</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11238-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">你的 Linux 系统开机时间已经击败了 99% 的电脑</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11237-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">美军网络安全漏洞百出，黑客 2 天就入侵 F15 关键系统</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11236-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何在 Ubuntu 18.04 LTS 中获取 Linux 5.0 内核</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11235-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">试试动态窗口管理器 dwm 吧</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11234-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">Prometheus 入门</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11233-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">微软 CTF 协议曝出漏洞 影响 Windows XP 发布以来的所有系统</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11232-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何在 Ubuntu 18.04 的右键单击菜单中添加“新建文档”按钮</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/es/210925.html" target="_blank" rel="noopener">浅谈企业安全：安全规划建设运营和职业发展</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/security-management/209588.html" target="_blank" rel="noopener">等保2.0标准个人解读（二）：安全通信网络</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/211727.html" target="_blank" rel="noopener">FreeBuf早报  特朗普政府仍希望延长NSA的电话监听项目;谷歌Play商城已移除85款携带恶意广告程序的APP;新攻击:利用蓝牙弱点可以拦截敏感数据</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/vuls/210669.html" target="_blank" rel="noopener">挖洞经验  劫持任意Paypal企业账户子账户实现未授权转账操作（$10K）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/system/210425.html" target="_blank" rel="noopener">通过可写入的etcpasswd文件实现Linux提权</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/system/210577.html" target="_blank" rel="noopener">Shade活跃，中国将成为下一个受害者？</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/terminal/207584.html" target="_blank" rel="noopener">以某家用摄像头测评入手谈物联网智能家居安全</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/209605.html" target="_blank" rel="noopener">CORS-Vulnerable-Lab：与COSR配置错误相关的漏洞代码靶场</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/209583.html" target="_blank" rel="noopener">非常逼真的Office 365钓鱼工具包分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/paper/210685.html" target="_blank" rel="noopener">你还在用“加了料”的系统还原工具么？</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/database/210250.html" target="_blank" rel="noopener">基于DNS隐蔽信道的攻击与检测</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/211638.html" target="_blank" rel="noopener">BUF大事件丨开挂一时爽，隐私数据火葬场；佳能单反相机被曝存在漏洞，可远程安装勒索软件；微软8月补丁修复了95个安全漏洞</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/211664.html" target="_blank" rel="noopener">白帽2天成功渗透F-15战机系统，美军网络安全漏洞百出</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/208966.html" target="_blank" rel="noopener">PivotSuite：使用被攻克的系统在网络内部移动</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/paper/211311.html" target="_blank" rel="noopener">云顶之役 《2019年上半年云安全趋势报告》即将发布</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/system/209638.html" target="_blank" rel="noopener">如何通过Linux xxd命令进行提权</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/vuls/205380.html" target="_blank" rel="noopener">微软RDP远程代码执行漏洞（CVE-2019-0708）分析集锦</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/vuls/211327.html" target="_blank" rel="noopener">看我如何突破JFinal黑名单机制实现任意文件上传</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/211566.html" target="_blank" rel="noopener">FreeBuf早报丨美设立新任务小组以应对俄罗斯对2020年大选的干预问题；安全漏洞导致Suprema Biostar 2百万人指纹数据曝光；卡巴斯基杀毒软件会泄漏用户ID</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/vuls/210040.html" target="_blank" rel="noopener">Ogg音频格式文件的样本构造(CVE-2018-5146)</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Technology"><a href="#Security-Technology" class="headerlink" title="Security  Technology"></a>Security  Technology</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-08-18" target="_blank" rel="noopener">SecWiki News 2019-08-18 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-08-17" target="_blank" rel="noopener">SecWiki News 2019-08-17 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-08-16" target="_blank" rel="noopener">SecWiki News 2019-08-16 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://paper.seebug.org/1015/" target="_blank" rel="noopener">分析 Curl-P 以及攻击 IOTA 加密货币</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.4hou.com/technology/19730.html" target="_blank" rel="noopener">基于Ghidra和Neo4j的RPC分析技术</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.4hou.com/technology/19612.html" target="_blank" rel="noopener">如何扩展Facebook上的静态分析（下）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.4hou.com/technology/19659.html" target="_blank" rel="noopener">亚马逊 S3 存储桶勒索软件攻防详解（下）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/08/eyeballer-convolutional-neural-network.html" target="_blank" rel="noopener">Eyeballer - Convolutional Neural Network For Analyzing Pentest Screenshots</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/08/can-i-take-over-xyz-list-of-services.html" target="_blank" rel="noopener">“Can I Take Over XYZ?” - A List Of Services And How To Claim (Sub)Domains With Dangling DNS Records.</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/08/dow-jones-hammer-protect-cloud-with.html" target="_blank" rel="noopener">Dow Jones Hammer - Protect The Cloud With The Power Of The cloud(AWS)</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/08/firmware-slap-discovering.html" target="_blank" rel="noopener">Firmware Slap - Discovering Vulnerabilities In Firmware Through Concolic Analysis And Function Clustering</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/08/iris-windbg-extension-to-perform-basic.html" target="_blank" rel="noopener">Iris - WinDbg Extension To Perform Basic Detection Of Common Windows Exploit Mitigations</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/08/diaphora-most-advanced-free-and-open.html" target="_blank" rel="noopener">Diaphora - The Most Advanced Free And Open Source Program Diffing Tool</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6040" target="_blank" rel="noopener">Webmin &lt;=1.920 远程命令执行漏洞 - 【CVE-2019-15107】</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6008" target="_blank" rel="noopener">CVE-2016-0095 Windows提权漏洞分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6002" target="_blank" rel="noopener">如何修改nmap， 重新编译，bypass emergingthreats 的公开ids规则</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6019" target="_blank" rel="noopener">Bug Bounty:利用基于AngularJS的XSS进行权限提升</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6037" target="_blank" rel="noopener">web.config文件上传技术研究</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6000" target="_blank" rel="noopener">渗透测试初期之信息收集</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6003" target="_blank" rel="noopener">fuzz闭源pdf查看器</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6014" target="_blank" rel="noopener">Apache Solr Injection Research</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5991" target="_blank" rel="noopener">DNS安全皮毛（一）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6001" target="_blank" rel="noopener">在互联网端口扫描过程中寻找速度和准确度之间的平衡点</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5996" target="_blank" rel="noopener">PHP插件获取网页返回的html源码</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5998" target="_blank" rel="noopener">SELECT code_execution FROM * USING SQLite;</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6009" target="_blank" rel="noopener">linux内核漏洞利用初探（1）：环境配置</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5994" target="_blank" rel="noopener">基于机器学习的jsp/jspx webshell检测</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5968" target="_blank" rel="noopener">使用 afl-unicorn: Fuzzing 任意二进制代码</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5988" target="_blank" rel="noopener">攻击SSL VPN - 第2部分：打破Fortigate SSL VPN</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5972" target="_blank" rel="noopener">逆向学习之画堆栈图一</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5982" target="_blank" rel="noopener">Sqlmap学习使用小总结</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/5955" target="_blank" rel="noopener">GPS卫星信号劫持</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Others"><a href="#Security-Others" class="headerlink" title="Security  Others"></a>Security  Others</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://weibo.com/p/1006065582522936/wenzhang?from=page_100606_profile&wvr=6&mod=wenzhangmore" target="_blank" rel="noopener">玄武实验室每日更新</a></td>
+</tr>
+</tbody></table>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 837184696@qq.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>20190819安全知识库</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Huang ZhenYu">Huang ZhenYu</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-08-19, 17:34:51</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-19, 17:38:39</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/19/20190819安全知识库/" title="20190819安全知识库">http://blog.huangzhenyu.net/2019/08/19/20190819安全知识库/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2019 Huang ZhenYu</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#网络安全','#Linux','#漏洞复现','#随笔',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

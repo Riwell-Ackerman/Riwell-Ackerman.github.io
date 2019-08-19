@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>Linux学习笔记05 | Huang ZhenYu</title>
+  <meta name="keywords" content=" Linux ">
+  <meta name="description" content="Linux学习笔记05 | Huang ZhenYu">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Vulnerability Warning   Name    Cisco Small Business 220 Series Smart Switches 命令注入漏洞(CVE-2019-1914)   Cisco Small Business 220 Series Smart Switches 远程代码执行漏洞(CVE-2019-1913)   [webapps] Web Wiz Forums">
+<meta name="keywords" content="网络安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20190819安全知识库">
+<meta property="og:url" content="http://blog.huangzhenyu.net/2019/08/19/20190819安全知识库/index.html">
+<meta property="og:site_name" content="Huang ZhenYu">
+<meta property="og:description" content="Vulnerability Warning   Name    Cisco Small Business 220 Series Smart Switches 命令注入漏洞(CVE-2019-1914)   Cisco Small Business 220 Series Smart Switches 远程代码执行漏洞(CVE-2019-1913)   [webapps] Web Wiz Forums">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-19T09:38:39.328Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="20190819安全知识库">
+<meta name="twitter:description" content="Vulnerability Warning   Name    Cisco Small Business 220 Series Smart Switches 命令注入漏洞(CVE-2019-1914)   Cisco Small Business 220 Series Smart Switches 远程代码执行漏洞(CVE-2019-1913)   [webapps] Web Wiz Forums">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Huang ZhenYu</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/Riwell-Ackerman" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:837184696@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=837184696&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="weibo" href="https://weibo.com/ilovezhaoweizhen/profile?rightmod=1&amp;wvr=6&amp;mod=personinfo&amp;is_all=1" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-weibo"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="neteasemusic" href="https://music.163.com/#/user/home?id=116329629" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-neteasemusic"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/riwellackerman/activities" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(39)</small></div></li>
+    
+        
+            
+            <li><div data-rel="安全知识库">安全知识库<small>(13)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="旧时光">旧时光<small>(23)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="大Kali">大Kali<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="新随笔">新随笔<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div><a  class="friends">友链</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="39">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://blog.islinjw.cn/">伟哥大大</a></li>
+            
+            <li><a target="_blank" href="https://www.shentoushi.top/index">渗透师</a></li>
+            
+            <li><a target="_blank" href="https://www.anquanquan.info/">安全圈info</a></li>
+            
+            <li><a target="_blank" href="https://www.helpnetsecurity.com/">helpnetsecurity</a></li>
+            
+            <li><a target="_blank" href="https://www.ddosi.com/b65/">信息安全学习资料大全</a></li>
+            
+            <li><a target="_blank" href="https://websec.readthedocs.io/zh/latest/">Web安全学习笔记</a></li>
+            
+            <li><a target="_blank" href="https://bypass007.github.io/Emergency-Response-Notes/">应急响应实战笔记</a></li>
+            
+            <li><a target="_blank" href="https://wooyun.js.org/">乌云 Drops 文章在线浏览</a></li>
+            
+            <li><a target="_blank" href="https://tools.cisco.com/security/center/publicationListing.x">Cisco Security Advisories and Alerts</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">网络安全</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">Linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">漏洞复现</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">随笔</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a id="top" class="旧时光 "
+           href="/2019/08/10/博客搬家记/"
+           data-tag="随笔"
+           data-author="" >
+            <span class="post-title" title="博客搬家记">博客搬家记</span>
+            <span class="post-date" title="2019-08-10 18:25:00">2019/08/10</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/19/20190819安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190819安全知识库">20190819安全知识库</span>
+            <span class="post-date" title="2019-08-19 17:34:51">2019/08/19</span>
+        </a>
+        
+        <a  class="新随笔 "
+           href="/2019/08/18/Windows7系统MS16-032本地提权/"
+           data-tag="漏洞复现"
+           data-author="" >
+            <span class="post-title" title="Windows7系统MS16-032本地提权">Windows7系统MS16-032本地提权</span>
+            <span class="post-date" title="2019-08-18 14:19:08">2019/08/18</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/2019中国网络安全年会之特别分享/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="2019中国网络安全年会之特别分享">2019中国网络安全年会之特别分享</span>
+            <span class="post-date" title="2019-08-17 13:16:55">2019/08/17</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/2019年7月安全分享会摘要/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="2019年7月安全分享会摘要">2019年7月安全分享会摘要</span>
+            <span class="post-date" title="2019-08-17 12:55:59">2019/08/17</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/构造个人轻量级XSS平台获取管理员cookie并登录/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="构造个人轻量级XSS平台获取管理员cookie并登录">构造个人轻量级XSS平台获取管理员cookie并登录</span>
+            <span class="post-date" title="2019-08-17 12:45:34">2019/08/17</span>
+        </a>
+        
+        <a  class="大Kali "
+           href="/2019/08/17/SNMP协议利用/"
+           data-tag="漏洞复现"
+           data-author="" >
+            <span class="post-title" title="SNMP协议利用">SNMP协议利用</span>
+            <span class="post-date" title="2019-08-17 12:41:39">2019/08/17</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/mitm6：通过IPv6攻破IPv4网络/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="mitm6：通过IPv6攻破IPv4网络">mitm6：通过IPv6攻破IPv4网络</span>
+            <span class="post-date" title="2019-08-17 12:33:18">2019/08/17</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/Hardentools/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="Hardentools">Hardentools</span>
+            <span class="post-date" title="2019-08-17 12:30:12">2019/08/17</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/17/怎么判断一个网站是不是伪静态/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="怎么判断一个网站是不是伪静态">怎么判断一个网站是不是伪静态</span>
+            <span class="post-date" title="2019-08-17 12:25:11">2019/08/17</span>
+        </a>
+        
+        <a  class="大Kali "
+           href="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/"
+           data-tag="漏洞复现"
+           data-author="" >
+            <span class="post-title" title="windows7系统下的永恒之蓝MS17-010漏洞简单复现">windows7系统下的永恒之蓝MS17-010漏洞简单复现</span>
+            <span class="post-date" title="2019-08-17 11:23:43">2019/08/17</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/16/20190816安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190816安全知识库">20190816安全知识库</span>
+            <span class="post-date" title="2019-08-16 13:03:00">2019/08/16</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/14/20190815安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190815安全知识库">20190815安全知识库</span>
+            <span class="post-date" title="2019-08-14 22:07:59">2019/08/14</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/14/20190814安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190814安全知识库">20190814安全知识库</span>
+            <span class="post-date" title="2019-08-14 21:51:21">2019/08/14</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190809安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190809安全知识库">20190809安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:28:50">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190813安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190813安全知识库">20190813安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:15:13">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190812安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190812安全知识库">20190812安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:13:58">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190808安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190808安全知识库">20190808安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:11:48">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190807安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190807安全知识库">20190807安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:11:01">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190806安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190806安全知识库">20190806安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:09:46">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190805安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190805安全知识库">20190805安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:08:36">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190802安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190802安全知识库">20190802安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:06:20">2019/08/13</span>
+        </a>
+        
+        <a  class="安全知识库 "
+           href="/2019/08/13/20190801安全知识库/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="20190801安全知识库">20190801安全知识库</span>
+            <span class="post-date" title="2019-08-13 22:02:03">2019/08/13</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/远程访问安全/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="远程访问安全">远程访问安全</span>
+            <span class="post-date" title="2019-08-11 18:25:16">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/日志分析与安全/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="日志分析与安全">日志分析与安全</span>
+            <span class="post-date" title="2019-08-11 18:25:15">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/服务进程安全控制/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="服务进程安全控制">服务进程安全控制</span>
+            <span class="post-date" title="2019-08-11 18:25:14">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/安全运维学习笔记/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="安全运维学习笔记">安全运维学习笔记</span>
+            <span class="post-date" title="2019-08-11 18:25:13">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Windows下的3389端口渗透/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="Windows下的3389端口渗透">Windows下的3389端口渗透</span>
+            <span class="post-date" title="2019-08-11 18:25:12">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/SSRF小梳理/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="SSRF小梳理">SSRF小梳理</span>
+            <span class="post-date" title="2019-08-11 18:25:11">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Nginx服务器安全加固tips整理/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="Nginx服务器安全加固tips整理">Nginx服务器安全加固tips整理</span>
+            <span class="post-date" title="2019-08-11 18:25:10">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/常用正则表达式小记/"
+           data-tag="随笔"
+           data-author="" >
+            <span class="post-title" title="常用正则表达式小记">常用正则表达式小记</span>
+            <span class="post-date" title="2019-08-11 18:25:09">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/CDN绕过姿势小结/"
+           data-tag="网络安全"
+           data-author="" >
+            <span class="post-title" title="CDN绕过姿势小结">CDN绕过姿势小结</span>
+            <span class="post-date" title="2019-08-11 18:25:08">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记07/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记07">Linux学习笔记07</span>
+            <span class="post-date" title="2019-08-11 18:25:07">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记06/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记06">Linux学习笔记06</span>
+            <span class="post-date" title="2019-08-11 18:25:06">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记05/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记05">Linux学习笔记05</span>
+            <span class="post-date" title="2019-08-11 18:25:05">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记04/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记04">Linux学习笔记04</span>
+            <span class="post-date" title="2019-08-11 18:25:04">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记03/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记03">Linux学习笔记03</span>
+            <span class="post-date" title="2019-08-11 18:25:03">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记02/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记02">Linux学习笔记02</span>
+            <span class="post-date" title="2019-08-11 18:25:02">2019/08/11</span>
+        </a>
+        
+        <a  class="旧时光 "
+           href="/2019/08/11/Linux学习笔记01/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux学习笔记01">Linux学习笔记01</span>
+            <span class="post-date" title="2019-08-11 18:25:01">2019/08/11</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Linux学习笔记05" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Linux学习笔记05</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="旧时光">旧时光</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color1">Linux</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-08-19 16:47:41'>2019-08-11 18:25</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、OSI参考模型：适用于所有网络，现有模型，后有协议"><span class="toc-text">一、OSI参考模型：适用于所有网络，现有模型，后有协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、TCP-IP网络协议模型：只适用于TCP-IP网络，先有协议，后有模型"><span class="toc-text">二、TCP/IP网络协议模型：只适用于TCP/IP网络，先有协议，后有模型</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、OSI参考模型：适用于所有网络，现有模型，后有协议"><a href="#一、OSI参考模型：适用于所有网络，现有模型，后有协议" class="headerlink" title="一、OSI参考模型：适用于所有网络，现有模型，后有协议"></a>一、OSI参考模型：适用于所有网络，现有模型，后有协议</h2><p>1、应用层：应用程序、用户接口<br>2、表示层：编码转换、压缩、解压、加密等<br>3、会话层：建立、维护、拆除会话<br>4、传输层规定了应用程序的的接口<br>协议：TCP、UDP    PDU：数据段<br>5、网络层：为数据传输选择一条最优路径，采用尽力而为的发送方式<br>工作设备：路由器    PDU：数据包    逻辑地址：IP地址<br>协议：IP、ARP、RARP、ICMP<br>6、数据链路层：使用MAC地址（48位2进制，前24位厂商，后24位为设备地址）传输数据帧<br>工作设备：交换机    协议：ARP、RARP    数据帧格式：<br>7、物理层：介质和信号（双绞线、光线、同轴电缆和模拟信号、数字信号），物理层关心的是电气特性、规程特性、功能特性、物理特性，从数据链路层接收数据转换为bit流，为数据传输提供安全的通信通道<br>【1】交换机功能：<br>自学习：学习源MAC以及进入的接口<br>广播：<br>转发：<br>过滤：<br>更新：<br>【2】数据帧格式：<br>【3】集线器（hub）工作原理：<br>            收到一个bit时，将该bit向其他所有接口传输出去，是一个广播域网，且没有冲突检测<br>【4】路由器：<br>            根据路由表转发数据，分为直连路由、非直连路由<br>            直连路由：为接口配置IP地址并保证UP状态<br>            非直连路由：通过静态指定或动态学习<br>【5】IP协议：<br>版本:4位,标识IP地址的版本,常用的是IPv4和IPv6<br>首部长度:4位,可变长度,根据可选项变化<br>优先级与服务类型:8位,提供第三层的服务质量<br>总长度:16位,IP包头总长度<br>标识符:16位,为分段数据打上标记,方便到目标地址重新组装<br>标志:3位,第一位没有设置,第二位是DF,决定是否分片,0代表部分片,1代表分片;第三位是MF:代表更多的片,只有数据的最后一片值为0<br>段偏移量:13位,代表数据片在整个数据中的位置<br>TTL:8位,生命周期,数据包经过路由器个数,数据包每经过一个路由器,TTL值减一,当TTL值为0时,数据还没有到达目标地址,该数据将被丢弃,一般设置为32或64<br>协议号:8位,标识上层协议号<br>首部校验和:16位,验证发送端和接收端数据的完整性<br>源地址:32的IP地址<br>目标地址:32的IP地址<br>可选项:松散路由 严格路由 路由标记 时间戳<br>填充:把IP包头每行都填充为32位<br>【6】ARP协议：<br>硬件类型<br>协议类型<br>硬件地址长度<br>协议长度<br>Opcode<br>发送方MAC地址<br>发送方IP地址<br>目的MAC地址<br>目的IP地址<br>【7】RARP协议： 逆地址解析协议 RARP 使只知道自己硬件地址的主机能够知道其IP地址<br>【8】ICMP协议：ICMP报文作为IP层数据报的数据,加上数据报的首部,组成 IP 数据报发送出去<br>ICMP报文的前4个字节是统一的格式,共有三个字段：即类型,代码和检验和.接着的4个字节的内容与ICMP的类型有关<br>【9】TCP协议：<br>源端口<br>目的端口<br>序列号<br>指定ack号<br>包头头长度<br>Flags（标志位）：<br>URG:紧急指针有效位,标记紧急数据<br>ACK:确认序列号有效位<br>PSH:通知接收端把数据交给进程,不要在缓冲区中停留<br>RST:请求重新建立三次握手<br>SYN:请求建立三次握手<br>FIN:请求断开连接<br>窗口大小：<br>适当的窗口大小<br>TCP窗口大小比例系数<br>校验和<br>TCP流量控制机制：<br>以消除发送方使接收方缓存溢出的可能性，是一个速度匹配服务，即发送发速率与接收方应用程序的读取速率相匹配。<br>发送方维护一个接收窗口，该接收窗口给发送方指示了接收方还有多少缓存空间剩余<br>发送方：LastSent-LastAcked≤rwnd(接收窗口)<br>接收方：LastRcvd-LastRead≤RcvBuffer<br>TCP拥塞控制：<br> 在发送方新增一个额外变量 cwnd(拥塞窗口)，LastSent-LastAcked≤min{ cwnd, rwnd}<br>TCP拥塞控制算法：<br>    慢启动<br>    拥塞避免<br>    快速恢复<br>总结:线性增，乘性减<br>TCP差错控制：<br>三个简单工具：<br>    检验和<br>    确认<br>    超时<br>TCP时间计时器：<br>重传计时器<br>坚持计时器： 解决零窗口大小通知可能导致的死锁问题，发送端建立该计时器<br>保活计时器： 为了防止两个TCP连接出现长时间的空闲。当客户端与服务器端建立TCP连接后，很长时间内客户端都没有向服务器端发送数据，服务端建立保活计时器。<br>时间等待计时器： 连接终止期间使用，先断开连接的一方建立<br>【10】UDP协议：     </p>
+<h2 id="二、TCP-IP网络协议模型：只适用于TCP-IP网络，先有协议，后有模型"><a href="#二、TCP-IP网络协议模型：只适用于TCP-IP网络，先有协议，后有模型" class="headerlink" title="二、TCP/IP网络协议模型：只适用于TCP/IP网络，先有协议，后有模型"></a>二、TCP/IP网络协议模型：只适用于TCP/IP网络，先有协议，后有模型</h2><pre><code>1、应用层
+2、传输层
+3、网络层
+4、数据链路层
+5、物理层</code></pre>
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 837184696@qq.com </span>
+    </div>
+</article>
+
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Linux学习笔记05</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Huang ZhenYu">Huang ZhenYu</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-08-11, 18:25:05</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-19, 16:47:41</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/11/Linux学习笔记05/" title="Linux学习笔记05">http://blog.huangzhenyu.net/2019/08/11/Linux学习笔记05/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2019 Huang ZhenYu</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#网络安全','#Linux','#漏洞复现','#随笔',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
