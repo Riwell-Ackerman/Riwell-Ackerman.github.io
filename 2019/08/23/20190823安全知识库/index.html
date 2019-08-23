@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>20190805安全知识库 | Huang ZhenYu</title>
+  <title>20190823安全知识库 | Huang ZhenYu</title>
   <meta name="keywords" content=" 网络安全 ">
-  <meta name="description" content="20190805安全知识库 | Huang ZhenYu">
+  <meta name="description" content="20190823安全知识库 | Huang ZhenYu">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Security Information   Name    Webmin（CVE-2019-15107）远程代码执行漏洞之backdoor探究   LAN内利用ARP流量的VID Tag传输数据   Pitou的虚拟DGA算法分析（二）   Stack Pivoting 新姿势 —— off by one   Compressed Token Format渗透笔记   8月22日每日安全热点 -">
 <meta name="keywords" content="网络安全">
@@ -602,9 +602,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-20190805安全知识库" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-20190823安全知识库" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">20190805安全知识库</h1>
+        <h1 class="article-title">20190823安全知识库</h1>
     
     <div class="article-meta">
         
@@ -626,7 +626,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-19 16:47:41'>2019-08-13 22:08</time>
+        创建时间:<time class="date" title='更新时间: 2019-08-23 13:18:11'>2019-08-23 13:17</time>
         
     </div>
     <div class="article-meta">
@@ -648,7 +648,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vulnerability-Warning"><span class="toc-text">Vulnerability Warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Information"><span class="toc-text">Security Information</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Technology"><span class="toc-text">Security  Technology</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Others"><span class="toc-text">Security  Others</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Information"><span class="toc-text">Security Information</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Technology"><span class="toc-text">Security  Technology</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Others"><span class="toc-text">Security  Others</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -663,138 +663,95 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Vulnerability-Warning"><a href="#Vulnerability-Warning" class="headerlink" title="Vulnerability Warning"></a>Vulnerability Warning</h3><table>
+        <h3 id="Security-Information"><a href="#Security-Information" class="headerlink" title="Security Information"></a>Security Information</h3><table>
 <thead>
 <tr>
 <th align="center">Name</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98053" target="_blank" rel="noopener">z-blog 1.5.2.1935安装处任意文件读取</a></td>
+<td align="center"><a href="https://www.anquanke.com/post/id/184764" target="_blank" rel="noopener">Webmin（CVE-2019-15107）远程代码执行漏洞之backdoor探究</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98052" target="_blank" rel="noopener">wordpress 5.2.2 安装处任意文件读取</a></td>
+<td align="center"><a href="https://www.anquanke.com/post/id/184519" target="_blank" rel="noopener">LAN内利用ARP流量的VID Tag传输数据</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98051" target="_blank" rel="noopener">php3.2.7 安装处任意文件读取</a></td>
+<td align="center"><a href="https://www.anquanke.com/post/id/184740" target="_blank" rel="noopener">Pitou的虚拟DGA算法分析（二）</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98050" target="_blank" rel="noopener">ecshop v4.0.0 后台任意文件读取</a></td>
+<td align="center"><a href="https://www.anquanke.com/post/id/183873" target="_blank" rel="noopener">Stack Pivoting 新姿势 —— off by one</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98048" target="_blank" rel="noopener">mediaWiki 1.32.0 安装处任意文件读取</a></td>
+<td align="center"><a href="https://www.anquanke.com/post/id/184419" target="_blank" rel="noopener">Compressed Token Format渗透笔记</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98047" target="_blank" rel="noopener">Empire cms安装处任意文件读取</a></td>
+<td align="center"><a href="https://www.anquanke.com/post/id/184720" target="_blank" rel="noopener">8月22日每日安全热点 - DEFCON2019：SIEM实现情报驱动威胁检测</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98046" target="_blank" rel="noopener">PHPCMS后台任意文件读取可导致SSRF</a></td>
+<td align="center"><a href="https://www.secpulse.com/archives/111016.html" target="_blank" rel="noopener">ClamAV+Falco，助你高效检测挖矿Docker</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98045" target="_blank" rel="noopener">dz x3.4 后台任意文件读取可导致任意用户密码重置或getshell</a></td>
+<td align="center"><a href="https://www.secpulse.com/archives/111034.html" target="_blank" rel="noopener">极客世界 极致字节—Byte CTF 字节跳动网络安全攻防大赛即将打响</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98044" target="_blank" rel="noopener">DedeCMS 后台存在SSRF漏洞</a></td>
+<td align="center"><a href="http://blog.nsfocus.net/cve-2019-5032-5033-5041/" target="_blank" rel="noopener">【威胁通告】Aspose远程代码执行漏洞 （CVE-2019-5032/5033/5041）</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.seebug.org/vuldb/ssvid-98043" target="_blank" rel="noopener">django 多个漏洞(CVE-2019-14232、CVE-2019-14233、CVE-2019-14234、CVE-2019-14235)</a></td>
+<td align="center"><a href="http://blog.nsfocus.net/cve-2019-1912cve-2019-1913cve-2019-1974cve-2019-1938cve-2019-1935cve-2019-1937/" target="_blank" rel="noopener">【威胁通告】Cisco 多款产品高危漏洞</a></td>
 </tr>
 <tr>
-<td align="center"><a href="http://0day.today/exploits/33071" target="_blank" rel="noopener">#0daytoday #Sar2HTML 3.2.1 - Remote Command Execution Exploit #RCE  [webapps #exploits  #0day #Exploit]</a></td>
+<td align="center"><a href="https://www.zdnet.com/article/employees-connect-nuclear-plant-to-the-internet-so-they-can-mine-cryptocurrency/#ftag=RSSbaffb68" target="_blank" rel="noopener">Employees connect nuclear plant to the internet so they can mine cryptocurrency</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.exploit-db.com/exploits/47206" target="_blank" rel="noopener">[webapps] 1CRM On-Premise Software 8.5.7 - Persistent Cross-Site Scripting</a></td>
+<td align="center"><a href="https://www.zdnet.com/article/valve-patches-recent-steam-zero-days-calls-turning-away-researcher-a-mistake/#ftag=RSSbaffb68" target="_blank" rel="noopener">Valve patches recent Steam zero-days, calls turning away researcher ‘a mistake’</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.exploit-db.com/exploits/47205" target="_blank" rel="noopener">[webapps] Rest - Cafe and Restaurant Website CMS - ‘slug’ SQL Injection</a></td>
+<td align="center"><a href="https://www.zdnet.com/article/chrome-devs-propose-privacy-sandbox-to-balance-ad-targeting-user-privacy/#ftag=RSSbaffb68" target="_blank" rel="noopener">Chrome devs propose Privacy Sandbox to balance ad targeting and user privacy</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.exploit-db.com/exploits/47204" target="_blank" rel="noopener">[webapps] Sar2HTML 3.2.1 - Remote Command Execution</a></td>
-</tr>
-</tbody></table>
-<h3 id="Security-Information"><a href="#Security-Information" class="headerlink" title="Security Information"></a>Security Information</h3><table>
-<thead>
-<tr>
-<th align="center">Name</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><a href="https://www.anquanke.com/post/id/177120" target="_blank" rel="noopener">议题公布  2019第四届SSC安全峰会</a></td>
+<td align="center"><a href="https://www.zdnet.com/article/uk-cybersecurity-agency-warns-devs-to-drop-python-2-due-to-looming-eol-security-risks/#ftag=RSSbaffb68" target="_blank" rel="noopener">UK cybersecurity agency warns devs to drop Python 2 due to looming EOL &amp; security risks</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.anquanke.com/post/id/183329" target="_blank" rel="noopener">Typo3 CVE-2019-12747 反序列化漏洞分析</a></td>
+<td align="center"><a href="https://www.zdnet.com/article/open-source-spyware-makes-it-on-the-google-play-store/#ftag=RSSbaffb68" target="_blank" rel="noopener">Open-source spyware makes it on the Google Play Store</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.anquanke.com/post/id/183307" target="_blank" rel="noopener">基于Unicorn和LibFuzzer的模拟执行fuzzing</a></td>
+<td align="center"><a href="https://www.zdnet.com/article/five-charged-over-fraud-swindling-of-us-military-personnel-and-veterans/#ftag=RSSbaffb68" target="_blank" rel="noopener">US military veterans swindled out of millions by former army employee</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.anquanke.com/post/id/183237" target="_blank" rel="noopener">HackTheBox HackBack渗透笔记</a></td>
+<td align="center"><a href="https://linux.cn/article-11260-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">GitHub 现在支持安全密钥和生物识别选项进行身份验证</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.anquanke.com/post/id/183197" target="_blank" rel="noopener">最新fastjson反序列化漏洞分析</a></td>
+<td align="center"><a href="https://linux.cn/article-11259-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">在 Linux 中复制文档</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.anquanke.com/post/id/183238" target="_blank" rel="noopener">如何利用服务器源IP绕过Cloudflare WAF</a></td>
+<td align="center"><a href="https://linux.cn/article-11258-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何更改 Linux 控制台字体类型和大小</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.anquanke.com/post/id/183294" target="_blank" rel="noopener">8月2日每日安全热点 - 思科支付860万美元解决软件缺陷索赔</a></td>
+<td align="center"><a href="https://linux.cn/article-11257-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">11 个 Ruby 库被植入挖矿后门代码，删除前已被下载 3584 次</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.secpulse.com/archives/110146.html" target="_blank" rel="noopener">2019年上半年网络安全态势报告</a></td>
+<td align="center"><a href="https://linux.cn/article-11256-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何自定义 GNOME 3 桌面？</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.secpulse.com/archives/109575.html" target="_blank" rel="noopener">网络安全状况月度报告-2019年6月</a></td>
+<td align="center"><a href="https://www.freebuf.com/articles/web/210449.html" target="_blank" rel="noopener">一种新的分词方法在机器学习中的应用</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.zdnet.com/article/germanwiper-ransomware-hits-germany-hard-destroys-files-asks-for-ransom/#ftag=RSSbaffb68" target="_blank" rel="noopener">GermanWiper ransomware hits Germany hard, destroys files, asks for ransom</a></td>
+<td align="center"><a href="https://www.freebuf.com/sectool/208942.html" target="_blank" rel="noopener">Project-Black：渗透中进行Scope控制或扫描和进度追踪的工具</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.zdnet.com/article/google-project-zero-95-8-of-all-bug-reports-are-fixed-before-deadline-expires/#ftag=RSSbaffb68" target="_blank" rel="noopener">Google Project Zero: 95.8% of all bug reports are fixed before deadline expires</a></td>
+<td align="center"><a href="https://www.freebuf.com/articles/others-articles/211580.html" target="_blank" rel="noopener">CISSP认证介绍及学习历程分享</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.zdnet.com/article/dealply-adware-abuses-microsoft-mcafee-services-to-evade-detection/#ftag=RSSbaffb68" target="_blank" rel="noopener">DealPly adware abuses Microsoft, McAfee services to evade detection</a></td>
+<td align="center"><a href="https://www.freebuf.com/articles/network/210709.html" target="_blank" rel="noopener">Trickbot银行木马变种分析</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.zdnet.com/article/suspected-state-sponsored-hacking-group-tried-to-break-into-us-utilities/#ftag=RSSbaffb68" target="_blank" rel="noopener">Suspected state-sponsored hacking group tried to break into US utilities</a></td>
+<td align="center"><a href="https://www.freebuf.com/sectool/210694.html" target="_blank" rel="noopener">论Nmap中一些常用的NSE脚本</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.zdnet.com/article/poshmark-clothing-marketplace-says-hacker-stole-customer-details/#ftag=RSSbaffb68" target="_blank" rel="noopener">Poshmark clothing marketplace says hacker stole customer details</a></td>
+<td align="center"><a href="https://www.freebuf.com/news/212074.html" target="_blank" rel="noopener">FreeBuf早报  11个Ruby库被植入挖矿后门代码，删除前已被下载3584次；大多数IT专业人员发现红队练习比蓝队测试更有效；企业微信通过SOC2Type2审计</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://www.zdnet.com/article/new-windows-malware-sets-up-proxies-on-your-pc-to-relay-malicious-traffic/#ftag=RSSbaffb68" target="_blank" rel="noopener">New Windows malware sets up proxies on your PC to relay malicious traffic</a></td>
-</tr>
-<tr>
-<td align="center"><a href="https://linux.cn/article-11178-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">Debian 10（Buster）安装后要做的前 8 件事</a></td>
-</tr>
-<tr>
-<td align="center"><a href="https://linux.cn/article-11177-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">风河修复了 VxWorks 实时操作系统的 11 个重大安全漏洞</a></td>
-</tr>
-<tr>
-<td align="center"><a href="https://linux.cn/article-11176-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">Linux 内核的持续集成测试</a></td>
-</tr>
-<tr>
-<td align="center"><a href="https://linux.cn/article-11175-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何在 Ubuntu 上安装 MongoDB</a></td>
-</tr>
-<tr>
-<td align="center"><a href="https://www.freebuf.com/vuls/210257.html" target="_blank" rel="noopener">【漏洞预警】Django JSONField，HStoreField SQL注入漏洞</a></td>
-</tr>
-<tr>
-<td align="center"><a href="https://www.freebuf.com/news/210249.html" target="_blank" rel="noopener">本田汽车云端数据库未保护，CEO及全球员工大量资料险遭泄露</a></td>
-</tr>
-<tr>
-<td align="center"><a href="https://www.freebuf.com/articles/network/209252.html" target="_blank" rel="noopener">Slackor：如何将Slack当作你的命令控制服务器</a></td>
-</tr>
-<tr>
-<td align="center"><a href="https://www.freebuf.com/video/210007.html" target="_blank" rel="noopener">【FreeBuf字幕组】CTF难题挑战：滥用异常处理程序以泄漏flag（32C3CTF）</a></td>
-</tr>
-<tr>
-<td align="center"><a href="https://www.freebuf.com/articles/web/208778.html" target="_blank" rel="noopener">AWD攻防赛之各类漏洞FIX方案</a></td>
-</tr>
-<tr>
-<td align="center"><a href="https://www.freebuf.com/articles/network/209254.html" target="_blank" rel="noopener">看我如何用SHerlock跨社交网络查找你的用户名</a></td>
-</tr>
-<tr>
-<td align="center"><a href="https://www.freebuf.com/articles/database/208658.html" target="_blank" rel="noopener">灰色产业链成病毒传播最大渠道，流量生意或迎来最后的疯狂</a></td>
+<td align="center"><a href="https://www.freebuf.com/articles/security-management/209429.html" target="_blank" rel="noopener">如何实现等保2.0合规的跨网文件安全交换？</a></td>
 </tr>
 </tbody></table>
 <h3 id="Security-Technology"><a href="#Security-Technology" class="headerlink" title="Security  Technology"></a>Security  Technology</h3><table>
@@ -804,37 +761,25 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"><a href="http://www.sec-wiki.com/?2019-08-02" target="_blank" rel="noopener">SecWiki News 2019-08-02 Review</a></td>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-08-22" target="_blank" rel="noopener">SecWiki News 2019-08-22 Review</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://paper.seebug.org/1002/" target="_blank" rel="noopener">基于 Unicorn 和 LibFuzzer 的模拟执行 fuzzing</a></td>
+<td align="center"><a href="http://www.kitploit.com/2019/08/poshc2-c2-server-and-implants.html" target="_blank" rel="noopener">PoshC2 - C2 Server and Implants</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://paper.seebug.org/1001/" target="_blank" rel="noopener">Quickjs UAF漏洞分析，利用以及修复</a></td>
+<td align="center"><a href="http://www.kitploit.com/2019/08/hacktronian-all-in-one-hacking-tool-for.html" target="_blank" rel="noopener">Hacktronian - All In One Hacking Tool For Linux &amp; Android</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://paper.seebug.org/999/" target="_blank" rel="noopener">Adobe ColdFusion RCE(CVE-2019-7839) 漏洞分析</a></td>
+<td align="center"><a href="http://xz.aliyun.com/t/6034" target="_blank" rel="noopener">oracle TNS  Listener远程投毒（CVE-2012-1675）漏洞潜析、复现</a></td>
 </tr>
 <tr>
-<td align="center"><a href="https://paper.seebug.org/1000/" target="_blank" rel="noopener">Analysis of Adobe ColdFusion RCE (CVE-2019-7839)</a></td>
+<td align="center"><a href="http://xz.aliyun.com/t/6029" target="_blank" rel="noopener">细说验证码安全 —— 测试思路大梳理</a></td>
 </tr>
 <tr>
-<td align="center"><a href="http://www.kitploit.com/2019/08/msnm-s-multivariate-statistical-network.html" target="_blank" rel="noopener">MSNM-S - Multivariate Statistical Network Monitoring-Sensor</a></td>
+<td align="center"><a href="http://xz.aliyun.com/t/6024" target="_blank" rel="noopener">记一次AWD反杀之旅</a></td>
 </tr>
 <tr>
-<td align="center"><a href="http://www.kitploit.com/2019/08/w13scan-passive-security-scanner.html" target="_blank" rel="noopener">W13Scan - Passive Security Scanner</a></td>
-</tr>
-<tr>
-<td align="center"><a href="http://xz.aliyun.com/t/5848" target="_blank" rel="noopener">基于AST的Webshell检测</a></td>
-</tr>
-<tr>
-<td align="center"><a href="http://xz.aliyun.com/t/5842" target="_blank" rel="noopener">CISCN 2019 Finals EscapeVM（Pwn 2）出题报告</a></td>
-</tr>
-<tr>
-<td align="center"><a href="http://xz.aliyun.com/t/5844" target="_blank" rel="noopener">无脑生成gopher协议利用payload</a></td>
-</tr>
-<tr>
-<td align="center"><a href="http://xz.aliyun.com/t/5843" target="_blank" rel="noopener">物理黑客：点燃你的直发器</a></td>
+<td align="center"><a href="http://xz.aliyun.com/t/6054" target="_blank" rel="noopener">CVE-2019-11707 Writeup</a></td>
 </tr>
 </tbody></table>
 <h3 id="Security-Others"><a href="#Security-Others" class="headerlink" title="Security  Others"></a>Security  Others</h3><table>
@@ -856,12 +801,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>20190805安全知识库</p>
+    <p><span class="copy-title">文章标题:</span>20190823安全知识库</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Huang ZhenYu">Huang ZhenYu</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-08-13, 22:08:36</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-19, 16:47:41</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/13/20190805安全知识库/" title="20190805安全知识库">http://blog.huangzhenyu.net/2019/08/13/20190805安全知识库/</a>
+    <p><span class="copy-title">发布时间:</span>2019-08-23, 13:17:27</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-23, 13:18:11</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/23/20190823安全知识库/" title="20190823安全知识库">http://blog.huangzhenyu.net/2019/08/23/20190823安全知识库/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
