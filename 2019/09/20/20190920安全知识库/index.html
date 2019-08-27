@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>windows7系统下的永恒之蓝MS17-010漏洞简单复现 | Huang ZhenYu</title>
-  <meta name="keywords" content=" 漏洞复现 ">
-  <meta name="description" content="windows7系统下的永恒之蓝MS17-010漏洞简单复现 | Huang ZhenYu">
+  <title>20190920安全知识库 | Huang ZhenYu</title>
+  <meta name="keywords" content=" 网络安全 ">
+  <meta name="description" content="20190920安全知识库 | Huang ZhenYu">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Vulnerability Warning   Name    [webapps] GOautodial 4.0 - ‘CreateEvent’ Persistent Cross-Site Scripting   [webapps] DIGIT CENTRIS 4 ERP - ‘datum1’ SQL Injection   [local] macOS 18.7.0 Kernel - Local">
 <meta name="keywords" content="网络安全">
@@ -694,9 +694,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-windows7系统下的永恒之蓝MS17-010漏洞简单复现" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-20190920安全知识库" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">windows7系统下的永恒之蓝MS17-010漏洞简单复现</h1>
+        <h1 class="article-title">20190920安全知识库</h1>
     
     <div class="article-meta">
         
@@ -704,21 +704,21 @@
         
         <span class="book">
             
-                <a href="javascript:" data-rel="大Kali">大Kali</a>
+                <a href="javascript:" data-rel="安全知识库">安全知识库</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a href="javascript:" class="color5">漏洞复现</a>
+            <a href="javascript:" class="color5">网络安全</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-19 16:47:41'>2019-08-17 11:23</time>
+        创建时间:<time class="date" title='更新时间: 2019-08-27 21:27:38'>2019-09-20 21:26</time>
         
     </div>
     <div class="article-meta">
@@ -740,7 +740,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一：漏洞简介"><span class="toc-text">一：漏洞简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-漏洞描述："><span class="toc-text">1.漏洞描述：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-漏洞影响："><span class="toc-text">2.漏洞影响：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二：漏洞复现"><span class="toc-text">二：漏洞复现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1：环境准备"><span class="toc-text">1：环境准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2：信息收集"><span class="toc-text">2：信息收集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-尝试攻击"><span class="toc-text">3.尝试攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#（1）查看漏洞模块——search-ms17-010"><span class="toc-text">（1）查看漏洞模块——search ms17-010</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（2）先使用辅助扫描模块测试-use-auxiliary-scanner-smb-smb-ms17-010"><span class="toc-text">（2）先使用辅助扫描模块测试 use auxiliary/scanner/smb/smb_ms17_010</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（3）再使用攻击模块进行攻击-use-exploit-windows-smb-ms17-010-eternalblue"><span class="toc-text">（3）再使用攻击模块进行攻击 use exploit/windows/smb/ms17_010_eternalblue</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#①：表示永恒之蓝覆盖成功完成"><span class="toc-text">①：表示永恒之蓝覆盖成功完成</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#②：目标主机和攻击机建立了一个shell连接，会话为session-1"><span class="toc-text">②：目标主机和攻击机建立了一个shell连接，会话为session 1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#③：得到一个meterpreter会话，尝试获取shell成功"><span class="toc-text">③：得到一个meterpreter会话，尝试获取shell成功</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#④：在meterpreter会话下输入whoami就能获得目标主机的信息"><span class="toc-text">④：在meterpreter会话下输入whoami就能获得目标主机的信息</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三：漏洞修复"><span class="toc-text">三：漏洞修复</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、下载补丁地址"><span class="toc-text">1、下载补丁地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、添加入站规则"><span class="toc-text">2、添加入站规则</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vulnerability-Warning"><span class="toc-text">Vulnerability Warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Information"><span class="toc-text">Security Information</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Technology"><span class="toc-text">Security  Technology</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Others"><span class="toc-text">Security  Others</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -755,16 +755,169 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="一：漏洞简介"><a href="#一：漏洞简介" class="headerlink" title="一：漏洞简介"></a>一：漏洞简介</h2><h4 id="1-漏洞描述："><a href="#1-漏洞描述：" class="headerlink" title="1.漏洞描述："></a>1.漏洞描述：</h4><p>永恒之蓝通过TCP端口445和139来利用远程代码执行漏洞，恶意代码会扫描开放445文件共享端口的Windows机器，无需用户任何操作，只要开机上网，不法分子就能在电脑和服务器中植入勒索软件、远程控制木马、虚拟货币挖矿机等恶意程序。</p>
-<h4 id="2-漏洞影响："><a href="#2-漏洞影响：" class="headerlink" title="2.漏洞影响："></a>2.漏洞影响：</h4><p>目前已知受影响的 Windows 版本包括但不限于：Windows NT，Windows 2000、Windows XP、Windows 2003、Windows Vista、Windows 7、Windows 8，Windows 2008、Windows 2008 R2、Windows Server 2012 SP0。普遍得很，只要不做相应防护措施，就容易中招。。。</p>
-<h2 id="二：漏洞复现"><a href="#二：漏洞复现" class="headerlink" title="二：漏洞复现"></a>二：漏洞复现</h2><h4 id="1：环境准备"><a href="#1：环境准备" class="headerlink" title="1：环境准备"></a>1：环境准备</h4><p>攻击机： Kali         IP：192.168.88.129<br><img src="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/kali.png" alt="kali"><br>靶机： windows7  　　　IP：192.168.88.131<br><img src="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/%E9%9D%B6%E6%9C%BA.png" alt="windows7"></p>
-<h4 id="2：信息收集"><a href="#2：信息收集" class="headerlink" title="2：信息收集"></a>2：信息收集</h4><p>metasploit启动，这里使用nmap扫描端口：<br><img src="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/metasploit%E5%90%AF%E5%8A%A8.png" alt="metasploit启动"><br><img src="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/nmap%E6%89%AB%E7%AB%AF%E5%8F%A3.png" alt="nmap扫端口"><br>该有的端口都开了，可以尝试使用ms17-010（永恒之蓝）来攻击。</p>
-<h4 id="3-尝试攻击"><a href="#3-尝试攻击" class="headerlink" title="3.尝试攻击"></a>3.尝试攻击</h4><h5 id="（1）查看漏洞模块——search-ms17-010"><a href="#（1）查看漏洞模块——search-ms17-010" class="headerlink" title="（1）查看漏洞模块——search ms17-010"></a>（1）查看漏洞模块——search ms17-010</h5><p><img src="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/%E6%90%9C%E7%B4%A2%E6%A8%A1%E5%9D%97.png" alt="搜索模块"></p>
-<h5 id="（2）先使用辅助扫描模块测试-use-auxiliary-scanner-smb-smb-ms17-010"><a href="#（2）先使用辅助扫描模块测试-use-auxiliary-scanner-smb-smb-ms17-010" class="headerlink" title="（2）先使用辅助扫描模块测试 use auxiliary/scanner/smb/smb_ms17_010"></a>（2）先使用辅助扫描模块测试 use auxiliary/scanner/smb/smb_ms17_010</h5><p>扫描结果显示该主机很容易受到ms17-010的攻击<br><img src="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/%E5%85%88%E4%BD%BF%E7%94%A8%E8%BE%85%E5%8A%A9%E6%89%AB%E6%8F%8F%E6%A8%A1%E5%9D%97%E6%B5%8B%E8%AF%95.png" alt="先使用辅助扫描模块测试"></p>
-<h5 id="（3）再使用攻击模块进行攻击-use-exploit-windows-smb-ms17-010-eternalblue"><a href="#（3）再使用攻击模块进行攻击-use-exploit-windows-smb-ms17-010-eternalblue" class="headerlink" title="（3）再使用攻击模块进行攻击 use exploit/windows/smb/ms17_010_eternalblue"></a>（3）再使用攻击模块进行攻击 use exploit/windows/smb/ms17_010_eternalblue</h5><p><img src="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/%E4%BD%BF%E7%94%A8%E6%94%BB%E5%87%BB%E6%A8%A1%E5%9D%97%E8%BF%9B%E8%A1%8C%E6%94%BB%E5%87%BB.png" alt="使用攻击模块进行攻击"><br><img src="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/%E8%AE%BE%E7%BD%AEhost.png" alt="设置host"><br>set payload ：设置payload<br>show options ：列出使用当前模块所需呀配置的参数<br>set RHOST ：设置要攻击的目标主机地址<br>set LHOST ：设置攻击机的地址，使目标主机回连至攻击机<br>set LPORT ：设置目标主机回连至攻击机的端口，默认为4444<br>run：开始攻击<br>攻击成功后攻击机和目标主机之间会建立一个连接，得到一个meterpreter会话<br><img src="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/%E5%8F%8D%E5%BC%B9shell%E6%89%A7%E8%A1%8Cwhoami.png" alt="反弹shell执行whoami"><br>自上而下解释一下：</p>
-<h6 id="①：表示永恒之蓝覆盖成功完成"><a href="#①：表示永恒之蓝覆盖成功完成" class="headerlink" title="①：表示永恒之蓝覆盖成功完成"></a>①：表示永恒之蓝覆盖成功完成</h6><h6 id="②：目标主机和攻击机建立了一个shell连接，会话为session-1"><a href="#②：目标主机和攻击机建立了一个shell连接，会话为session-1" class="headerlink" title="②：目标主机和攻击机建立了一个shell连接，会话为session 1"></a>②：目标主机和攻击机建立了一个shell连接，会话为session 1</h6><h6 id="③：得到一个meterpreter会话，尝试获取shell成功"><a href="#③：得到一个meterpreter会话，尝试获取shell成功" class="headerlink" title="③：得到一个meterpreter会话，尝试获取shell成功"></a>③：得到一个meterpreter会话，尝试获取shell成功</h6><h6 id="④：在meterpreter会话下输入whoami就能获得目标主机的信息"><a href="#④：在meterpreter会话下输入whoami就能获得目标主机的信息" class="headerlink" title="④：在meterpreter会话下输入whoami就能获得目标主机的信息"></a>④：在meterpreter会话下输入whoami就能获得目标主机的信息</h6><p>查看ip：<br><img src="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/%E6%9F%A5%E7%9C%8Bip.png" alt="查看ip"><br>查看文件：<br><img src="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6.png" alt="查看文件"></p>
-<h2 id="三：漏洞修复"><a href="#三：漏洞修复" class="headerlink" title="三：漏洞修复"></a>三：漏洞修复</h2><h4 id="1、下载补丁地址"><a href="#1、下载补丁地址" class="headerlink" title="1、下载补丁地址"></a>1、下载补丁地址</h4><p><a href="http://www.catalog.update.microsoft.com/search.aspx?q=补丁编号" target="_blank" rel="noopener">http://www.catalog.update.microsoft.com/search.aspx?q=补丁编号</a><br>（根据自己的系统版本在上图中查找补丁编号，如：<a href="http://www.catalog.update.microsoft.com/search.aspx?q=Windows）" target="_blank" rel="noopener">http://www.catalog.update.microsoft.com/search.aspx?q=Windows）</a> </p>
-<h4 id="2、添加入站规则"><a href="#2、添加入站规则" class="headerlink" title="2、添加入站规则"></a>2、添加入站规则</h4><p>关闭445、135、137、138、139端口</p>
+        <h3 id="Vulnerability-Warning"><a href="#Vulnerability-Warning" class="headerlink" title="Vulnerability Warning"></a>Vulnerability Warning</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47402" target="_blank" rel="noopener">[webapps] GOautodial 4.0 - ‘CreateEvent’ Persistent Cross-Site Scripting</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47401" target="_blank" rel="noopener">[webapps] DIGIT CENTRIS 4 ERP - ‘datum1’ SQL Injection</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47400" target="_blank" rel="noopener">[local] macOS 18.7.0 Kernel - Local Privilege Escalation</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47399" target="_blank" rel="noopener">[webapps] Western Digital My Book World II NAS 1.02.12 - Authentication Bypass / Command Execution</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Information"><a href="#Security-Information" class="headerlink" title="Security Information"></a>Security Information</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186764" target="_blank" rel="noopener">公有云容器市场发展及安全问题</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186185" target="_blank" rel="noopener">护网杯 2019 pwn flower 详解</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186995" target="_blank" rel="noopener">网络战“魔爪”侵染移动安全领域上演SIM卡漏洞之战</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186952" target="_blank" rel="noopener">揭密某款在暗网上售卖的勒索病毒</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186976" target="_blank" rel="noopener">微软收购Semmle GitHub成CVE编号授权机构</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186708" target="_blank" rel="noopener">Windows Execution Aliases机制分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186954" target="_blank" rel="noopener">9月19日每日安全热点 - 沙特阿拉伯IT供应商可能存在供应链攻击</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/112823.html" target="_blank" rel="noopener">Windows远程桌面服务漏洞（CVE-2019-0708）复现测试</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/112795.html" target="_blank" rel="noopener">窃取加密货币的新型木马：InnfiRAT</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/google-removes-two-chrome-ad-blocker-extensions-caught-cookie-stuffing/#ftag=RSSbaffb68" target="_blank" rel="noopener">Google removes two Chrome ad blocker extensions caught ‘cookie stuffing’</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/two-arrested-in-10-million-tech-support-scheme-that-preyed-on-the-elderly/#ftag=RSSbaffb68" target="_blank" rel="noopener">Two arrested in $10 million tech support scheme that ‘preyed on the elderly’</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/two-years-later-hackers-are-still-breaching-local-government-payment-portals/#ftag=RSSbaffb68" target="_blank" rel="noopener">Two years later, hackers are still breaching local government payment portals</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/old-magecart-domains-reincarnated-in-new-attacks/#ftag=RSSbaffb68" target="_blank" rel="noopener">Old Magecart web domains resurrected for fraudulent ad schemes</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/smart-tvs-send-user-data-to-tech-heavyweights-including-facebook-google-netflix/#ftag=RSSbaffb68" target="_blank" rel="noopener">Smart TVs send user data to tech heavyweights including Facebook, Google, Netflix</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/patch-now-1300-harbor-cloud-registries-open-to-attack/#ftag=RSSbaffb68" target="_blank" rel="noopener">Patch now: 1,300 Harbor cloud registries open to attack</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/ubisoft-to-send-out-cease-desist-legal-letters-to-ddos-for-hire-services/#ftag=RSSbaffb68" target="_blank" rel="noopener">Ubisoft to send out cease &amp; desist requests to DDoS-for-hire services</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11361-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">卡巴斯基实验室：3 天里收集到了 100 万个新病毒样本</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11360-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何查看 Linux Mint 版本号和代号</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11359-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何在 Linux Mint 中更换主题</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11358-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">Richard Stallman 被迫辞去 FSF 主席的职务</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/web/213905.html" target="_blank" rel="noopener">冰蝎动态二进制加密WebShell特征分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/open/214777.html" target="_blank" rel="noopener">精品公开课  XSS从0到1  WEB安全基础课程</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/vuls/214767.html" target="_blank" rel="noopener">漏洞预警  Harbor任意管理员注册漏洞</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/213459.html" target="_blank" rel="noopener">用Windows打造自己精简便捷的渗透工具集</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/system/213036.html" target="_blank" rel="noopener">在满补丁的Win10域主机上绕过图形接口依赖实现本地提权</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/security-management/214692.html" target="_blank" rel="noopener">Gartner 2019年人工智能成熟度曲线的超前趋势</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/terminal/213962.html" target="_blank" rel="noopener">Donot APT组织（肚脑虫）伪装克什米尔新闻APP的攻击活动分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/214672.html" target="_blank" rel="noopener">FreeBuf早报  Microsoft网络钓鱼页面利用JavaScript发送虚假登录；沙特IT企业供应链可能成为Tortoiseshell集团的攻击目标；爬虫技术公司被查引行业反思，消费金融平台风控再造</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/others-articles/213744.html" target="_blank" rel="noopener">一个邮箱账号的展开式</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/213578.html" target="_blank" rel="noopener">网络犯罪分子采取新策略，勒索软件增长超118％</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Technology"><a href="#Security-Technology" class="headerlink" title="Security  Technology"></a>Security  Technology</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-09-19" target="_blank" rel="noopener">SecWiki News 2019-09-19 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://paper.seebug.org/1036/" target="_blank" rel="noopener">D-Link DIR-816 A2路由器安全研究分享</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/pixload-image-payload-creatinginjecting.html" target="_blank" rel="noopener">Pixload - Image Payload Creating/Injecting Tools</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/dolos-cloak-automated-8021x-bypass.html" target="_blank" rel="noopener">Dolos Cloak - Automated 802.1X Bypass</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6342" target="_blank" rel="noopener">pwn学习系列之double free</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6341" target="_blank" rel="noopener">Stealing JWTs in localStorage via XSS</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6357" target="_blank" rel="noopener">[红日安全]Web安全Day5 - 任意文件上传实战攻防</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6369" target="_blank" rel="noopener">利用Python开源工具部署自己的恶意代码自动化（一）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6364" target="_blank" rel="noopener">dl-resolve浅析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6362" target="_blank" rel="noopener">漏洞挖掘：从受限的上传漏洞到储存型XSS</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Others"><a href="#Security-Others" class="headerlink" title="Security  Others"></a>Security  Others</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://weibo.com/p/1006065582522936/wenzhang?from=page_100606_profile&wvr=6&mod=wenzhangmore" target="_blank" rel="noopener">玄武实验室每日更新</a></td>
+</tr>
+</tbody></table>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 837184696@qq.com </span>
@@ -774,12 +927,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>windows7系统下的永恒之蓝MS17-010漏洞简单复现</p>
+    <p><span class="copy-title">文章标题:</span>20190920安全知识库</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Huang ZhenYu">Huang ZhenYu</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-08-17, 11:23:43</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-19, 16:47:41</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/" title="windows7系统下的永恒之蓝MS17-010漏洞简单复现">http://blog.huangzhenyu.net/2019/08/17/windows7系统下的永恒之蓝MS17-010漏洞简单复现/</a>
+    <p><span class="copy-title">发布时间:</span>2019-09-20, 21:26:40</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-27, 21:27:38</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/20/20190920安全知识库/" title="20190920安全知识库">http://blog.huangzhenyu.net/2019/09/20/20190920安全知识库/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
