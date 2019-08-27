@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>服务进程安全控制 | Huang ZhenYu</title>
+  <title>20190904安全知识库 | Huang ZhenYu</title>
   <meta name="keywords" content=" 网络安全 ">
-  <meta name="description" content="服务进程安全控制 | Huang ZhenYu">
+  <meta name="description" content="20190904安全知识库 | Huang ZhenYu">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Vulnerability Warning   Name    Cisco IronPort C350 Header Injection   Cisco Email Security Appliance (IronPort) C160 Host Header Injection   Cisco Data Center Network Manager Unauthenticated Remote C">
 <meta name="keywords" content="网络安全">
@@ -606,9 +606,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-服务进程安全控制" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-20190904安全知识库" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">服务进程安全控制</h1>
+        <h1 class="article-title">20190904安全知识库</h1>
     
     <div class="article-meta">
         
@@ -616,7 +616,7 @@
         
         <span class="book">
             
-                <a href="javascript:" data-rel="旧时光">旧时光</a>
+                <a href="javascript:" data-rel="安全知识库">安全知识库</a>
             
         </span>
         
@@ -630,7 +630,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-19 16:47:42'>2019-08-11 18:25</time>
+        创建时间:<time class="date" title='更新时间: 2019-08-27 20:48:41'>2019-08-27 20:48</time>
         
     </div>
     <div class="article-meta">
@@ -652,7 +652,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Systemd的优势"><span class="toc-text">Systemd的优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Systemd配置文件保存的诸目录："><span class="toc-text">Systemd配置文件保存的诸目录：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vulnerability-Warning"><span class="toc-text">Vulnerability Warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Information"><span class="toc-text">Security Information</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Technology"><span class="toc-text">Security  Technology</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Others"><span class="toc-text">Security  Others</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -667,15 +667,172 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Systemd的优势"><a href="#Systemd的优势" class="headerlink" title="Systemd的优势"></a>Systemd的优势</h2><p>1.并行处理所有服务，加快开机速度：旧init启动脚本是“依序一项项执行启动”模式（类似单序列串行模式），因此不相关的服务也要依次排队等待。但现在我们的CPU是多核心的，可以并行处理多个任务，我们的操作系统也是多任务的，没道理还要让这些本不相关的服务互相等待。systemd就实现了不存在依存关系的服务同时并行启动的能力，这样大大的加快了系统启动的速度。</p>
-<p>2.统一管理，on-demand（按需）启动服务：systemd全部仅有一个systemd服务搭配systemctl指令来处理，不需要额外的指令来支持。不像systemV需要init、chkconfig、service…等等指令。此外，systemd常驻内存，可以按需处理后续的daemon启动任务。</p>
-<p>3.服务依存关系自我检查：systemd可以针对服务的依存关系进行检查，这样管理员就不需要启动了一个服务，要先分析他依存哪些其他服务，检查那些被一寸的服务是否启动，省去了这些麻烦。</p>
-<p>4.根据daemon的功能进行分类：systemd旗下管理的服务非常多；为了理清所有服务的功能，systemd先定义所有的服务为一个服务单位（unit），并将该unit归类到不同的服务类型（type）中。旧的init仅分为stand alone（独立）与super daemon（超级守护进程）其实是不够的；systemd将服务单位（unit）区分为service（系统服务）、socket（套接字服务）、target（多目标服务）、path（目标路径服务）、snapshot（快照服务）、timer（定时服务）等多种不同的类型（type），方便管理员的分类与记忆。</p>
-<p>5.将多个daemons集合成一个群组：如同systemV的init里有个runlevel（运行级别）的特色，systemd也可以将多个功能即成为一个所谓的target项目，这个项目主要用于构建一个操作环境，所以是集合了许多个daemons，即是执行某个target就是执行好多个daemon，共同营建某一种操作环境。</p>
-<p>6.向下兼容旧的init服务脚本：基本上，systemd是可以兼容init启动脚本的。因此，旧的init启动脚本也能够透过systemd来管理。</p>
-<h2 id="Systemd配置文件保存的诸目录："><a href="#Systemd配置文件保存的诸目录：" class="headerlink" title="Systemd配置文件保存的诸目录："></a>Systemd配置文件保存的诸目录：</h2><p>1./usr/lib/systemd/system/：每个服务最主要的启动脚本保存的地方，有点类似于以前的/etc/init.d底下的文件</p>
-<p>2./run/systemd/system/：系统执行过程中产生的服务脚本，它们的优先级要比/usr/lib/systemd/system/高</p>
-<p>3./etc/systemd/system/：管理员依据主机系统的需求所创建的执行脚本，其实这个目录有点像以前的/etc/rc.d/rc5.d/Sxx之类的功能，执行优先级比/run/systemd/system/要高</p>
+        <h3 id="Vulnerability-Warning"><a href="#Vulnerability-Warning" class="headerlink" title="Vulnerability Warning"></a>Vulnerability Warning</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019090027" target="_blank" rel="noopener">Cisco IronPort C350 Header Injection</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019090026" target="_blank" rel="noopener">Cisco Email Security Appliance (IronPort) C160 Host Header Injection</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019090025" target="_blank" rel="noopener">Cisco Data Center Network Manager Unauthenticated Remote Code Execution</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019090021" target="_blank" rel="noopener">Microsoft Outlook Web Access Build 15.1.1591 Header Injection</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019090020" target="_blank" rel="noopener">Cisco IronPort C150 Header Injection</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019090019" target="_blank" rel="noopener">IntelBras TELEFONE IP TIP200/200 LITE 60.61.75.15 Arbitrary File Read</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://msrc-blog.microsoft.com/2019/09/03/bluehat-seattle-2019-call-for-papers-is-now-open/" target="_blank" rel="noopener">BlueHat Seattle 2019 Call for Papers is Now Open!</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://msrc-blog.microsoft.com/2019/09/03/acquiring-a-vhd-to-investigate/" target="_blank" rel="noopener">Acquiring a VHD to Investigate</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47349" target="_blank" rel="noopener">[webapps] FileThingie 2.5.7 - Arbitrary File Upload</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47348" target="_blank" rel="noopener">[remote] Cisco RV110W/RV130(W)/RV215W Routers Management Interface - Remote Command Execution (Metasploit)</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47347" target="_blank" rel="noopener">[remote] Cisco Data Center Network Manager - Unauthenticated Remote Code Execution (Metasploit)</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47346" target="_blank" rel="noopener">[remote] Cisco UCS Director - default scpuser password (Metasploit)</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47345" target="_blank" rel="noopener">[local] ptrace - Sudo Token Privilege Escalation (Metasploit)</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47344" target="_blank" rel="noopener">[local] ktsuss 1.4 - suid Privilege Escalation (Metasploit)</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Information"><a href="#Security-Information" class="headerlink" title="Security Information"></a>Security Information</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/185426" target="_blank" rel="noopener">谈谈对后台登陆页面的渗透测试</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/185423" target="_blank" rel="noopener">Avira Optimizer本地提权漏洞分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/185408" target="_blank" rel="noopener">linux kernel pwn 之 ret2dir 学习</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/185377" target="_blank" rel="noopener">XNUCA 2019 Qualifier的两个web题目writeup</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/185624" target="_blank" rel="noopener">9月3日每日安全热点 - Sodinokibi通过虚假论坛在黑客网站上传播</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/111723.html" target="_blank" rel="noopener">MITRE ATT&amp;CK 框架在终端安全产品的落地与应用</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/111709.html" target="_blank" rel="noopener">【预警】“十二主神”勒索病毒2.0全新升级，明显针对中国大陆</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://blog.nsfocus.net/cve-2019-3394/" target="_blank" rel="noopener">【威胁通报】Confluence本地文件泄露漏洞(CVE-2019-3394)处置手册</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/android-exploits-are-now-worth-more-than-ios-exploits-for-the-first-time/#ftag=RSSbaffb68" target="_blank" rel="noopener">Android exploits are now worth more than iOS exploits for the first time</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/over-47000-supermicro-servers-are-exposing-bmc-ports-on-the-internet/#ftag=RSSbaffb68" target="_blank" rel="noopener">Over 47,000 Supermicro servers are exposing BMC ports on the internet</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/german-bank-loses-eur1-5-million-in-mysterious-cashout-of-emv-cards/#ftag=RSSbaffb68" target="_blank" rel="noopener">German bank loses €1.5 million in mysterious cashout of EMV cards</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11302-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何发现截断的数据项</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11301-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">谷歌发现的 iPhone 攻击者同样也在攻击 Android 和 Windows 系统</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11300-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何在 Linux 上重命名一组文件</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11299-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">五大物联网网络安全错误</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/ics-articles/212283.html" target="_blank" rel="noopener">西门子S7通信过程及重放攻击分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/212130.html" target="_blank" rel="noopener">HiddenEye：带有高级功能的现代钓鱼工具</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/video/213279.html" target="_blank" rel="noopener">【FreeBuf字幕组】Hacker101白帽黑客进阶之路</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/es/213118.html" target="_blank" rel="noopener">默安科技云舒：十五年后，重谈安全开发体系</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/network/212273.html" target="_blank" rel="noopener">电子邮件安全问题分析（二）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/database/213201.html" target="_blank" rel="noopener">谷歌提醒iPhone用户注意数据窃取恶意软件攻击</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/network/212166.html" target="_blank" rel="noopener">WannaMine挖矿木马再活跃，14万台linux系统受攻击广东省为重灾区</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/213160.html" target="_blank" rel="noopener">FreeBuf早报  犯罪团伙给网吧电脑装木马远程挖矿被查获，涉案金额上亿元；华为高管：禁止华为不会让澳大利亚的网络更安全；前苏联遗留水电站吸引大量比特币采矿企业</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/es/211692.html" target="_blank" rel="noopener">钓鱼邮件故事一则与处理方法分享</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/network/211643.html" target="_blank" rel="noopener">浅谈电子数字取证技术</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Technology"><a href="#Security-Technology" class="headerlink" title="Security  Technology"></a>Security  Technology</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-09-03" target="_blank" rel="noopener">SecWiki News 2019-09-03 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://paper.seebug.org/1028/" target="_blank" rel="noopener">Exim UAF Vulnerability Analysis (CVE-2017-16943)</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/mpdns-multi-purpose-dns-server.html" target="_blank" rel="noopener">mpDNS - Multi-Purpose DNS Server</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/ehtools-framework-of-serious-wi-fi.html" target="_blank" rel="noopener">Ehtools - Framework Of Serious Wi-Fi Penetration Tools</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6187" target="_blank" rel="noopener">【实战3】记一次内网中反弹shell的艰难历程</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6172" target="_blank" rel="noopener">弱口令扫描介绍</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Others"><a href="#Security-Others" class="headerlink" title="Security  Others"></a>Security  Others</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://weibo.com/p/1006065582522936/wenzhang?from=page_100606_profile&wvr=6&mod=wenzhangmore" target="_blank" rel="noopener">玄武实验室每日更新</a></td>
+</tr>
+</tbody></table>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 837184696@qq.com </span>
@@ -685,12 +842,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>服务进程安全控制</p>
+    <p><span class="copy-title">文章标题:</span>20190904安全知识库</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Huang ZhenYu">Huang ZhenYu</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-08-11, 18:25:14</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-19, 16:47:42</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/11/服务进程安全控制/" title="服务进程安全控制">http://blog.huangzhenyu.net/2019/08/11/服务进程安全控制/</a>
+    <p><span class="copy-title">发布时间:</span>2019-08-27, 20:48:06</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-27, 20:48:41</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/27/20190904安全知识库/" title="20190904安全知识库">http://blog.huangzhenyu.net/2019/08/27/20190904安全知识库/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
