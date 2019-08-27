@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>SSRF小梳理 | Huang ZhenYu</title>
+  <title>20190827安全知识库 | Huang ZhenYu</title>
   <meta name="keywords" content=" 网络安全 ">
-  <meta name="description" content="SSRF小梳理 | Huang ZhenYu">
+  <meta name="description" content="20190827安全知识库 | Huang ZhenYu">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Vulnerability Warning   Name    [local] Exim 4.87 / 4.91 - Local Privilege Escalation (Metasploit)   [webapps] openITCOCKPIT 3.6.1-2 - Cross-Site Request Forgery   [webapps] WordPress Plugin UserPro 4">
 <meta name="keywords" content="网络安全">
@@ -618,9 +618,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-SSRF小梳理" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-20190827安全知识库" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">SSRF小梳理</h1>
+        <h1 class="article-title">20190827安全知识库</h1>
     
     <div class="article-meta">
         
@@ -628,7 +628,7 @@
         
         <span class="book">
             
-                <a href="javascript:" data-rel="旧时光">旧时光</a>
+                <a href="javascript:" data-rel="安全知识库">安全知识库</a>
             
         </span>
         
@@ -642,7 +642,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-19 16:47:41'>2019-08-11 18:25</time>
+        创建时间:<time class="date" title='更新时间: 2019-08-27 12:56:55'>2019-08-27 12:55</time>
         
     </div>
     <div class="article-meta">
@@ -664,7 +664,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用手段"><span class="toc-text">利用手段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漏洞出现点"><span class="toc-text">漏洞出现点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御方法"><span class="toc-text">防御方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过方法"><span class="toc-text">绕过方法</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Vulnerability-Warning"><span class="toc-text">Vulnerability Warning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Information"><span class="toc-text">Security Information</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Technology"><span class="toc-text">Security  Technology</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Others"><span class="toc-text">Security  Others</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -679,51 +679,173 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>SSRF（Server-Side Request Forgery:服务器端请求伪造）是一种由攻击者构造形成由服务端发起请求的一个安全漏洞。一般情况下，SSRF攻击的目标是从外网无法访问的内部系统。（正是因为它是由服务端发起的，所以它能够请求到与它相连而与外网隔离的内部系统）</p>
-<p>SSRF 形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能且没有对目标地址做过滤与限制。比如从指定URL地址获取网页文本内容，加载指定地址的图片，下载等等。利用的是服务端的请求伪造。ssrf是利用存在缺陷的web应用作为代理攻击远程和本地的服务器。</p>
-<h2 id="利用手段"><a href="#利用手段" class="headerlink" title="利用手段"></a>利用手段</h2><ol>
-<li><p>可以对外网、内网、本地进行端口扫描，某些情况下端口的Banner会回显出来（比如3306的）；</p>
-</li>
-<li><p>攻击运行在内网或本地的有漏洞程序（比如溢出）；</p>
-</li>
-<li><p>可以对内网Web应用进行指纹识别，原理是通过请求默认的文件得到特定的指纹；</p>
-</li>
-<li><p>攻击内网或外网有漏洞的Web应用；</p>
-</li>
-<li><p>使用file:///协议读取本地文件。</p>
-</li>
-</ol>
-<h2 id="漏洞出现点"><a href="#漏洞出现点" class="headerlink" title="漏洞出现点"></a>漏洞出现点</h2><p>1）分享：通过URL地址分享网页内容</p>
-<p>2）转码服务</p>
-<p>3）在线翻译</p>
-<p>4）图片加载与下载：通过URL地址加载或下载图片</p>
-<p>5）图片、文章收藏功能</p>
-<p>6）未公开的api实现以及其他调用URL的功能</p>
-<p>7）从URL关键字中寻找</p>
-<p>share、wap、url、link、src、source、target、u、3g、display、sourceURl、imageURL、domain    </p>
-<h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><p>1,过滤返回信息，验证远程服务器对请求的响应是比较容易的方法。如果web应用是去获取某一种类型的文件。那么在把返回结果展示给用户之前先验证返回的信息是否符合标准。<br>2, 统一错误信息，避免用户可以根据错误信息来判断远端服务器的端口状态。<br>3,限制请求的端口为http常用的端口，比如，80,443,8080,8090。<br>4,黑名单内网ip。避免应用被用来获取获取内网数据，攻击内网。<br>5,禁用不需要的协议。仅仅允许http和https请求。可以防止类似于file:///,gopher://,ftp:// 等引起的问题。</p>
-<p>参考: <a href="http://blog.csdn.net/u011066706/article/details/51175626" target="_blank" rel="noopener">http://blog.csdn.net/u011066706/article/details/51175626</a></p>
-<p>这里有个问题，对于内网如果成千上网的机器，如何做一个限定或过滤或者其他的解决手段？(源于阿里巴巴校招面试)</p>
-<h2 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h2><p>1、@</p>
-<p><a href="http://abc@127.0.0.1" target="_blank" rel="noopener">http://abc@127.0.0.1</a><br>2、添加端口号</p>
-<p><a href="http://127.0.0.1:8080" target="_blank" rel="noopener">http://127.0.0.1:8080</a><br>3、短地址</p>
-<p><a href="http://dwz.cn/11SMa" target="_blank" rel="noopener">http://dwz.cn/11SMa</a><br>4、可以指向任意ip的域名：xip.io</p>
-<pre> <strong> 10.0.0.1</strong>.xip.io   resolves to   10.0.0.1
-  www.<strong>10.0.0.1</strong>.xip.io   resolves to   10.0.0.1
-  mysite.<strong>10.0.0.1</strong>.xip.io   resolves to   10.0.0.1
-  foo.bar.<strong>10.0.0.1</strong>.xip.io   resolves to   10.0.0.1
-5、ip地址转换成进制来访问
+        <h2 id="Vulnerability-Warning"><a href="#Vulnerability-Warning" class="headerlink" title="Vulnerability Warning"></a>Vulnerability Warning</h2><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47307" target="_blank" rel="noopener">[local] Exim 4.87 / 4.91 - Local Privilege Escalation (Metasploit)</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47305" target="_blank" rel="noopener">[webapps] openITCOCKPIT 3.6.1-2 - Cross-Site Request Forgery</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47304" target="_blank" rel="noopener">[webapps] WordPress Plugin UserPro 4.9.32 - Cross-Site Scripting</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47303" target="_blank" rel="noopener">[webapps] WordPress Plugin Import Export WordPress Users 1.3.1 - CSV Injection</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47302" target="_blank" rel="noopener">[webapps] LSoft ListServ &lt; 16.5-2018a - Cross-Site Scripting</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Information"><a href="#Security-Information" class="headerlink" title="Security Information"></a>Security Information</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/185079" target="_blank" rel="noopener">区块链安全入门笔记（九）  慢雾科普</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/185080" target="_blank" rel="noopener">Pulse Secure SSL VPN 漏洞预警</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/185068" target="_blank" rel="noopener">【缺陷周话】第49期：未使用的局部变量</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184858" target="_blank" rel="noopener">kn0ck suctf19 writeup</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184994" target="_blank" rel="noopener">新型勒索病毒NEMTY来袭，GandCrab真的消亡了吗？</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184855" target="_blank" rel="noopener">FRP 内网穿透</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184950" target="_blank" rel="noopener">Steam Windows客户端本地提权漏洞分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184995" target="_blank" rel="noopener">8月26日每日安全热点 - 海湾战争的另一面：信息战</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/111314.html" target="_blank" rel="noopener">日志管理与分析（六）–日志的审核与响应</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/apple-patches-iphone-jailbreaking-bug/#ftag=RSSbaffb68" target="_blank" rel="noopener">Apple patches iPhone jailbreaking bug</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/clickjacking-scripts-found-on-613-popular-sites-academics-say/#ftag=RSSbaffb68" target="_blank" rel="noopener">Clickjacking scripts found on 613 popular sites, academics say</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11271-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">Linux 内核生日快乐 —— 那么你喜欢哪个版本？</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11270-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">查找 Linux 发行版名称、版本和内核详细信息</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11269-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">作案不在地球上，NASA 女航天员在太空盗窃前任银行账户</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/212501.html" target="_blank" rel="noopener">FreeBuf早报  英国网络安全机构督促开发者淘汰 Python 2；微软为Chromium Edge推出除虫赏金项目；数据泄露后 Web托管服务商Hostinger重置1400万用户密码</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/ics-articles/210776.html" target="_blank" rel="noopener">关于IoT安全我有话说</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/es/210180.html" target="_blank" rel="noopener">记一次勒索病毒的攻防</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/210862.html" target="_blank" rel="noopener">用于监控USB设备连接事件的取证工具</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/paper/211311.html" target="_blank" rel="noopener">云顶之役 《2019年上半年云安全趋势报告》正式发布</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/vuls/211095.html" target="_blank" rel="noopener">Hickory智能门锁存在的多个漏洞</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/neopoints/211400.html" target="_blank" rel="noopener">大型互联网组织安全产品研发与落地的一些方法与思考</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/network/210551.html" target="_blank" rel="noopener">“暗度陈仓”病毒分析报告</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/212385.html" target="_blank" rel="noopener">FreeBuf早报  NASA女航天员在太空盗窃前任银行账户；乌克兰核电站雇员擅自偷电挖比特币；国家网信办发布规定，保护儿童个人信息安全</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/vuls/210928.html" target="_blank" rel="noopener">一个任意文件上传漏洞的复现、分析、利用与防御建议</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Technology"><a href="#Security-Technology" class="headerlink" title="Security  Technology"></a>Security  Technology</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-08-26" target="_blank" rel="noopener">SecWiki News 2019-08-26 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://paper.seebug.org/1021/" target="_blank" rel="noopener">腾讯安全：2019上半年企业安全总结</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.4hou.com/technology/19666.html" target="_blank" rel="noopener">通过构造特殊的HTTP包来夹送恶意的HTTP请求（上）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.4hou.com/technology/16803.html" target="_blank" rel="noopener">绕过EDR：构造Office宏欺骗父进程和命令行参数</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/08/4can-open-source-security-tool-to-find.html" target="_blank" rel="noopener">4CAN - Open Source Security Tool to Find Security Vulnerabilities in Modern Cars</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/08/ail-framework-framework-for-analysis-of.html" target="_blank" rel="noopener">AIL Framework - Framework for Analysis of Information Leaks</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6106" target="_blank" rel="noopener">记一次有趣的tp5代码执行</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6075" target="_blank" rel="noopener">基于框架开发的程序的代码审计思路2</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6083" target="_blank" rel="noopener">从国赛决赛的webpwn到Delctf的webpwn学习之旅</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6090" target="_blank" rel="noopener">CVE-2019-12527: Squid 远程命令执行漏洞</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6101" target="_blank" rel="noopener">X-NUCA 2019 线上赛 Writeup By ROIS</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6071" target="_blank" rel="noopener">路由器漏洞挖掘测试环境的搭建之问题总结（二）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6070" target="_blank" rel="noopener">url中的unicode漏洞引发的域名安全问题</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6078" target="_blank" rel="noopener">第一次渗透测试的分享和小结</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6073" target="_blank" rel="noopener">TP Link SR20 ACE漏洞分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6066" target="_blank" rel="noopener">SpiderMonkey 漏洞利用简介（一）</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Others"><a href="#Security-Others" class="headerlink" title="Security  Others"></a>Security  Others</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://weibo.com/p/1006065582522936/wenzhang?from=page_100606_profile&wvr=6&mod=wenzhangmore" target="_blank" rel="noopener">玄武实验室每日更新</a></td>
+</tr>
+</tbody></table>
 
-115.239.210.26 ＝ 16373751032
-
-## 参考资料
-
-http://blog.csdn.net/u011066706/article/details/51175626
-
-http://bobao.360.cn/learning/detail/240.html
-
-http://www.cnblogs.com/s0ky1xd/p/5859049.html
-</pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 837184696@qq.com </span>
     </div>
@@ -732,12 +854,12 @@ http://www.cnblogs.com/s0ky1xd/p/5859049.html
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>SSRF小梳理</p>
+    <p><span class="copy-title">文章标题:</span>20190827安全知识库</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Huang ZhenYu">Huang ZhenYu</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-08-11, 18:25:11</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-19, 16:47:41</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/11/SSRF小梳理/" title="SSRF小梳理">http://blog.huangzhenyu.net/2019/08/11/SSRF小梳理/</a>
+    <p><span class="copy-title">发布时间:</span>2019-08-27, 12:55:40</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-27, 12:56:55</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/27/20190827安全知识库/" title="20190827安全知识库">http://blog.huangzhenyu.net/2019/08/27/20190827安全知识库/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
