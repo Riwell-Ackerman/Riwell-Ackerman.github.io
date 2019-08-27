@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>日志分析与安全 | Huang ZhenYu</title>
+  <title>20190829安全知识库 | Huang ZhenYu</title>
   <meta name="keywords" content=" 网络安全 ">
-  <meta name="description" content="日志分析与安全 | Huang ZhenYu">
+  <meta name="description" content="20190829安全知识库 | Huang ZhenYu">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Vulnerability Warning   Name    openITCOCKPIT 3.6.1-2 Cross-Site Request Forgery   RAR Password Recovery 1.80 User Name and Registration Code Denial of Service   #0daytoday #Jobberbase 2.0 CMS - (jobs">
 <meta name="keywords" content="网络安全">
@@ -574,9 +574,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-日志分析与安全" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-20190829安全知识库" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">日志分析与安全</h1>
+        <h1 class="article-title">20190829安全知识库</h1>
     
     <div class="article-meta">
         
@@ -584,7 +584,7 @@
         
         <span class="book">
             
-                <a href="javascript:" data-rel="旧时光">旧时光</a>
+                <a href="javascript:" data-rel="安全知识库">安全知识库</a>
             
         </span>
         
@@ -598,7 +598,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-19 16:47:42'>2019-08-11 18:25</time>
+        创建时间:<time class="date" title='更新时间: 2019-08-27 20:39:42'>2019-08-27 20:39</time>
         
     </div>
     <div class="article-meta">
@@ -620,7 +620,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#日志为什么重要？"><span class="toc-text">日志为什么重要？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志文件的分类"><span class="toc-text">日志文件的分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在Linux系统中，有三个主要的日志子系统："><span class="toc-text">在Linux系统中，有三个主要的日志子系统：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志保存位置"><span class="toc-text">日志保存位置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户日志"><span class="toc-text">用户日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内核及系统日志"><span class="toc-text">内核及系统日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内核及系统日志-1"><span class="toc-text">内核及系统日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序日志"><span class="toc-text">程序日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志系统审计、运维注意事项"><span class="toc-text">日志系统审计、运维注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志管理策略"><span class="toc-text">日志管理策略</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vulnerability-Warning"><span class="toc-text">Vulnerability Warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Information"><span class="toc-text">Security Information</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Technology"><span class="toc-text">Security  Technology</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Others"><span class="toc-text">Security  Others</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -635,71 +635,173 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="日志为什么重要？"><a href="#日志为什么重要？" class="headerlink" title="日志为什么重要？"></a>日志为什么重要？</h2><p>1.用于记录系统、程序运行中发生的各种事件</p>
-<p>2.通过阅读日志，有助于诊断和解决系统故障</p>
-<p>3.是审计的基础</p>
-<h2 id="日志文件的分类"><a href="#日志文件的分类" class="headerlink" title="日志文件的分类"></a>日志文件的分类</h2><p>1.内核及系统日志：有系统服务rsyslogd统一进行管理，日志格式基本相似</p>
-<p>2.用户日志：记录系统用户登录及退出系统的相关信息</p>
-<p>3.程序日志：由各种应用程序独立管理的日志文件，记录格式不统一</p>
-<h2 id="在Linux系统中，有三个主要的日志子系统："><a href="#在Linux系统中，有三个主要的日志子系统：" class="headerlink" title="在Linux系统中，有三个主要的日志子系统："></a>在Linux系统中，有三个主要的日志子系统：</h2><p>1.链接事件日志：由多个程序执行，把记录写入到/var/log/wtmp和/war/run/utmp,login等程序会更新wtmp和utmp文件，使系统管理员能够跟踪谁在何时登录到系统</p>
-<p>2.进程统计：由系统内核执行，当一个进程终止时，为每个进程往进程统计文件中写一个记录。进程统计的目的是为系统中的基本服务命令使用统计。</p>
-<p>3.错误日志：由rsyslogd守护程序执行，各种系统守护进程、用户程序和内核通过rsyslogd守护程序向文件/var/log/messages报告值得注意的事件。另外有许多Linux程序创建日志。像HTTP和FTP这样提供网路服务的服务器也保持详细的日志。</p>
-<h2 id="日志保存位置"><a href="#日志保存位置" class="headerlink" title="日志保存位置"></a>日志保存位置</h2><p>1.默认位置：/var/log 目录下</p>
-<p>主要日志文件介绍</p>
-<p>1.内核及公共消息日志： /var/log/messages</p>
-<p>2.计划任务日志：/var/log/cron</p>
-<p>3.系统引导日志：/var/log/dmesg</p>
-<p>4.邮件系统日志：/var/log/maillog</p>
-<p>5.用户登录日志：/var/log/lastlog（最近的用户登录事件）</p>
-<pre><code>/var/log/secure（用户验证相关的安全性事件）
+        <h3 id="Vulnerability-Warning"><a href="#Vulnerability-Warning" class="headerlink" title="Vulnerability Warning"></a>Vulnerability Warning</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019080143" target="_blank" rel="noopener">openITCOCKPIT 3.6.1-2 Cross-Site Request Forgery</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019080142" target="_blank" rel="noopener">RAR Password Recovery 1.80 User Name and Registration Code Denial of Service</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33165" target="_blank" rel="noopener">#0daytoday #Jobberbase 2.0 CMS - (jobs-in) SQL Injection Vulnerability [webapps #exploits #Vulnerability #0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33164" target="_blank" rel="noopener">#0daytoday #SQLiteManager 1.2.0 / 1.2.4 - Blind SQL Injection Vulnerability [webapps #exploits #Vulnerability #0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33163" target="_blank" rel="noopener">#0daytoday #Outlook Password Recovery 2.10 - Denial of Service Exploit [dos #exploits  #0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47311" target="_blank" rel="noopener">[webapps] Jobberbase 2.0 CMS - ‘jobs-in’ SQL Injection</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47310" target="_blank" rel="noopener">[webapps] SQLiteManager 1.2.0 / 1.2.4 - Blind SQL Injection</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47309" target="_blank" rel="noopener">[dos] Outlook Password Recovery 2.10 - Denial of Service</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Information"><a href="#Security-Information" class="headerlink" title="Security Information"></a>Security Information</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/185135" target="_blank" rel="noopener">基于知识图谱的自动化渗透设计与实现</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184717" target="_blank" rel="noopener">非栈上格式化字符串漏洞利用技巧</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184954" target="_blank" rel="noopener">USB Fuzzing技术总结</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/185252" target="_blank" rel="noopener">警惕垃圾邮件 伪造法院传真传播Sodinokibi勒索病毒</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/184420" target="_blank" rel="noopener">Microsoft Outlook UAF漏洞分析——CVE-2019-1199</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/185254" target="_blank" rel="noopener">8月28日每日安全热点 - WS-Discovery协议目前正被滥用于大规模DDoS攻击</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/111552.html" target="_blank" rel="noopener">LibreOffice &lt; 6.2.5 通过宏/事件远程命令执行 CVE-2019-9848 漏洞复现</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/111435.html" target="_blank" rel="noopener">金山毒霸“不请自来” 背后竟有黑产推波助澜</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/111394.html" target="_blank" rel="noopener">美团点评2020校园招聘-安全工程师热招</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/111331.html" target="_blank" rel="noopener">钓鱼攻击姿势老套，不明真相还是上当</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.secpulse.com/archives/111370.html" target="_blank" rel="noopener">OGeekCTF 2019 Writeups</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/trickbot-todays-top-trojan-adds-feature-to-aid-sim-swapping-attacks/#ftag=RSSbaffb68" target="_blank" rel="noopener">TrickBot, today’s top trojan, adds feature to aid SIM swapping attacks</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/apple-will-no-longer-keep-siri-audio-recordings-by-default-makes-feature-opt-in/#ftag=RSSbaffb68" target="_blank" rel="noopener">Apple will no longer keep Siri audio recordings by default, makes feature opt-in</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/north-korean-state-hackers-target-retired-diplomats-and-military-officials/#ftag=RSSbaffb68" target="_blank" rel="noopener">North Korean state hackers target retired diplomats and military officials</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/a-new-iot-botnet-is-infecting-android-based-set-top-boxes/#ftag=RSSbaffb68" target="_blank" rel="noopener">A new IOT botnet is infecting Android-based set-top boxes</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/avast-and-french-police-take-over-malware-botnet-and-disinfect-850000-computers/#ftag=RSSbaffb68" target="_blank" rel="noopener">Avast and French police take over malware botnet and disinfect 850,000 computers</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11278-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">使用 KeePassXC 管理凭据</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11277-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">起底游戏外挂黑产：6000 元可定制</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11276-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何使用 sed 命令删除文件中的行</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/system/210304.html" target="_blank" rel="noopener">实战某游戏厂商FPS游戏CRC检测的对抗与防护</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/vuls/212727.html" target="_blank" rel="noopener">挖洞经验  发现美国海军网站的敏感信息泄露和SQL注入漏洞</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/211277.html" target="_blank" rel="noopener">Re2Pcap：由原始http请求响应创建pcap数据包</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/system/210913.html" target="_blank" rel="noopener">在网络端口扫描期间寻找速度和准确度之间的平衡点</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/network/207238.html" target="_blank" rel="noopener">ARP欺骗常见姿势及多机ARP欺骗</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/network/209250.html" target="_blank" rel="noopener">使用Apache mod_rewrite模拟实现CIA Hive流量分发</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/212679.html" target="_blank" rel="noopener">FreeBuf早报  荷兰称Windows 10远程收集用户数据；IBM突破量子加密算法；江苏丹阳半马报名首日遭黑客入侵</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Technology"><a href="#Security-Technology" class="headerlink" title="Security  Technology"></a>Security  Technology</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://security.tencent.com/index.php/blog/msg/136" target="_blank" rel="noopener">Blade：企业安全研究团队建设运营思考</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-08-28" target="_blank" rel="noopener">SecWiki News 2019-08-28 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://paper.seebug.org/1022/" target="_blank" rel="noopener">利用 ssh 隧道反弹 shell</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.4hou.com/technology/19667.html" target="_blank" rel="noopener">通过构造特殊的HTTP包来夹送恶意的HTTP请求（下）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://security.tencent.com/index.php/blog/msg/136" target="_blank" rel="noopener">Blade：企业安全研究团队建设运营思考</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/08/sudomy-subdomain-enumeration-analysis.html" target="_blank" rel="noopener">Sudomy - Subdomain Enumeration &amp; Analysis</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/08/nebulousad-automated-credential.html" target="_blank" rel="noopener">NebulousAD - Automated Credential Auditing Tool</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6103" target="_blank" rel="noopener">常见未授权访问漏洞总结</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6088" target="_blank" rel="noopener">利用Apache Nginx 的lua 模块的鸡肋权限维持的方法</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6102" target="_blank" rel="noopener">Android应用程序：绕过SSL pinning</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6091" target="_blank" rel="noopener">从SUCTF 2019 CheckIn 浅谈.user.ini的利用</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Others"><a href="#Security-Others" class="headerlink" title="Security  Others"></a>Security  Others</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://weibo.com/p/1006065582522936/wenzhang?from=page_100606_profile&wvr=6&mod=wenzhangmore" target="_blank" rel="noopener">玄武实验室每日更新</a></td>
+</tr>
+</tbody></table>
 
-/var/log/wtmp（当前登录用户详细信息）
-
-/var/run/utmp（用户登录、注销及系统开、关机等事件）</code></pre><p>6.其他日志</p>
-<h2 id="用户日志"><a href="#用户日志" class="headerlink" title="用户日志"></a>用户日志</h2><p>1.有关当前登录用户的信息记录在文件utmp中；utmp文件被各种命令文件使用，包括who、w、users和finger。</p>
-<p>2.登录和退出记录在文件wtmp中；数据交换、关机以及重启的信息也都记录在wtmp文件中；wtmp文件被命令last和ac使用。</p>
-<p>3.所有的记录都包含时间戳。时间戳对于日志来说非常重要，因为很多攻击行为分析都是与时间有极大关系的。</p>
-<p>这两个文件是二进制文件，不能用诸如tail、cat之类的命令来进行访问、操作。</p>
-<h2 id="内核及系统日志"><a href="#内核及系统日志" class="headerlink" title="内核及系统日志"></a>内核及系统日志</h2><p>1.由系统服务rsyslogd统一管理</p>
-<p>软件包：rsyslogd-7.4.7-7.el7_0.x86_64</p>
-<p>主要程序：/sbin/rsyslogd</p>
-<p>配置文件：/etc/rsyslog.conf</p>
-<h2 id="内核及系统日志-1"><a href="#内核及系统日志-1" class="headerlink" title="内核及系统日志"></a>内核及系统日志</h2><p>1.日志消息的级别</p>
-<p>0  EMERG（紧急）：导致主机系统不可用的情况</p>
-<p>1  ALERT（警告）：必须马上采取措施解决的问题</p>
-<p>2  CRIT（严重）：比较严重的情况</p>
-<p>3  ERR（错误）：运行出现错误</p>
-<p>4  WARNING（提醒）：可能会影响系统功能的事件</p>
-<p>5  NOTICE（注意）：不会影响系统但值得注意</p>
-<p>6  INFO（信息）：一般信息</p>
-<p>7 DEBUG（调试）：程序或系统调试信息等</p>
-<p>2.日志记录的一般格式</p>
-<p>时间戳、主机名、子系统、消息级别、消息字段内容</p>
-<h2 id="程序日志"><a href="#程序日志" class="headerlink" title="程序日志"></a>程序日志</h2><p>1.由相关的应用程序独立进行管理，如：</p>
-<p>Web服务：/var/log/httpd/</p>
-<pre><code>access log、error log</code></pre><p>代理服务：/var/log/squid/</p>
-<pre><code>access.log、cache.log、squid.out、store.log</code></pre><p>FTP服务：/var/log/xferlog</p>
-<p>2.分析工具</p>
-<p>文本查看、grep过滤检测、webmin管理套件中查看</p>
-<p>awk、sed等文本过滤、格式化编辑工具</p>
-<p>Webalizer、Awstats等专用日志分析工具</p>
-<h2 id="日志系统审计、运维注意事项"><a href="#日志系统审计、运维注意事项" class="headerlink" title="日志系统审计、运维注意事项"></a>日志系统审计、运维注意事项</h2><p>1.系统管理人员应该提高警惕，随时注意各种可疑状况，并且按时和随机地检查各种系统日志文件，包括一般信息日志、网络连接日志、文件传输日志以及用户登录日志等。在检查这些日志时，要注意是否有不合常理的时间记载。例如：</p>
-<p>用户在非常规的时间登录；</p>
-<p>不正常的日志记录，比如日志的残缺不全或者是诸如wtmp这样的日志文件无故地缺少了中间的记录文件；</p>
-<p>用户登录系统的IP地址和以往的不一样；</p>
-<p>用户登录失败的日志记录，尤其是那些一再连续尝试进入失败的日志记录；</p>
-<p>非法使用或不正当使用超级用户权限su的指令；</p>
-<p>无故或者非法重新启动各项网络服务的记录。</p>
-<p>2.另外，尤其提醒管理人员注意的是，日志并不是完全可靠的。高明的黑客在入侵系统后，经常会打扫现场。</p>
-<h2 id="日志管理策略"><a href="#日志管理策略" class="headerlink" title="日志管理策略"></a>日志管理策略</h2><p>1.及时做好备份和归档</p>
-<p>2.延长日志保存期限</p>
-<p>3.控制日志访问权限</p>
-<pre><code>日志中可能会包含各类敏感信息，如账户、口令等</code></pre><p>4.集中管理日志</p>
-<pre><code>将服务器的日志文件发到统一的日志文件服务器
-
-便于日志信息的统一收集、整理和分析
-
-杜绝日志信息的意外丢失、恶意篡改或删除</code></pre>
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 837184696@qq.com </span>
     </div>
@@ -708,12 +810,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>日志分析与安全</p>
+    <p><span class="copy-title">文章标题:</span>20190829安全知识库</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Huang ZhenYu">Huang ZhenYu</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-08-11, 18:25:15</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-19, 16:47:42</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/11/日志分析与安全/" title="日志分析与安全">http://blog.huangzhenyu.net/2019/08/11/日志分析与安全/</a>
+    <p><span class="copy-title">发布时间:</span>2019-08-27, 20:39:04</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-27, 20:39:42</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/27/20190829安全知识库/" title="20190829安全知识库">http://blog.huangzhenyu.net/2019/08/27/20190829安全知识库/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
