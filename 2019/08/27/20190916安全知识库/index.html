@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>服务进程安全控制 | Huang ZhenYu</title>
+  <title>20190916安全知识库 | Huang ZhenYu</title>
   <meta name="keywords" content=" 网络安全 ">
-  <meta name="description" content="服务进程安全控制 | Huang ZhenYu">
+  <meta name="description" content="20190916安全知识库 | Huang ZhenYu">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Vulnerability Warning   Name    Folder Lock 7.7.9 Denial Of Service   Generic Zip Slip Traversal   Opencart 2.3.0.2 Pre-Auth Remote Command Execution   eWON Flexy 13.0 Authentication Bypass   #0daytod">
 <meta name="keywords" content="网络安全">
@@ -662,9 +662,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-服务进程安全控制" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-20190916安全知识库" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">服务进程安全控制</h1>
+        <h1 class="article-title">20190916安全知识库</h1>
     
     <div class="article-meta">
         
@@ -672,7 +672,7 @@
         
         <span class="book">
             
-                <a href="javascript:" data-rel="旧时光">旧时光</a>
+                <a href="javascript:" data-rel="安全知识库">安全知识库</a>
             
         </span>
         
@@ -686,7 +686,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-19 16:47:42'>2019-08-11 18:25</time>
+        创建时间:<time class="date" title='更新时间: 2019-08-27 21:18:05'>2019-08-27 21:17</time>
         
     </div>
     <div class="article-meta">
@@ -708,7 +708,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Systemd的优势"><span class="toc-text">Systemd的优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Systemd配置文件保存的诸目录："><span class="toc-text">Systemd配置文件保存的诸目录：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Vulnerability-Warning"><span class="toc-text">Vulnerability Warning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Information"><span class="toc-text">Security Information</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Technology"><span class="toc-text">Security  Technology</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Security-Others"><span class="toc-text">Security  Others</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -723,15 +723,397 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Systemd的优势"><a href="#Systemd的优势" class="headerlink" title="Systemd的优势"></a>Systemd的优势</h2><p>1.并行处理所有服务，加快开机速度：旧init启动脚本是“依序一项项执行启动”模式（类似单序列串行模式），因此不相关的服务也要依次排队等待。但现在我们的CPU是多核心的，可以并行处理多个任务，我们的操作系统也是多任务的，没道理还要让这些本不相关的服务互相等待。systemd就实现了不存在依存关系的服务同时并行启动的能力，这样大大的加快了系统启动的速度。</p>
-<p>2.统一管理，on-demand（按需）启动服务：systemd全部仅有一个systemd服务搭配systemctl指令来处理，不需要额外的指令来支持。不像systemV需要init、chkconfig、service…等等指令。此外，systemd常驻内存，可以按需处理后续的daemon启动任务。</p>
-<p>3.服务依存关系自我检查：systemd可以针对服务的依存关系进行检查，这样管理员就不需要启动了一个服务，要先分析他依存哪些其他服务，检查那些被一寸的服务是否启动，省去了这些麻烦。</p>
-<p>4.根据daemon的功能进行分类：systemd旗下管理的服务非常多；为了理清所有服务的功能，systemd先定义所有的服务为一个服务单位（unit），并将该unit归类到不同的服务类型（type）中。旧的init仅分为stand alone（独立）与super daemon（超级守护进程）其实是不够的；systemd将服务单位（unit）区分为service（系统服务）、socket（套接字服务）、target（多目标服务）、path（目标路径服务）、snapshot（快照服务）、timer（定时服务）等多种不同的类型（type），方便管理员的分类与记忆。</p>
-<p>5.将多个daemons集合成一个群组：如同systemV的init里有个runlevel（运行级别）的特色，systemd也可以将多个功能即成为一个所谓的target项目，这个项目主要用于构建一个操作环境，所以是集合了许多个daemons，即是执行某个target就是执行好多个daemon，共同营建某一种操作环境。</p>
-<p>6.向下兼容旧的init服务脚本：基本上，systemd是可以兼容init启动脚本的。因此，旧的init启动脚本也能够透过systemd来管理。</p>
-<h2 id="Systemd配置文件保存的诸目录："><a href="#Systemd配置文件保存的诸目录：" class="headerlink" title="Systemd配置文件保存的诸目录："></a>Systemd配置文件保存的诸目录：</h2><p>1./usr/lib/systemd/system/：每个服务最主要的启动脚本保存的地方，有点类似于以前的/etc/init.d底下的文件</p>
-<p>2./run/systemd/system/：系统执行过程中产生的服务脚本，它们的优先级要比/usr/lib/systemd/system/高</p>
-<p>3./etc/systemd/system/：管理员依据主机系统的需求所创建的执行脚本，其实这个目录有点像以前的/etc/rc.d/rc5.d/Sxx之类的功能，执行优先级比/run/systemd/system/要高</p>
+        <h3 id="Vulnerability-Warning"><a href="#Vulnerability-Warning" class="headerlink" title="Vulnerability Warning"></a>Vulnerability Warning</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019090108" target="_blank" rel="noopener">Folder Lock 7.7.9 Denial Of Service</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019090095" target="_blank" rel="noopener">Generic Zip Slip Traversal</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019090094" target="_blank" rel="noopener">Opencart 2.3.0.2 Pre-Auth Remote Command Execution</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://cxsecurity.com/issue/WLB-2019090092" target="_blank" rel="noopener">eWON Flexy 13.0 Authentication Bypass</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33249" target="_blank" rel="noopener">#0daytoday #College-Management-System 1.2 - Authentication #Bypass Vulnerability [#0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33248" target="_blank" rel="noopener">#0daytoday #Ticket-Booking 1.4 - Authentication #Bypass Vulnerability [webapps #exploits #Vulnerability #0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33247" target="_blank" rel="noopener">#0daytoday #LimeSurvey 3.17.13 Cross Site Scripting Vulnerability  [webapps #exploits #Vulnerability #0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33246" target="_blank" rel="noopener">#0daytoday #Folder Lock v7.7.9 Denial of Service Exploit  [dos #exploits  #0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33245" target="_blank" rel="noopener">#0daytoday #Microsoft DirectWrite - Out-of-Bounds Read in sfac_GetSbitBitmap While Processing TTF F [#0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33244" target="_blank" rel="noopener">#0daytoday #Microsoft DirectWrite - Invalid Read in SplicePixel While Processing OTF Fonts Exploit [#0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33243" target="_blank" rel="noopener">#0daytoday #Opencart 2.3.0.2 Pre-Auth Remote Command Execution Exploit [remote #exploits  #0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33242" target="_blank" rel="noopener">#0daytoday #WordPress SlickQuiz 1.3.7.1 SQL Injection Vulnerability CVE-2019-12516 [webapps #exploits #Vulnerability #0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://0day.today/exploits/33241" target="_blank" rel="noopener">#0daytoday #WordPress SlickQuiz 1.3.7.1 Cross Site Scripting Vulnerability [webapps #exploits #Vulnerability #0day #Exploit]</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47388" target="_blank" rel="noopener">[webapps] College-Management-System 1.2 - Authentication Bypass</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47387" target="_blank" rel="noopener">[webapps] Ticket-Booking 1.4 - Authentication Bypass</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47386" target="_blank" rel="noopener">[webapps] LimeSurvey 3.17.13 - Cross-Site Scripting</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47385" target="_blank" rel="noopener">[webapps] phpMyAdmin 4.9.0.1 - Cross-Site Request Forgery</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47384" target="_blank" rel="noopener">[webapps] Dolibarr ERP-CRM 10.0.1 - ‘User-Agent’ Cross-Site Scripting</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47383" target="_blank" rel="noopener">[dos] Folder Lock 7.7.9 - Denial of Service</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47382" target="_blank" rel="noopener">[dos] Microsoft DirectWrite - Out-of-Bounds Read in sfac_GetSbitBitmap While Processing TTF Fonts</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.exploit-db.com/exploits/47381" target="_blank" rel="noopener">[dos] Microsoft DirectWrite - Invalid Read in SplicePixel While Processing OTF Fonts</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Information"><a href="#Security-Information" class="headerlink" title="Security Information"></a>Security Information</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186552" target="_blank" rel="noopener">黑客购买新型WSH RAT最新变种样本攻击银行客户</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186554" target="_blank" rel="noopener">9月15日每日安全热点 - 供应链攻击的演变和未来</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186214" target="_blank" rel="noopener">高通驱动存在内核任意内存写入漏洞可导致本地提权</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186545" target="_blank" rel="noopener">9月14日每日安全热点 - 413G近2亿条购车数据泄露</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186522" target="_blank" rel="noopener">WordPress存储型XSS漏洞分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186533" target="_blank" rel="noopener">9月13日每日安全热点 - 深入Spectre V2跨进程泄露信息</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186515" target="_blank" rel="noopener">比特大陆「运维」盗取其公司 100 个比特币：判处有期徒刑 15 个月、罚款 5 万</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186417" target="_blank" rel="noopener">Java代码审计入门篇：WebGoat 8（初见）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186294" target="_blank" rel="noopener">在生产环境中运行容器的“六要、六不要和六管理”</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186116" target="_blank" rel="noopener">宝马汽车安全评估报告</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186262" target="_blank" rel="noopener">深入探索在野外发现的iOS漏洞利用链（四）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186394" target="_blank" rel="noopener">跨境下载“引祸上身” 8月超1400台计算机中招Stop勒索病毒</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.anquanke.com/post/id/186390" target="_blank" rel="noopener">9月12日每日安全热点 - 恶意软件Ryuk会窃取军事机密和财务档案</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://blog.nsfocus.net/data-analysis-clustering-algorithm/" target="_blank" rel="noopener">利用聚类算法进行数据分析的实例</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://blog.nsfocus.net/cve-2019-1297/" target="_blank" rel="noopener">【威胁通告】Microsoft Excel 远程代码执行漏洞 (CVE-2019-1297)</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/disqus-kickstarter-hacker-warns-against-password-reuse/#ftag=RSSbaffb68" target="_blank" rel="noopener">Disqus &amp; Kickstarter hacker warns against password reuse</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/us-treasury-sanctions-three-north-korean-hacking-groups/#ftag=RSSbaffb68" target="_blank" rel="noopener">US Treasury sanctions three North Korean hacking groups</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/innfirat-malware-lurks-in-your-machine-to-steal-cryptocurrency-wallet-data/#ftag=RSSbaffb68" target="_blank" rel="noopener">InnfiRAT malware lurks in your machine to steal cryptocurrency wallet data</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/scammer-behind-sextortion-campaigns-arrested-in-france/#ftag=RSSbaffb68" target="_blank" rel="noopener">Scammer behind sextortion campaigns arrested in France</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/france-will-attempt-to-block-facebooks-libra-cryptocurrency-on-european-soil/#ftag=RSSbaffb68" target="_blank" rel="noopener">France will attempt to block Facebook’s Libra cryptocurrency on European soil</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/sophos-open-sources-sandboxie-a-utility-for-sandboxing-any-application/#ftag=RSSbaffb68" target="_blank" rel="noopener">Sophos open-sources Sandboxie, a utility for sandboxing any application</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/researchers-invent-cryptocurrency-wallet-that-eliminates-entire-classes-of-vulnerabilities/#ftag=RSSbaffb68" target="_blank" rel="noopener">Researchers invent cryptocurrency wallet that eliminates ‘entire classes’ of vulnerabilities</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/hey-google-what-we-search-for-most-in-cybersecurity/#ftag=RSSbaffb68" target="_blank" rel="noopener">Hey Google: What we search for most in cybersecurity .. cyber security?</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/new-simjacker-attack-exploited-in-the-wild-to-track-users-for-at-least-two-years/#ftag=RSSbaffb68" target="_blank" rel="noopener">Simjacker attack exploited in the wild to track users for at least two years</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/california-may-ban-facial-recognition-tech-used-by-police-in-body-cameras/#ftag=RSSbaffb68" target="_blank" rel="noopener">California mulls over ban of facial recognition tech in police body cameras</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/google-discloses-vulnerability-in-chrome-os-built-in-security-key-feature/#ftag=RSSbaffb68" target="_blank" rel="noopener">Google discloses vulnerability in Chrome OS ‘built-in security key’ feature</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.zdnet.com/article/majority-of-consumers-will-not-work-with-an-enterprise-firm-that-wont-keep-their-data-secure/#ftag=RSSbaffb68" target="_blank" rel="noopener">Most consumers will refuse to work with enterprises that won’t keep their data secure</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11346-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">Firefox 69 默认阻拦第三方 Cookie、自动播放的视频和加密矿工</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11345-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">GNOME 3.34 发布</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11344-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">在 Linux 中使用变量</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11343-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">Windows 7/8.1 新补丁藏猫腻：悄悄搜集数据</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11342-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">用 Git 作为聊天应用的后端</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11341-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何在 Linux 上创建和使用交换文件</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11340-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">绝大部分 Android 手电筒应用需要大量权限</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11339-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">为什么 const 无法让 C 代码跑得更快？</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11338-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">英特尔芯片弱点允许攻击者窃取敏感信息</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11337-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">我为什么使用 Java</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://linux.cn/article-11336-1.html?utm_source=rss&utm_medium=rss" target="_blank" rel="noopener">如何在 Linux 中管理日志</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/database/212857.html" target="_blank" rel="noopener">什么是“以数据为中心的安全”： 大家眼中的DCS（一）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/212690.html" target="_blank" rel="noopener">Slackor：Go语言写的一款C&amp;C服务器</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/network/212648.html" target="_blank" rel="noopener">渗透经验  我们是如何发现对欧洲政府的攻击的</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/212952.html" target="_blank" rel="noopener">从赎金角度看勒索病毒的演变</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/ics-articles/213474.html" target="_blank" rel="noopener">OT安全的定义及特点</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/212700.html" target="_blank" rel="noopener">一款漏洞验证框架的构思</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/vuls/212631.html" target="_blank" rel="noopener">挖洞经验  利用Device ID实现对任意Instagram账户的再次劫持</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/system/212248.html" target="_blank" rel="noopener">远程进程Shellcode注入调试技巧</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/news/214213.html" target="_blank" rel="noopener">BUF大事件丨「什么值得买」服务器遭受大面积攻击致罢工数小时;“钢铁侠”Instagram 账号被盗,黑客声称要送福利</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/213371.html" target="_blank" rel="noopener">渗透测试之我是如何做信息收集</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/sectool/210860.html" target="_blank" rel="noopener">对APT34泄露工具的分析：HighShell和HyperShell</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/network/212668.html" target="_blank" rel="noopener">间谍软件潜入Google Play</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/system/212565.html" target="_blank" rel="noopener">钓鱼攻击姿势老套，不明真相还是上当</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/wireless/212819.html" target="_blank" rel="noopener">玩转摩尔斯电码：自制摩尔斯电码音频解析器</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/paper/214212.html" target="_blank" rel="noopener">谁是安全行业最 IN 黑客，霸占谷歌热搜15年？</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/web/213142.html" target="_blank" rel="noopener">当SQL注入遇到诡异的编码问题</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/paper/213930.html" target="_blank" rel="noopener">印巴战争阴影下的网络战：近期印巴APT组织攻击活动汇总</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/database/212624.html" target="_blank" rel="noopener">四分之一数据泄露背后是人为原因</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/web/214076.html" target="_blank" rel="noopener">继续聊聊梦里的那点事儿（下）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.freebuf.com/articles/es/211633.html" target="_blank" rel="noopener">2019上半年企业安全总结</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Technology"><a href="#Security-Technology" class="headerlink" title="Security  Technology"></a>Security  Technology</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-09-15" target="_blank" rel="noopener">SecWiki News 2019-09-15 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-09-14" target="_blank" rel="noopener">SecWiki News 2019-09-14 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-09-13" target="_blank" rel="noopener">SecWiki News 2019-09-13 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.sec-wiki.com/?2019-09-12" target="_blank" rel="noopener">SecWiki News 2019-09-12 Review</a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.4hou.com/technology/20155.html" target="_blank" rel="noopener">如何安全的运行第三方javascript代码（下）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/privexchange-exchange-your-privileges.html" target="_blank" rel="noopener">PrivExchange - Exchange Your Privileges For Domain Admin Privs By Abusing Exchange</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/postshell-post-exploitation.html" target="_blank" rel="noopener">PostShell - Post Exploitation Bind/Backconnect Shell</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/tinkerershell-simple-python-reverse.html" target="_blank" rel="noopener">TinkererShell - A Simple Python Reverse Shell Written Just For Fun</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/stegify-go-tool-for-lsb-steganography.html" target="_blank" rel="noopener">Stegify - Go Tool For LSB Steganography, Capable Of Hiding Any File Within An Image</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/detexploit-software-that-detect.html" target="_blank" rel="noopener">DetExploit - Software That Detect Vulnerable Applications, Not-Installed OS Updates And Notify To User</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/shodan-eye-tool-that-collects-all.html" target="_blank" rel="noopener">Shodan-Eye - Tool That Collects All The Information About All Devices Directly Connected To The Internet Using The Specified Keywords That You Enter</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/anteater-cicd-gate-check-framework.html" target="_blank" rel="noopener">Anteater - CI/CD Gate Check Framework</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://www.kitploit.com/2019/09/pyrdp-rdp-man-in-middle-and-library-for.html" target="_blank" rel="noopener">Pyrdp - RDP Man-In-The-Middle And Library For Python3 With The Ability To Watch Connections Live Or After The Fact</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6313" target="_blank" rel="noopener">从一个简单的wordpress插件漏洞研究一下wordpress插件原理</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6299" target="_blank" rel="noopener">记一次请求走私学习</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6289" target="_blank" rel="noopener">Offensive Lateral Movement（下）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6304" target="_blank" rel="noopener">Remote Code Execution for Java Developers</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6306" target="_blank" rel="noopener">WebCrack：网站后台弱口令批量检测工具</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6316" target="_blank" rel="noopener">ByteCTF一道题的分析与学习PHP无参数函数的利用</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6312" target="_blank" rel="noopener">bytesCTF dot_server_prove WriteUP</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6319" target="_blank" rel="noopener">ogeek ctf 2019 win pwn babyheap 详解</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6282" target="_blank" rel="noopener">登陆页面渗透测试常见的几种思路与总结！</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6263" target="_blank" rel="noopener">Exploiting CORS misconfigurations for Bitcoins and bounties</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6300" target="_blank" rel="noopener">N1CTF2019 sql_manage出题笔记</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6296" target="_blank" rel="noopener">linux内核提权系列教程（2）：任意地址读写到提权的4种方法</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6295" target="_blank" rel="noopener">浅析椭圆曲线加密算法（ECC）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6279" target="_blank" rel="noopener">Microsoft Edge - Universal XSS</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6293" target="_blank" rel="noopener">bugbounty: 利用JSONP绕过Referer检查</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6290" target="_blank" rel="noopener">windows样本分析之基础动态分析</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6275" target="_blank" rel="noopener">记一次简单的Win Server渗透</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6286" target="_blank" rel="noopener">linux内核提权系列教程（1）：堆喷射函数sendmsg与msgsend利用</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6281" target="_blank" rel="noopener">SUCTF Pythonginx非预期解</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6288" target="_blank" rel="noopener">Offensive Lateral Movement（上）</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6266" target="_blank" rel="noopener">漏洞分析 - Atlassian Bitbucket Data Center目录穿越漏洞到RCE(CVE-2019-3397)</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6267" target="_blank" rel="noopener">一次thinkphp渗透测试经历</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6268" target="_blank" rel="noopener">MSF Pingback Payloads</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6280" target="_blank" rel="noopener">挖洞经济学</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6305" target="_blank" rel="noopener">ByteCTF 2019 线上赛 Writeup By ROIS</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6253" target="_blank" rel="noopener">初探代码注入</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6324" target="_blank" rel="noopener">ByteCTF 2019 Writeup — W&amp;M</a></td>
+</tr>
+<tr>
+<td align="center"><a href="http://xz.aliyun.com/t/6265" target="_blank" rel="noopener">code-breaking picklecode中对signed_cookies引擎分析</a></td>
+</tr>
+</tbody></table>
+<h3 id="Security-Others"><a href="#Security-Others" class="headerlink" title="Security  Others"></a>Security  Others</h3><table>
+<thead>
+<tr>
+<th align="center">Name</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://weibo.com/p/1006065582522936/wenzhang?from=page_100606_profile&wvr=6&mod=wenzhangmore" target="_blank" rel="noopener">玄武实验室每日更新</a></td>
+</tr>
+</tbody></table>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 837184696@qq.com </span>
@@ -741,12 +1123,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>服务进程安全控制</p>
+    <p><span class="copy-title">文章标题:</span>20190916安全知识库</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="Huang ZhenYu">Huang ZhenYu</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-08-11, 18:25:14</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-19, 16:47:42</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/11/服务进程安全控制/" title="服务进程安全控制">http://blog.huangzhenyu.net/2019/08/11/服务进程安全控制/</a>
+    <p><span class="copy-title">发布时间:</span>2019-08-27, 21:17:38</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-27, 21:18:05</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/27/20190916安全知识库/" title="20190916安全知识库">http://blog.huangzhenyu.net/2019/08/27/20190916安全知识库/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
