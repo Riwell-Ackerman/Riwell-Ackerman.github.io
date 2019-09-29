@@ -1,7 +1,7 @@
 ---
 title: SNMP协议利用
 date: 2019-08-17 12:41:39
-categories: 大Kali	
+categories: 攻防	
 tags: 漏洞复现
 ---
 ## 一、安装snmp服务

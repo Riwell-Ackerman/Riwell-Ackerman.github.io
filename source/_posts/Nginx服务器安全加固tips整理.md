@@ -1,7 +1,7 @@
 ---
 title: Nginx服务器安全加固tips整理
 date: 2019-08-11 18:25:10
-categories: 旧时光
+categories: 攻防
 tags: 网络安全
 ---
 公司各业务网站大多用到Nginx，花了点时间整理了一下Nginx服务器安全加固的各类tips。

@@ -1,7 +1,7 @@
 ---
 title: Windows7系统MS16-032本地提权
 date: 2019-08-18 14:19:08
-categories: 新随笔
+categories: 随笔
 tags: 漏洞复现
 ---
 顺便再拿win7开个刀，玩玩MS16-032 windows本地提权。

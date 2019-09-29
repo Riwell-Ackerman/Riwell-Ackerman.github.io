@@ -1,7 +1,7 @@
 ---
 title: Windows下的3389端口渗透
 date: 2019-08-11 18:25:12
-categories: 旧时光
+categories: 玩
 tags: 网络安全
 ---
 ## 一、Win7、Win2003、XP系统

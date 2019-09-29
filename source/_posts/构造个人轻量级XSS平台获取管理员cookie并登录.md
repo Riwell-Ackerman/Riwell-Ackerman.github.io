@@ -1,7 +1,7 @@
 ---
 title: 构造个人轻量级XSS平台获取管理员cookie并登录
 date: 2019-08-17 12:45:34
-categories: 旧时光
+categories: 玩
 tags: 网络安全
 ---
 ## 一、前言

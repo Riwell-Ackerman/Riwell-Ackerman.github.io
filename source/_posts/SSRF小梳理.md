@@ -1,7 +1,7 @@
 ---
 title: SSRF小梳理
 date: 2019-08-11 18:25:11
-categories: 旧时光
+categories: 玩
 tags: 网络安全
 ---
 ## 简介

@@ -1,7 +1,7 @@
 ---
 title: CDN绕过姿势小结
 date: 2019-08-11 18:25:08
-categories: 旧时光
+categories: 玩
 tags: 网络安全
 ---
 ## 公司的各业务主站都挂了CDN，总结一波CDN绕过技巧。

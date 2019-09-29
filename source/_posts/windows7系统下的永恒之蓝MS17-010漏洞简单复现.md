@@ -1,7 +1,7 @@
 ---
 title: windows7系统下的永恒之蓝MS17-010漏洞简单复现
 date: 2019-08-17 11:23:43
-categories: 大Kali
+categories: 攻防
 tags: 漏洞复现
 ---
 ## 一：漏洞简介
