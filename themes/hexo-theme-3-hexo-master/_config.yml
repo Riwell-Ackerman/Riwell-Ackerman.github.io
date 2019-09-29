@@ -187,7 +187,7 @@ mathjax:
 
 # 友情链接
 friends:
-  伟哥大大: http://blog.islinjw.cn/
+  伟哥: http://blog.islinjw.cn/
   渗透师: https://www.shentoushi.top/index
   安全圈info: https://www.anquanquan.info/
   helpnetsecurity: https://www.helpnetsecurity.com/
@@ -196,6 +196,14 @@ friends:
   应急响应实战笔记: https://bypass007.github.io/Emergency-Response-Notes/
   乌云 Drops 文章在线浏览: https://wooyun.js.org/
   Cisco Security Advisories and Alerts: https://tools.cisco.com/security/center/publicationListing.x
+  Paper: https://paper.seebug.org/
+  Vulkey_Chen: https://gh0st.cn/
+  l3m0n: https://www.cnblogs.com/iamstudy
+  Tuuu Nya's Blog: https://www.hackersb.cn/
+  venenof: https://venenof.com/
+  Tomato's Blog: https://bl4ck.in/
+  离别歌: https://www.leavesongs.com/#
+  阿德马Web安全: http://www.nxadmin.com/
 ##########评论设置############# 
 comment:
   on: false
